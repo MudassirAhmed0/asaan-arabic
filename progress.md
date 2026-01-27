@@ -53,7 +53,8 @@ Last updated: 2026-01-27
 ---
 
 ## Feature 2: Lesson List & Lesson Flow (CORE)
-**Status: BUILT — testing + copy polish**
+**Status: BUILT + COMMITTED — awaiting Mudassir's manual testing**
+**Commit:** `8b5a334` on `main`
 
 ### Backend
 - [x] `GET /lessons` — list with status (completed/locked/current flags)
@@ -86,8 +87,18 @@ Last updated: 2026-01-27
 - [x] LessonComplete redundant stat removed, copy improved
 - [x] All 50 word introduction headlines made unique (no more generic repeating headlines)
 - [x] Mid-lesson message bodies improved (less formulaic)
+- [x] Namaz/Salah intro rewritten — bridges terms instead of correcting ("You know this as namaz")
+- [x] Kafara intro leads with root meaning "to cover" (less charged for Pakistani context)
+- [x] Lesson 10 reordered — Mawt first, Sabeel last (ends on "Path" not "Death" — Peak-End Rule)
+- [x] Lesson titles improved: "The Source", "The People of the Qur'an", "Your Daily Worship"
 - [x] Copy decisions documented in `copy-decisions.md`
 - [x] CLAUDE.md updated with tone decisions
+
+### Still Needed
+- [ ] **Mudassir manual test** — run full lesson flow, report bugs
+- [ ] Fix any bugs reported during testing
+- [ ] Unit tests (backend)
+- [ ] E2E tests (backend)
 
 ---
 
