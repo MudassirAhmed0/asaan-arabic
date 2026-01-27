@@ -1,7 +1,7 @@
 import { View, Animated, StyleSheet, Alert, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useEffect, useCallback, useRef } from 'react';
+import { useEffect, useCallback, useRef, useState } from 'react';
 import { colors } from '../../src/constants/theme';
 import { useLessonContent, useStartLesson, useCompleteLesson } from '../../src/hooks/useLessons';
 import { useLessonFlowStore } from '../../src/stores/lesson';
@@ -43,10 +43,9 @@ export default function LessonFlowScreen() {
   const currentStep = steps[currentStepIndex] ?? null;
   const progress = steps.length > 1 ? currentStepIndex / (steps.length - 1) : 0;
 
-  const totalWordsLearned = useProgressStore((s) => s.totalWordsLearned);
-  const incrementWords = useProgressStore((s) => s.incrementWords);
   const advanceLesson = useProgressStore((s) => s.advanceLesson);
   const setProgress = useProgressStore((s) => s.setProgress);
+  const [completedTotal, setCompletedTotal] = useState<number | null>(null);
 
   // Step transition animation
   const fadeAnim = useRef(new Animated.Value(1)).current;
@@ -78,9 +77,6 @@ export default function LessonFlowScreen() {
     }
   }, [currentStepIndex, steps.length]);
 
-  // Capture pre-completion word count to avoid double-counting
-  const preCompletionWordsRef = useRef<number | null>(null);
-
   // Trigger completion API when reaching the complete step
   useEffect(() => {
     if (
@@ -89,11 +85,6 @@ export default function LessonFlowScreen() {
       id &&
       !completionTriggered.current
     ) {
-      // Snapshot words BEFORE incrementing so LessonComplete can animate correctly
-      if (preCompletionWordsRef.current === null) {
-        preCompletionWordsRef.current = totalWordsLearned;
-      }
-
       completionTriggered.current = true;
       const scorePercent =
         totalQuestions > 0
@@ -103,9 +94,10 @@ export default function LessonFlowScreen() {
       completeLessonMutation
         .mutateAsync({ lessonId: id, attemptId, score: scorePercent })
         .then((result) => {
-          incrementWords(result.wordsInLesson);
+          setCompletedTotal(result.totalWordsLearned);
           advanceLesson();
           setProgress({
+            totalWordsLearned: result.totalWordsLearned,
             currentStreak: result.currentStreak,
             longestStreak: result.longestStreak,
           });
@@ -271,10 +263,7 @@ export default function LessonFlowScreen() {
       {currentStep?.type === 'complete' && (
         <LessonComplete
           wordsInLesson={content.lesson.wordCount}
-          totalWordsLearned={
-            (preCompletionWordsRef.current ?? totalWordsLearned) +
-            content.lesson.wordCount
-          }
+          totalWordsLearned={completedTotal}
           celebrationStat={content.celebrationStat}
           activityScore={score}
           activityTotal={totalQuestions}
