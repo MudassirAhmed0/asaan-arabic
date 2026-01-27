@@ -34,4 +34,9 @@ export const authApi = {
     const { data } = await api.post<{ message: string }>('/auth/logout', { refreshToken });
     return data;
   },
+
+  devLogin: async () => {
+    const { data } = await api.post<AuthResponse>('/auth/dev-login');
+    return data;
+  },
 };

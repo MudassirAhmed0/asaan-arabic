@@ -8,12 +8,12 @@ export const MID_MESSAGES: MidMessageSeedData[] = [
   {
     lessonOrderIndex: 1,
     headline: '5 words down!',
-    body: 'You already knew most of these from Urdu. Qur\'anic Arabic is closer to you than you think. Let\'s make these stick.',
+    body: 'You already knew most of these from Urdu. Qur\'anic Arabic is closer to you than you thought.',
   },
   {
     lessonOrderIndex: 2,
     headline: '5 more words!',
-    body: 'Allah, Kitab, Ayah, Rasool, Haqq — these are the foundation of the Qur\'an. You\'ve known them your whole life. Now you know them in Arabic.',
+    body: 'Allah, Kitab, Ayah — these are the foundation of the Qur\'an. And you\'ve known them your whole life.',
   },
   {
     lessonOrderIndex: 3,
@@ -28,31 +28,31 @@ export const MID_MESSAGES: MidMessageSeedData[] = [
   {
     lessonOrderIndex: 5,
     headline: 'The bigger picture',
-    body: 'Jannah, Nar, Adhab, Ajr, Maghfirah — the Qur\'an constantly reminds us of what\'s at stake. These words carry weight. And now you understand them.',
+    body: 'The Qur\'an constantly reminds us of what\'s at stake — Paradise, Fire, Reward, Forgiveness. Now you understand these words when you hear them.',
   },
   {
     lessonOrderIndex: 6,
     headline: 'The core of Islam',
-    body: 'Iman, Kufr, Mu\'min, Ibadah, Taqwa — these aren\'t just Arabic words. They\'re the concepts that define a Muslim\'s life. You\'ve been using them in Urdu all along.',
+    body: 'Iman, Taqwa, Ibadah — these aren\'t just Arabic words. They\'re the concepts that define a Muslim\'s life. And you\'ve been using them in Urdu all along.',
   },
   {
     lessonOrderIndex: 7,
     headline: 'People in the Qur\'an',
-    body: 'Qawm, Nas, Abd, Zalim, Nabi — the Qur\'an is full of stories about people. Prophets speaking to their nations, servants calling out to Allah, the just and the unjust.',
+    body: 'The Qur\'an is full of stories about people. Prophets speaking to their nations, servants calling out to Allah, the just and the unjust. You now know the words for all of them.',
   },
   {
     lessonOrderIndex: 8,
     headline: 'Your spiritual vocabulary',
-    body: 'Salah, Shukr, Rizq, Ni\'mah, Hikmah — these words describe your relationship with Allah. Prayer, gratitude, provision, blessings, wisdom. All from your everyday Urdu.',
+    body: 'Prayer, gratitude, provision, blessings, wisdom — these words describe your relationship with Allah. All from your everyday Urdu.',
   },
   {
     lessonOrderIndex: 9,
     headline: 'Powerful verbs unlocked!',
-    body: 'Qala, Da\'a, Ghafara, Dhakara, Zalama — the Qur\'an comes alive through its verbs. People speak, pray, are forgiven, remember, and are warned.',
+    body: 'The Qur\'an comes alive through its verbs. People speak, pray, are forgiven, remember, and are warned. You now recognize these actions when you hear them.',
   },
   {
     lessonOrderIndex: 10,
     headline: 'The final stretch!',
-    body: 'Sabeel, Sirat, Yawm, Amr, Mawt — the journey of life, the straight path, the Day of Judgment, Allah\'s command, and the reality of death. You\'re almost at 50 words!',
+    body: 'From death to the path forward — these five words capture the Qur\'an\'s message about where we\'re all headed. You\'re almost at 50 words!',
   },
 ];

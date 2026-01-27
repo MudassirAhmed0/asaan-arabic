@@ -1,37 +1,65 @@
-import { View, StyleSheet, Pressable } from 'react-native';
+import { View, FlatList, StyleSheet, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Text } from '../../../src/components/ui/Text';
+import { LessonCard } from '../../../src/components/lesson/LessonCard';
 import { colors, spacing } from '../../../src/constants/theme';
-import { useAuthStore } from '../../../src/stores/auth';
+import { useLessonList } from '../../../src/hooks/useLessons';
+import { useProgressStore } from '../../../src/stores/progress';
+import type { LessonListItem } from '../../../src/types';
 
 export default function LearnScreen() {
-  const logout = useAuthStore((s) => s.logout);
   const router = useRouter();
+  const { data: lessons, isLoading, error } = useLessonList();
+  const totalWordsLearned = useProgressStore((s) => s.totalWordsLearned);
 
-  const handleLogout = async () => {
-    await logout();
-    router.replace('/(auth)/welcome');
+  const handleLessonPress = (lesson: LessonListItem) => {
+    if (lesson.isLocked) return;
+    router.push(`/lesson/${lesson.id}`);
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Text variant="h1">Learn</Text>
-        <Text variant="body" color={colors.textSecondary}>
-          Your Quranic vocabulary journey
-        </Text>
-      </View>
-      <View style={styles.content}>
-        <Text variant="body" color={colors.textTertiary} align="center">
-          Lesson list coming soon
-        </Text>
-      </View>
-      <Pressable style={styles.logoutButton} onPress={handleLogout}>
-        <Text variant="body" color={colors.error || '#D32F2F'}>
-          Log out
-        </Text>
-      </Pressable>
+    <SafeAreaView style={styles.container} edges={['top']}>
+      <FlatList
+        data={lessons}
+        keyExtractor={(item) => item.id}
+        ListHeaderComponent={
+          <View style={styles.header}>
+            <Text variant="h1">Learn</Text>
+            <Text variant="body" color={colors.textSecondary}>
+              Your Quranic vocabulary
+            </Text>
+            {totalWordsLearned > 0 && (
+              <View style={styles.wordCount}>
+                <Text variant="h2" color={colors.primary}>
+                  {totalWordsLearned}
+                </Text>
+                <Text variant="caption" color={colors.textSecondary}>
+                  words I know
+                </Text>
+              </View>
+            )}
+          </View>
+        }
+        renderItem={({ item }) => (
+          <LessonCard lesson={item} onPress={() => handleLessonPress(item)} />
+        )}
+        ListEmptyComponent={
+          isLoading ? (
+            <View style={styles.center}>
+              <ActivityIndicator color={colors.primary} size="large" />
+            </View>
+          ) : error ? (
+            <View style={styles.center}>
+              <Text variant="body" color={colors.error}>
+                Failed to load lessons
+              </Text>
+            </View>
+          ) : null
+        }
+        contentContainerStyle={styles.list}
+        showsVerticalScrollIndicator={false}
+      />
     </SafeAreaView>
   );
 }
@@ -46,14 +74,19 @@ const styles = StyleSheet.create({
     paddingTop: spacing.md,
     paddingBottom: spacing.lg,
   },
-  content: {
+  wordCount: {
+    flexDirection: 'row',
+    alignItems: 'baseline',
+    gap: spacing.sm,
+    marginTop: spacing.sm,
+  },
+  list: {
+    paddingBottom: spacing.xxl,
+  },
+  center: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  logoutButton: {
-    alignItems: 'center',
-    paddingVertical: spacing.md,
-    marginBottom: spacing.lg,
+    paddingTop: 100,
   },
 });

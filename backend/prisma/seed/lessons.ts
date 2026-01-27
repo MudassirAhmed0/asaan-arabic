@@ -8,8 +8,8 @@ export const LESSONS = [
   },
   {
     orderIndex: 2,
-    title: 'The Foundations',
-    subtitle: 'The most important words in the Qur\'an',
+    title: 'The Source',
+    subtitle: 'Allah, His Book, His Messenger, and the Truth',
     wordCount: 5,
     isPublished: true,
   },
@@ -43,14 +43,14 @@ export const LESSONS = [
   },
   {
     orderIndex: 7,
-    title: 'People',
-    subtitle: 'Nation, mankind, servant, prophet',
+    title: 'The People of the Qur\'an',
+    subtitle: 'Nations, prophets, servants, and the stories they carry',
     wordCount: 5,
     isPublished: true,
   },
   {
     orderIndex: 8,
-    title: 'Spiritual Life',
+    title: 'Your Daily Worship',
     subtitle: 'Prayer, gratitude, provision, blessing, wisdom',
     wordCount: 5,
     isPublished: true,
@@ -65,7 +65,7 @@ export const LESSONS = [
   {
     orderIndex: 10,
     title: 'The Journey',
-    subtitle: 'Path, day, command, and the ultimate destination',
+    subtitle: 'Life, death, and the path forward',
     wordCount: 5,
     isPublished: true,
   },

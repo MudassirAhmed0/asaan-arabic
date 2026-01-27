@@ -10,7 +10,7 @@ export default function OnboardingMotivationScreen() {
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
         <Text variant="h1" align="center">
-          Just 300 words cover{'\n'}70% of the Quran
+          300 words.{'\n'}70% of the Quran.
         </Text>
         <Text
           variant="body"
@@ -18,10 +18,8 @@ export default function OnboardingMotivationScreen() {
           align="center"
           style={styles.subtitle}
         >
-          We start with the 50 most frequent words.
-          5 words per lesson. 5 minutes per day.
-          By the end, you'll recognize something on
-          almost every page.
+          5 words a day. 5 minutes a lesson.
+          You'll start recognizing words on every page of the Quran.
         </Text>
       </View>
       <View style={styles.footer}>

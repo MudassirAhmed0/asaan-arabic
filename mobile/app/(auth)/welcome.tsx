@@ -15,6 +15,7 @@ WebBrowser.maybeCompleteAuthSession();
 export default function WelcomeScreen() {
   const { setTokens, fetchProfile, onboardingCompleted } = useAuthStore();
   const [googleLoading, setGoogleLoading] = useState(false);
+  const [devLoading, setDevLoading] = useState(false);
 
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
     clientId: process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID,
@@ -53,6 +54,27 @@ export default function WelcomeScreen() {
     }
   };
 
+  const handleDevLogin = async () => {
+    try {
+      setDevLoading(true);
+      const result = await authApi.devLogin();
+      await setTokens(result.accessToken, result.refreshToken);
+      await fetchProfile();
+
+      if (result.isNewUser || !onboardingCompleted) {
+        router.replace('/(onboarding)/intro');
+      } else {
+        router.replace('/(tabs)/learn');
+      }
+    } catch (error: any) {
+      const message =
+        error?.response?.data?.message || 'Dev login failed.';
+      Alert.alert('Error', message);
+    } finally {
+      setDevLoading(false);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
@@ -61,7 +83,7 @@ export default function WelcomeScreen() {
             بِسْمِ اللّٰهِ
           </Text>
           <Text variant="h1" align="center" style={styles.title}>
-            Understand the Quran,{'\n'}word by word
+            Finally understand{'\n'}what you hear in the Quran
           </Text>
           <Text
             variant="body"
@@ -69,8 +91,8 @@ export default function WelcomeScreen() {
             align="center"
             style={styles.subtitle}
           >
-            Learn the most frequent Quranic words.{'\n'}
-            5 words a day. 5 minutes a lesson.
+            5 words a day. 5 minutes a lesson.{'\n'}
+            Start recognizing words on every page.
           </Text>
         </View>
 
@@ -93,6 +115,16 @@ export default function WelcomeScreen() {
             loading={googleLoading}
             disabled={!request}
           />
+          {__DEV__ && (
+            <Button
+              title="Dev Login (skip auth)"
+              onPress={handleDevLogin}
+              variant="outline"
+              size="lg"
+              style={styles.button}
+              loading={devLoading}
+            />
+          )}
         </View>
       </View>
     </SafeAreaView>

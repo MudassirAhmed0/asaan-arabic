@@ -18,8 +18,8 @@ export default function OnboardingIntroScreen() {
           align="center"
           style={styles.subtitle}
         >
-          As a Pakistani, about 40% of your Urdu vocabulary
-          comes from Arabic. Let's build on that.
+          Your Urdu vocabulary is already 40% Arabic.
+          You're not starting from zero.
         </Text>
       </View>
       <View style={styles.footer}>

@@ -45,6 +45,12 @@ export class AuthController {
     return { message: 'Logged out' };
   }
 
+  @Post('dev-login')
+  @HttpCode(200)
+  async devLogin() {
+    return this.auth.devLogin();
+  }
+
   @Post('phone/link')
   @HttpCode(200)
   @UseGuards(JwtAuthGuard)

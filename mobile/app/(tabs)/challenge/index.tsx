@@ -7,9 +7,9 @@ export default function ChallengeScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <Text variant="h1">Daily Challenge</Text>
+        <Text variant="h1">Daily Win</Text>
         <Text variant="body" color={colors.textSecondary}>
-          A quick daily exercise to keep your streak
+          2 minutes to keep your momentum
         </Text>
       </View>
       <View style={styles.content}>

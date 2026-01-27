@@ -37,7 +37,7 @@ export const WORDS: WordSeedData[] = [
     lessonOrderIndex: 1,
     introduction: {
       style: IntroductionStyle.COGNATE,
-      headline: 'You already know this!',
+      headline: 'You say this in every dua',
       body: 'The word رَبّ (Rabb) means "Lord" or "Sustainer." You already use this word in Urdu every day — "Ya Rabb!" It appears 975 times in the Qur\'an, making it one of the most frequent words.',
     },
   },
@@ -53,7 +53,7 @@ export const WORDS: WordSeedData[] = [
     lessonOrderIndex: 1,
     introduction: {
       style: IntroductionStyle.QURAN_CONTEXT,
-      headline: 'See it in the Qur\'an',
+      headline: 'The root of Bismillah',
       body: 'رَحْمَة (Rahmah) means "Mercy." You hear it every time you say "Bismillah ir-Rahman ir-Raheem." Let\'s see where it appears in the Qur\'an.',
       ayahText: 'وَرَحْمَتِي وَسِعَتْ كُلَّ شَيْءٍ',
       ayahRef: 'Al-A\'raf 7:156',
@@ -71,7 +71,7 @@ export const WORDS: WordSeedData[] = [
     lessonOrderIndex: 1,
     introduction: {
       style: IntroductionStyle.FUN_FACT,
-      headline: 'Did you know?',
+      headline: 'The Qur\'an\'s favorite topic',
       body: 'عِلْم (Ilm) means "Knowledge." You already use this word in Urdu all the time.',
       factStat: 'The word "Ilm" and its derivatives appear 780+ times in the Qur\'an. No other book in history emphasizes knowledge this much.',
     },
@@ -107,12 +107,12 @@ export const WORDS: WordSeedData[] = [
     lessonOrderIndex: 1,
     introduction: {
       style: IntroductionStyle.LIFE_CONNECTION,
-      headline: 'Connect to your life',
+      headline: 'Hidden in your daily prayer',
       body: 'هُدَى (Huda) means "Guidance." You say this in every prayer when you recite Al-Fatiha: "Ihdinas-siratal-mustaqeem" — "Guide us to the straight path." The word هُدَى is at the heart of that dua.',
     },
   },
 
-  // ── Lesson 2: "The Foundations" ──
+  // ── Lesson 2: "The Source" ──
   {
     orderIndex: 6,
     arabic: 'اللَّه',
@@ -142,7 +142,7 @@ export const WORDS: WordSeedData[] = [
     lessonOrderIndex: 2,
     introduction: {
       style: IntroductionStyle.COGNATE,
-      headline: 'You already know this!',
+      headline: 'Same word, same meaning',
       body: 'كِتَاب (Kitab) means "Book." This is exactly the same word you use in Urdu. When Allah refers to the Qur\'an, He often calls it "Al-Kitab" — The Book.',
     },
   },
@@ -158,7 +158,7 @@ export const WORDS: WordSeedData[] = [
     lessonOrderIndex: 2,
     introduction: {
       style: IntroductionStyle.QURAN_CONTEXT,
-      headline: 'See it in the Qur\'an',
+      headline: 'More than just a verse',
       body: 'آيَة (Ayah) means "Sign" or "Verse." Every verse of the Qur\'an is called an Ayah because each one is a sign from Allah.',
       ayahText: 'إِنَّ فِي ذَٰلِكَ لَآيَاتٍ لِّقَوْمٍ يَتَفَكَّرُونَ',
       ayahRef: 'Ar-Ra\'d 13:3',
@@ -176,7 +176,7 @@ export const WORDS: WordSeedData[] = [
     lessonOrderIndex: 2,
     introduction: {
       style: IntroductionStyle.LIFE_CONNECTION,
-      headline: 'Connect to your life',
+      headline: 'In your Shahada, daily',
       body: 'رَسُول (Rasool) means "Messenger." You say this word multiple times every day in the Shahada and in Durood: "Muhammad ur Rasool Allah" — Muhammad is the Messenger of Allah.',
     },
   },
@@ -213,7 +213,7 @@ export const WORDS: WordSeedData[] = [
     lessonOrderIndex: 3,
     introduction: {
       style: IntroductionStyle.FUN_FACT,
-      headline: 'Did you know?',
+      headline: 'The other half of creation',
       body: 'أَرْض (Ard) means "Earth" or "Land." The Qur\'an often pairs this word with سَمَاء (sky) to describe the entire creation.',
       factStat: '"Earth" appears 461 times in the Qur\'an — almost always paired with "sky" to represent all of creation.',
     },
@@ -230,7 +230,7 @@ export const WORDS: WordSeedData[] = [
     lessonOrderIndex: 3,
     introduction: {
       style: IntroductionStyle.QURAN_CONTEXT,
-      headline: 'See it in the Qur\'an',
+      headline: 'Look up',
       body: 'سَمَاء (Sama) means "Sky" or "Heaven." In the Qur\'an, Allah often draws our attention upward.',
       ayahText: 'أَفَلَمْ يَنظُرُوا إِلَى السَّمَاءِ فَوْقَهُمْ كَيْفَ بَنَيْنَاهَا',
       ayahRef: 'Qaf 50:6',
@@ -248,7 +248,7 @@ export const WORDS: WordSeedData[] = [
     lessonOrderIndex: 3,
     introduction: {
       style: IntroductionStyle.COGNATE,
-      headline: 'You already know this!',
+      headline: 'The Urdu word for \'nafs\'',
       body: 'نَفْس (Nafs) means "Self" or "Soul." In Urdu you say "nafs par qabu rakho" (control yourself). The Qur\'an talks about three types of nafs — the commanding self, the self-reproaching self, and the peaceful self.',
     },
   },
@@ -264,7 +264,7 @@ export const WORDS: WordSeedData[] = [
     lessonOrderIndex: 3,
     introduction: {
       style: IntroductionStyle.LIFE_CONNECTION,
-      headline: 'Connect to your life',
+      headline: 'A name you definitely know',
       body: 'نُور (Noor) means "Light." This is probably a name you know — many people are named Noor. There\'s an entire surah called An-Noor (The Light). When people say someone has "noor on their face," they\'re using this Qur\'anic word.',
     },
   },
@@ -317,7 +317,7 @@ export const WORDS: WordSeedData[] = [
     lessonOrderIndex: 4,
     introduction: {
       style: IntroductionStyle.QURAN_CONTEXT,
-      headline: 'See it in the Qur\'an',
+      headline: 'The Qur\'an\'s favorite phrase',
       body: 'عَمِلَ (Amila) means "to do" or "to work." The phrase "alladhina aamanu wa amilus-salihaat" (those who believe and do good deeds) appears dozens of times in the Qur\'an.',
       ayahText: 'إِنَّ الَّذِينَ آمَنُوا وَعَمِلُوا الصَّالِحَاتِ',
       ayahRef: 'Al-Baqarah 2:277',
@@ -389,7 +389,7 @@ export const WORDS: WordSeedData[] = [
     lessonOrderIndex: 5,
     introduction: {
       style: IntroductionStyle.COGNATE,
-      headline: 'You already know this!',
+      headline: 'Your Urdu word for Paradise',
       body: 'جَنَّة (Jannah) means "Paradise" or "Garden." You know this word from Urdu — "Jannat." The literal meaning is "garden," and the Qur\'an describes it as gardens with rivers flowing beneath.',
     },
   },
@@ -405,7 +405,7 @@ export const WORDS: WordSeedData[] = [
     lessonOrderIndex: 5,
     introduction: {
       style: IntroductionStyle.QURAN_CONTEXT,
-      headline: 'See it in the Qur\'an',
+      headline: 'The Qur\'an\'s warning',
       body: 'نَار (Nar) means "Fire" — referring to the Hellfire. In the Qur\'an, Jannah and Nar are often mentioned together as the two ultimate destinations.',
       ayahText: 'فَاتَّقُوا النَّارَ الَّتِي وَقُودُهَا النَّاسُ وَالْحِجَارَةُ',
       ayahRef: 'Al-Baqarah 2:24',
@@ -489,13 +489,13 @@ export const WORDS: WordSeedData[] = [
     meaning: 'to disbelieve',
     frequency: 289,
     isUrduCognate: true,
-    urduCognateNote: '"Kufr" (disbelief) in Urdu comes from this root',
+    urduCognateNote: '"Kufr" in Urdu comes from this root — literally "covering" the truth',
     audioUrl: '/audio/words/kafara.mp3',
     lessonOrderIndex: 6,
     introduction: {
       style: IntroductionStyle.QURAN_CONTEXT,
       headline: 'See the contrast in the Qur\'an',
-      body: 'كَفَرَ (Kafara) means "to disbelieve" or "to deny." The Qur\'an often pairs آمَنَ (to believe) with كَفَرَ (to disbelieve) to show the two paths.',
+      body: 'كَفَرَ (Kafara) literally means "to cover" — as in covering the truth. The Qur\'an uses it for denial or disbelief, and often pairs آمَنَ (to believe) with كَفَرَ (to disbelieve) to show the two paths.',
       ayahText: 'هُوَ الَّذِي خَلَقَكُمْ فَمِنكُمْ كَافِرٌ وَمِنكُم مُّؤْمِنٌ',
       ayahRef: 'At-Taghabun 64:2',
     },
@@ -512,7 +512,7 @@ export const WORDS: WordSeedData[] = [
     lessonOrderIndex: 6,
     introduction: {
       style: IntroductionStyle.COGNATE,
-      headline: 'You already know this!',
+      headline: 'Your identity as a Muslim',
       body: 'مُؤْمِن (Mu\'min) means "Believer." This comes from the same root as آمَنَ (to believe) that you just learned. In Urdu, "Momin" is both a name and a title for a person of faith. Al-Mu\'min is also one of Allah\'s names — The Guardian of Faith.',
     },
   },
@@ -552,7 +552,7 @@ export const WORDS: WordSeedData[] = [
     },
   },
 
-  // ── Lesson 7: "People" ──
+  // ── Lesson 7: "The People of the Qur'an" ──
   {
     orderIndex: 31,
     arabic: 'قَوْم',
@@ -565,7 +565,7 @@ export const WORDS: WordSeedData[] = [
     lessonOrderIndex: 7,
     introduction: {
       style: IntroductionStyle.COGNATE,
-      headline: 'You already know this!',
+      headline: 'A word from Pakistan\'s story',
       body: 'قَوْم (Qawm) means "People" or "Nation." Identical to the Urdu word "qaum." In the Qur\'an, prophets are always sent to their qawm — "Ya qawmi!" (O my people!) is a phrase you\'ll see repeatedly.',
     },
   },
@@ -597,7 +597,7 @@ export const WORDS: WordSeedData[] = [
     lessonOrderIndex: 7,
     introduction: {
       style: IntroductionStyle.QURAN_CONTEXT,
-      headline: 'See it in the Qur\'an',
+      headline: 'The highest title',
       body: 'عَبْد (Abd) means "Servant." Abdullah (servant of Allah) is one of the most common Muslim names. The Qur\'an calls Prophet Muhammad ﷺ "Abduhu" (His servant).',
       ayahText: 'سُبْحَانَ الَّذِي أَسْرَىٰ بِعَبْدِهِ لَيْلًا',
       ayahRef: 'Al-Isra 17:1',
@@ -640,7 +640,7 @@ export const WORDS: WordSeedData[] = [
     },
   },
 
-  // ── Lesson 8: "Spiritual Life" ──
+  // ── Lesson 8: "Your Daily Worship" ──
   {
     orderIndex: 36,
     arabic: 'صَلَاة',
@@ -648,13 +648,13 @@ export const WORDS: WordSeedData[] = [
     meaning: 'Prayer',
     frequency: 99,
     isUrduCognate: true,
-    urduCognateNote: '"Namaz" is Persian — "Salah" is the Arabic/Qur\'anic term',
+    urduCognateNote: 'You know this as "Namaz" — the Qur\'an calls it "Salah"',
     audioUrl: '/audio/words/salah.mp3',
     lessonOrderIndex: 8,
     introduction: {
       style: IntroductionStyle.LIFE_CONNECTION,
       headline: 'Your 5 daily connection',
-      body: 'صَلَاة (Salah) means "Prayer." In Pakistan, we often say "namaz" (from Persian), but the Qur\'anic word is Salah. Every time the Qur\'an commands prayer, it uses this word. You perform salah 5 times a day — now you know the Arabic word Allah uses for it.',
+      body: 'صَلَاة (Salah) means "Prayer." You know this as namaz. In the Qur\'an, Allah uses the beautiful word Salah. Every time the Qur\'an commands prayer, it uses this word. You perform salah 5 times a day — now you know the word Allah uses for it.',
     },
   },
   {
@@ -685,7 +685,7 @@ export const WORDS: WordSeedData[] = [
     lessonOrderIndex: 8,
     introduction: {
       style: IntroductionStyle.QURAN_CONTEXT,
-      headline: 'See it in the Qur\'an',
+      headline: 'More than just money',
       body: 'رِزْق (Rizq) means "Provision" or "Sustenance." Not just food — it includes wealth, health, children, knowledge. Everything Allah provides.',
       ayahText: 'إِنَّ اللَّهَ هُوَ الرَّزَّاقُ ذُو الْقُوَّةِ الْمَتِينُ',
       ayahRef: 'Adh-Dhariyat 51:58',
@@ -758,7 +758,7 @@ export const WORDS: WordSeedData[] = [
     lessonOrderIndex: 9,
     introduction: {
       style: IntroductionStyle.COGNATE,
-      headline: 'You already know this!',
+      headline: 'Every dua starts here',
       body: 'دَعَا (Da\'a) means "to call" or "to pray/supplicate." This is the root of "dua" — your personal prayers to Allah. Every time you make dua, you\'re using this verb.',
     },
   },
@@ -790,7 +790,7 @@ export const WORDS: WordSeedData[] = [
     lessonOrderIndex: 9,
     introduction: {
       style: IntroductionStyle.QURAN_CONTEXT,
-      headline: 'See it in the Qur\'an',
+      headline: 'Allah\'s beautiful promise',
       body: 'ذَكَرَ (Dhakara) means "to remember" or "to mention." "Zikr" (remembrance of Allah) comes from this root.',
       ayahText: 'فَاذْكُرُونِي أَذْكُرْكُمْ',
       ayahRef: 'Al-Baqarah 2:152',
@@ -819,18 +819,21 @@ export const WORDS: WordSeedData[] = [
   // ── Lesson 10: "The Journey" ──
   {
     orderIndex: 46,
-    arabic: 'سَبِيل',
-    transliteration: 'Sabeel',
-    meaning: 'Path, Way',
-    frequency: 176,
+    arabic: 'مَوْت',
+    transliteration: 'Mawt',
+    meaning: 'Death',
+    frequency: 165,
     isUrduCognate: true,
-    urduCognateNote: '"Fi sabeel illah" — in the path of Allah',
-    audioUrl: '/audio/words/sabeel.mp3',
+    urduCognateNote: '"Maut" in Urdu — death',
+    audioUrl: '/audio/words/mawt.mp3',
     lessonOrderIndex: 10,
     introduction: {
-      style: IntroductionStyle.COGNATE,
-      headline: 'You already know this!',
-      body: 'سَبِيل (Sabeel) means "Path" or "Way." You know the phrase "fi sabeel illah" (in the path of Allah). The Qur\'an constantly talks about the "sabeel of Allah" versus the "sabeel of Shaytan."',
+      style: IntroductionStyle.QUICK_CHECK,
+      headline: 'You know this one',
+      body: 'مَوْت (Mawt) means "Death." You know this as "maut" in Urdu. The Qur\'an reminds us: every soul will taste death.',
+      quickCheckQuestion: 'What does مَوْت (Mawt) mean?',
+      quickCheckOptions: ['Death', 'Life', 'Time', 'Return'],
+      quickCheckAnswer: 0,
     },
   },
   {
@@ -861,7 +864,7 @@ export const WORDS: WordSeedData[] = [
     lessonOrderIndex: 10,
     introduction: {
       style: IntroductionStyle.QURAN_CONTEXT,
-      headline: 'See it in the Qur\'an',
+      headline: 'In your Al-Fatiha',
       body: 'يَوْم (Yawm) means "Day." You know it from "Yawm al-Qiyamah" (Day of Judgment) and from Al-Fatiha: "Maliki Yawm id-Deen" (Master of the Day of Judgment).',
       ayahText: 'مَالِكِ يَوْمِ الدِّينِ',
       ayahRef: 'Al-Fatiha 1:4',
@@ -886,21 +889,18 @@ export const WORDS: WordSeedData[] = [
   },
   {
     orderIndex: 50,
-    arabic: 'مَوْت',
-    transliteration: 'Mawt',
-    meaning: 'Death',
-    frequency: 165,
+    arabic: 'سَبِيل',
+    transliteration: 'Sabeel',
+    meaning: 'Path, Way',
+    frequency: 176,
     isUrduCognate: true,
-    urduCognateNote: '"Maut" in Urdu — death',
-    audioUrl: '/audio/words/mawt.mp3',
+    urduCognateNote: '"Fi sabeel illah" — in the path of Allah',
+    audioUrl: '/audio/words/sabeel.mp3',
     lessonOrderIndex: 10,
     introduction: {
-      style: IntroductionStyle.QUICK_CHECK,
-      headline: 'Quick check!',
-      body: 'مَوْت (Mawt) — the final word of your first 50. You know this from Urdu.',
-      quickCheckQuestion: 'What does مَوْت (Mawt) mean?',
-      quickCheckOptions: ['Death', 'Life', 'Time', 'Return'],
-      quickCheckAnswer: 0,
+      style: IntroductionStyle.COGNATE,
+      headline: 'A phrase you know by heart',
+      body: 'سَبِيل (Sabeel) means "Path" or "Way" — your 50th word! You know the phrase "fi sabeel illah" (in the path of Allah). The Qur\'an constantly talks about the "sabeel of Allah" — and your path to understanding continues.',
     },
   },
 ];

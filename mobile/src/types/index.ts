@@ -105,9 +105,60 @@ export interface DailyChallenge {
   correct?: boolean;
 }
 
+// ── Ayah Highlight ──
+
+export interface AyahHighlight {
+  id: string;
+  surahName: string;
+  surahNum: number;
+  ayahNum: number;
+  arabicText: string;
+  translation: string;
+  highlightStartIndex: number;
+  highlightEndIndex: number;
+}
+
+// ── Word with highlights (from lesson content) ──
+
+export interface WordWithDetails extends Word {
+  ayahHighlights: AyahHighlight[];
+}
+
 // ── Lesson list item with user status ──
 
 export interface LessonListItem extends Lesson {
   isCompleted: boolean;
   isLocked: boolean;
+}
+
+// ── Full lesson content response ──
+
+export interface LessonContentResponse {
+  lesson: Lesson;
+  words: WordWithDetails[];
+  activities: LessonActivity[];
+  midLessonMessage: MidLessonMessage;
+  celebrationStat: CelebrationStat;
+}
+
+// ── Lesson start response ──
+
+export interface LessonStartResponse {
+  attemptId: string;
+}
+
+// ── Lesson complete response ──
+
+export interface LessonCompleteResponse {
+  totalWordsLearned: number;
+  currentLessonIndex: number;
+  wordsInLesson: number;
+}
+
+// ── Streak ──
+
+export interface StreakData {
+  currentStreak: number;
+  longestStreak: number;
+  lastActiveDate: string | null;
 }

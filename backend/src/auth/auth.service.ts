@@ -192,6 +192,27 @@ export class AuthService {
     await this.users.linkPhone(userId, phone);
   }
 
+  // --- Dev Login (non-production only) ---
+
+  async devLogin(): Promise<AuthResponse> {
+    const env = this.config.get<string>('NODE_ENV');
+    if (env === 'production') {
+      throw new BadRequestException('Dev login is not available in production');
+    }
+
+    const devPhone = '+920000000000';
+    let user = await this.users.findByPhone(devPhone);
+    let isNewUser = false;
+
+    if (!user) {
+      user = await this.users.createFromPhone(devPhone);
+      isNewUser = true;
+    }
+
+    const tokens = await this.generateTokens(user.id);
+    return { ...tokens, isNewUser };
+  }
+
   // --- Token Management ---
 
   async refreshTokens(refreshToken: string): Promise<AuthTokens> {
@@ -248,9 +269,9 @@ export class AuthService {
 
   private async generateTokens(userId: string): Promise<AuthTokens> {
     const accessExpirySeconds =
-      this.config.get<number>('JWT_ACCESS_EXPIRY_SECONDS') ?? 900; // 15 min
+      Number(this.config.get('JWT_ACCESS_EXPIRY_SECONDS')) || 900; // 15 min
     const refreshExpirySeconds =
-      this.config.get<number>('JWT_REFRESH_EXPIRY_SECONDS') ?? 2592000; // 30 days
+      Number(this.config.get('JWT_REFRESH_EXPIRY_SECONDS')) || 2592000; // 30 days
 
     const accessToken = this.jwt.sign(
       { sub: userId },

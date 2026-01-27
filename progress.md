@@ -53,28 +53,41 @@ Last updated: 2026-01-27
 ---
 
 ## Feature 2: Lesson List & Lesson Flow (CORE)
-**Status: NOT STARTED**
+**Status: BUILT — testing + copy polish**
 
 ### Backend
-- [ ] `GET /lessons` — list with status
-- [ ] `GET /lessons/:id` — full content
-- [ ] `POST /lessons/:id/start`
-- [ ] `POST /lessons/:id/complete` — progress update
-- [ ] `GET /streaks/me`
-- [ ] Streak `checkIn()` logic
-- [ ] Edge cases + error handling
+- [x] `GET /lessons` — list with status (completed/locked/current flags)
+- [x] `GET /lessons/:id` — full content (words, introductions, activities, ayahHighlights)
+- [x] `POST /lessons/:id/start` — creates LessonAttempt
+- [x] `POST /lessons/:id/complete` — transaction: mark attempt, upsert WordProgress, advance lesson index, update streak
+- [x] `GET /streaks/me` — current streak data
+- [x] Streak `recordActivity()` logic (first/same-day/consecutive/gap handling)
+- [x] Dev login endpoint (`POST /auth/dev-login`) for testing
+- [x] JWT expiry bug fix (config string→number conversion)
 - [ ] Unit tests
 - [ ] E2E tests
 
 ### Frontend
-- [ ] Lesson list screen
-- [ ] Lesson flow — LessonCard entry
-- [ ] Lesson flow — WordIntro x5 (5 styles)
-- [ ] Lesson flow — MidLessonEncouragement
-- [ ] Lesson flow — Activities (Match, SpotInQuran, QuickFire, FillMeaning)
-- [ ] Lesson flow — LessonComplete (animated count + stats)
-- [ ] Audio playback
-- [ ] Error handling + loading states
+- [x] Lesson list screen (FlatList of LessonCards with completed/current/locked states)
+- [x] Lesson flow — LessonEntryCard (full-screen start)
+- [x] Lesson flow — WordIntro x5 (all 5 styles: COGNATE, QURAN_CONTEXT, FUN_FACT, QUICK_CHECK, LIFE_CONNECTION)
+- [x] Lesson flow — MidLessonEncouragement
+- [x] Lesson flow — Activities (Match, SpotInQuran, QuickFire, FillMeaning)
+- [x] Lesson flow — LessonComplete (animated word counter + celebration stat)
+- [x] Audio playback (expo-av AudioButton)
+- [x] Progress bar with back navigation (word steps + mid-message)
+- [x] Exit confirmation dialog
+- [x] Word counter bug fix (pre-completion snapshot to avoid double-counting)
+- [x] Error handling + loading states
+- [x] Activity text feedback ("Correct!" / "Not quite!" on all activities)
+
+### Copy Polish
+- [x] All frontend static copy updated (onboarding, auth, tabs, lesson components)
+- [x] LessonComplete redundant stat removed, copy improved
+- [x] All 50 word introduction headlines made unique (no more generic repeating headlines)
+- [x] Mid-lesson message bodies improved (less formulaic)
+- [x] Copy decisions documented in `copy-decisions.md`
+- [x] CLAUDE.md updated with tone decisions
 
 ---
 

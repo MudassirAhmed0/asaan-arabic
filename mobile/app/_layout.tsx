@@ -38,6 +38,14 @@ export default function RootLayout() {
         <Stack.Screen name="(auth)" />
         <Stack.Screen name="(onboarding)" />
         <Stack.Screen name="(tabs)" />
+        <Stack.Screen
+          name="lesson/[id]"
+          options={{
+            headerShown: false,
+            gestureEnabled: false,
+            animation: 'slide_from_bottom',
+          }}
+        />
       </Stack>
     </QueryClientProvider>
   );

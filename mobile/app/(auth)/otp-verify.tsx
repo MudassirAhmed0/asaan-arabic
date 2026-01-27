@@ -87,9 +87,9 @@ export default function OtpVerifyScreen() {
         style={styles.content}
       >
         <View style={styles.header}>
-          <Text variant="h1">Verify your number</Text>
+          <Text variant="h1">Check your messages</Text>
           <Text variant="body" color={colors.textSecondary} style={styles.desc}>
-            Enter the 4-digit code sent to {phone}
+            Enter the code we just sent to {phone}
           </Text>
         </View>
 

@@ -11,8 +11,8 @@ import { useAuthStore } from '../../src/stores/auth';
 
 const STEPS = [
   { title: 'Learn 5 words', desc: 'Each lesson introduces 5 Quranic words with meaning, context, and audio.' },
-  { title: 'Practice & reinforce', desc: 'Fun activities help the words stick — matching, quizzes, and more.' },
-  { title: 'Track your progress', desc: 'Watch your word count grow. See how much of the Quran you can now recognize.' },
+  { title: 'Play quick games', desc: 'Fun activities help the words stick — matching, quizzes, and more.' },
+  { title: 'See your growth', desc: 'Watch your word count grow. See how much of the Quran you now recognize.' },
 ];
 
 export default function OnboardingHowItWorksScreen() {
@@ -61,7 +61,7 @@ export default function OnboardingHowItWorksScreen() {
       </View>
       <View style={styles.footer}>
         <Button
-          title="Start Learning"
+          title="Start my first lesson"
           onPress={handleStart}
           loading={loading}
           size="lg"

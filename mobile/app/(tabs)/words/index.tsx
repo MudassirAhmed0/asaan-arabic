@@ -19,13 +19,13 @@ export default function WordsScreen() {
           {totalWordsLearned}
         </Text>
         <Text variant="body" color={colors.textSecondary} align="center">
-          Quranic words learned
+          Quranic words I know
         </Text>
       </Card>
 
       <View style={styles.content}>
         <Text variant="body" color={colors.textTertiary} align="center">
-          Complete your first lesson to start building your word bank
+          Your first 5 words are one lesson away
         </Text>
       </View>
     </SafeAreaView>

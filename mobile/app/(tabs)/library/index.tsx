@@ -5,9 +5,9 @@ import { Card } from '../../../src/components/ui/Card';
 import { colors, spacing } from '../../../src/constants/theme';
 
 const SECTIONS = [
-  { title: 'Surahs', desc: 'Browse all 114 surahs with translations' },
-  { title: 'Salah Guide', desc: 'Step-by-step prayer with Arabic and meaning' },
-  { title: 'Duas', desc: 'Common duas with transliteration and translation' },
+  { title: 'Surahs', desc: 'Read any surah with word-by-word meaning' },
+  { title: 'Salah Guide', desc: 'Understand every word of your daily prayers' },
+  { title: 'Duas', desc: 'Daily duas with meaning you\'ll actually remember' },
 ];
 
 export default function LibraryScreen() {
@@ -16,7 +16,7 @@ export default function LibraryScreen() {
       <View style={styles.header}>
         <Text variant="h1">Library</Text>
         <Text variant="body" color={colors.textSecondary}>
-          Your Quranic reference
+          Explore and understand
         </Text>
       </View>
 

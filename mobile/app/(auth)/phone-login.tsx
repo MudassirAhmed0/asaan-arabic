@@ -55,7 +55,7 @@ export default function PhoneLoginScreen() {
         <View style={styles.header}>
           <Text variant="h1">Enter your number</Text>
           <Text variant="body" color={colors.textSecondary} style={styles.desc}>
-            We'll send you a verification code
+            We'll send you a quick code
           </Text>
         </View>
 

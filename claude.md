@@ -16,7 +16,7 @@ No feature moves forward until the previous one is tested and committed.
 - Ramadan launch target identified: launch 5-10 days before Ramadan (~10-15 day build window)
 - Technical stack decided: React Native + Expo (frontend), NestJS + PostgreSQL (backend)
 - No name yet. No design yet.
-- Phase: **Feature 0 & 1 built → currently testing Feature 1 (User Profile & Onboarding)**
+- Phase: **Feature 2 built (Lesson List & Lesson Flow) → testing + copy polish**
 
 ## Where We Want to Go
 - Launch full-featured app (Module 1 partial content, all engagement features) before Ramadan
@@ -68,6 +68,9 @@ No feature moves forward until the previous one is tested and committed.
 | Build ALL engagement features, not cut-down MVP | Mudassir + Claude = 10x dev speed. No reason to defer streaks, library, weekly review, etc. Only defer business decisions (premium, leaderboards). |
 | Both Android + iOS at launch | Expo makes this one codebase. No reason to limit to one platform. |
 | Professional Qari audio, recorded in parallel with dev | Ship with real Qari pronunciation from day one. No AI TTS. No temporary audio. |
+| Warm coaching tone, not clinical/educational | Copy should feel like a supportive friend, not a textbook. "Play quick games" not "Practice & reinforce". "words I know" not "words learned". Respectful but not casual — no "Let's do this" for a Quran app. |
+| Every word introduction headline must be unique | No two words should have the same headline ("You already know this!" was repeated 7 times). Each headline should be specific to that word. |
+| Copy decisions documented in copy-decisions.md | All copy changes, rationale, and before/after tracked in a dedicated file. |
 
 ## Open Questions / Unknowns
 - App name?
