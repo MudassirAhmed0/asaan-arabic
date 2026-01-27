@@ -23,8 +23,15 @@ export default function LibraryScreen() {
       <View style={styles.sections}>
         {SECTIONS.map((section, i) => (
           <Card key={i} style={styles.card}>
-            <Text variant="h3">{section.title}</Text>
-            <Text variant="caption" color={colors.textSecondary}>
+            <View style={styles.cardHeader}>
+              <Text variant="h3" color={colors.textTertiary}>
+                {section.title}
+              </Text>
+              <Text variant="small" color={colors.textTertiary}>
+                Coming Soon
+              </Text>
+            </View>
+            <Text variant="caption" color={colors.textTertiary}>
               {section.desc}
             </Text>
           </Card>
@@ -50,5 +57,11 @@ const styles = StyleSheet.create({
   },
   card: {
     gap: spacing.xs,
+    opacity: 0.6,
+  },
+  cardHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 });

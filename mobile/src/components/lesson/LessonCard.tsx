@@ -1,4 +1,5 @@
 import { View, Pressable, StyleSheet } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { Text } from '../ui/Text';
 import { colors, spacing, borderRadius } from '../../constants/theme';
 import type { LessonListItem } from '../../types';
@@ -60,25 +61,34 @@ export function LessonCard({ lesson, onPress }: LessonCardProps) {
       </View>
       <View style={styles.footer}>
         <Text
-          variant="small"
+          variant="caption"
           color={lesson.isLocked ? colors.textTertiary : colors.textSecondary}
         >
           {lesson.wordCount} words
         </Text>
         {lesson.isCompleted && (
-          <Text variant="small" color={colors.success}>
-            Completed
-          </Text>
+          <View style={styles.statusBadge}>
+            <Ionicons name="checkmark-circle" size={16} color={colors.success} />
+            <Text variant="caption" color={colors.success}>
+              Done
+            </Text>
+          </View>
         )}
         {isActive && (
-          <Text variant="small" color={colors.primary}>
-            Start
-          </Text>
+          <View style={styles.startBadge}>
+            <Text variant="caption" color={colors.textOnPrimary}>
+              Start
+            </Text>
+            <Ionicons name="arrow-forward" size={14} color={colors.textOnPrimary} />
+          </View>
         )}
         {lesson.isLocked && (
-          <Text variant="small" color={colors.textTertiary}>
-            Locked
-          </Text>
+          <View style={styles.statusBadge}>
+            <Ionicons name="lock-closed" size={14} color={colors.textTertiary} />
+            <Text variant="caption" color={colors.textTertiary}>
+              Locked
+            </Text>
+          </View>
         )}
       </View>
     </Pressable>
@@ -140,6 +150,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingLeft: 40 + spacing.md, // align with title
+    paddingLeft: 40 + spacing.md,
+  },
+  startBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.xs,
+    backgroundColor: colors.primary,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.xs,
+    borderRadius: borderRadius.full,
+  },
+  statusBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.xs,
   },
 });

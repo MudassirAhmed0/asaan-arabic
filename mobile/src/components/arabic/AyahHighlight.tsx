@@ -5,9 +5,10 @@ import type { AyahHighlight as AyahHighlightType } from '../../types';
 
 interface AyahHighlightProps {
   ayah: AyahHighlightType;
+  baseWord?: string;
 }
 
-export function AyahHighlight({ ayah }: AyahHighlightProps) {
+export function AyahHighlight({ ayah, baseWord }: AyahHighlightProps) {
   const before = ayah.arabicText.slice(0, ayah.highlightStartIndex);
   const highlighted = ayah.arabicText.slice(
     ayah.highlightStartIndex,
@@ -15,8 +16,19 @@ export function AyahHighlight({ ayah }: AyahHighlightProps) {
   );
   const after = ayah.arabicText.slice(ayah.highlightEndIndex);
 
+  // Show helper when the highlighted form differs from the base word
+  const showHelper = baseWord && highlighted.trim() !== baseWord.trim();
+
   return (
     <View style={styles.container}>
+      {showHelper && (
+        <Text variant="caption" color={colors.textTertiary} align="center">
+          Your word {baseWord} appears here as{' '}
+          <Text variant="caption" color={colors.primary} style={styles.helperHighlight}>
+            {highlighted}
+          </Text>
+        </Text>
+      )}
       <Text variant="arabicSmall" align="center">
         {before}
         <Text variant="arabicSmall" style={styles.highlighted}>
@@ -49,6 +61,9 @@ const styles = StyleSheet.create({
   highlighted: {
     color: colors.primary,
     fontWeight: '700',
+  },
+  helperHighlight: {
+    fontWeight: '600',
   },
   translation: {
     fontStyle: 'italic',

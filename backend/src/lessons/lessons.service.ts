@@ -209,8 +209,12 @@ export class LessonsService {
     });
 
     // Update streak (outside transaction for isolation)
-    await this.streaksService.recordActivity(userId);
+    const streak = await this.streaksService.recordActivity(userId);
 
-    return result;
+    return {
+      ...result,
+      currentStreak: streak.currentStreak,
+      longestStreak: streak.longestStreak,
+    };
   }
 }

@@ -1,4 +1,5 @@
 import { View, Pressable, StyleSheet } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { colors, spacing } from '../../constants/theme';
 
 interface ProgressBarProps {
@@ -13,17 +14,11 @@ export function ProgressBar({ progress, onClose, onBack, showBack }: ProgressBar
     <View style={styles.container}>
       {showBack && onBack ? (
         <Pressable onPress={onBack} hitSlop={12} style={styles.navButton}>
-          <View style={styles.backArrow}>
-            <View style={styles.backLine1} />
-            <View style={styles.backLine2} />
-          </View>
+          <Ionicons name="chevron-back" size={24} color={colors.text} />
         </Pressable>
       ) : (
         <Pressable onPress={onClose} hitSlop={12} style={styles.navButton}>
-          <View style={styles.closeIcon}>
-            <View style={[styles.closeLine, styles.closeLineLeft]} />
-            <View style={[styles.closeLine, styles.closeLineRight]} />
-          </View>
+          <Ionicons name="close" size={24} color={colors.text} />
         </Pressable>
       )}
       <View style={styles.trackContainer}>
@@ -33,10 +28,7 @@ export function ProgressBar({ progress, onClose, onBack, showBack }: ProgressBar
       </View>
       {showBack && (
         <Pressable onPress={onClose} hitSlop={12} style={styles.navButton}>
-          <View style={styles.closeIcon}>
-            <View style={[styles.closeLine, styles.closeLineLeft]} />
-            <View style={[styles.closeLine, styles.closeLineRight]} />
-          </View>
+          <Ionicons name="close" size={24} color={colors.text} />
         </Pressable>
       )}
     </View>
@@ -52,64 +44,23 @@ const styles = StyleSheet.create({
     gap: spacing.md,
   },
   navButton: {
-    width: 32,
-    height: 32,
+    width: 36,
+    height: 36,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  closeIcon: {
-    width: 20,
-    height: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  closeLine: {
-    position: 'absolute',
-    width: 18,
-    height: 2,
-    backgroundColor: colors.textSecondary,
-    borderRadius: 1,
-  },
-  closeLineLeft: {
-    transform: [{ rotate: '45deg' }],
-  },
-  closeLineRight: {
-    transform: [{ rotate: '-45deg' }],
-  },
-  backArrow: {
-    width: 20,
-    height: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  backLine1: {
-    position: 'absolute',
-    width: 12,
-    height: 2,
-    backgroundColor: colors.textSecondary,
-    borderRadius: 1,
-    transform: [{ rotate: '-45deg' }, { translateY: -3 }, { translateX: -2 }],
-  },
-  backLine2: {
-    position: 'absolute',
-    width: 12,
-    height: 2,
-    backgroundColor: colors.textSecondary,
-    borderRadius: 1,
-    transform: [{ rotate: '45deg' }, { translateY: 3 }, { translateX: -2 }],
   },
   trackContainer: {
     flex: 1,
   },
   track: {
-    height: 6,
+    height: 8,
     backgroundColor: colors.borderLight,
-    borderRadius: 3,
+    borderRadius: 4,
     overflow: 'hidden',
   },
   fill: {
     height: '100%',
     backgroundColor: colors.primary,
-    borderRadius: 3,
+    borderRadius: 4,
   },
 });

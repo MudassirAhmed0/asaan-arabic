@@ -35,7 +35,7 @@ api.interceptors.response.use(
 
         const { data } = await axios.post(`${API_BASE_URL}/auth/refresh`, {
           refreshToken,
-        });
+        }, { timeout: 15000 });
 
         await SecureStore.setItemAsync('accessToken', data.accessToken);
         await SecureStore.setItemAsync('refreshToken', data.refreshToken);

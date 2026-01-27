@@ -1,6 +1,8 @@
 import { View, Pressable, StyleSheet, ScrollView } from 'react-native';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import * as Haptics from 'expo-haptics';
+import * as Speech from 'expo-speech';
+import { Audio } from 'expo-av';
 import { Text } from '../ui/Text';
 import { AyahHighlight } from '../arabic/AyahHighlight';
 import { AudioButton } from './AudioButton';
@@ -12,8 +14,36 @@ interface WordIntroductionProps {
   onContinue: () => void;
 }
 
+const isFullUrl = (url: string) => url.startsWith('http://') || url.startsWith('https://');
+
 export function WordIntroduction({ word, onContinue }: WordIntroductionProps) {
   const intro = word.introduction;
+  const lastPlayedWordId = useRef<string | null>(null);
+
+  // Auto-play pronunciation when word appears
+  useEffect(() => {
+    if (lastPlayedWordId.current === word.id) return;
+    lastPlayedWordId.current = word.id;
+
+    // Stop any previous playback
+    Speech.stop();
+
+    const timer = setTimeout(async () => {
+      if (isFullUrl(word.audioUrl)) {
+        try {
+          const { sound } = await Audio.Sound.createAsync({ uri: word.audioUrl });
+          await sound.playAsync();
+          return;
+        } catch {
+          // Fall through to TTS
+        }
+      }
+      Speech.speak(word.arabic, { language: 'ar', rate: 0.8 });
+    }, 400);
+
+    return () => clearTimeout(timer);
+  }, [word.id]);
+
   if (!intro) return null;
 
   const isQuickCheck = intro.style === 'QUICK_CHECK';
@@ -32,7 +62,7 @@ export function WordIntroduction({ word, onContinue }: WordIntroductionProps) {
           <Text variant="caption" color={colors.textSecondary} align="center">
             {word.transliteration}
           </Text>
-          <AudioButton audioUrl={word.audioUrl} label="Listen" />
+          <AudioButton audioUrl={word.audioUrl} arabicText={word.arabic} label="Listen again" size="large" />
         </View>
 
         {/* Meaning — shown for all styles EXCEPT quick check (until answered) */}
@@ -99,7 +129,7 @@ function IntroContent({
             </Text>
           </View>
           {word.ayahHighlights?.[0] && (
-            <AyahHighlight ayah={word.ayahHighlights[0]} />
+            <AyahHighlight ayah={word.ayahHighlights[0]} baseWord={word.arabic} />
           )}
         </View>
       );
@@ -153,14 +183,24 @@ function QuickCheckSection({
   onContinue: () => void;
 }) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
-  const correctIndex = intro.quickCheckAnswer ?? 0;
+  const [shuffled] = useState(() => {
+    const origCorrect = intro.quickCheckAnswer ?? 0;
+    const options = [...(intro.quickCheckOptions ?? [])];
+    const correctOption = options[origCorrect];
+    // Fisher-Yates shuffle
+    for (let i = options.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [options[i], options[j]] = [options[j], options[i]];
+    }
+    return { options, correctIndex: options.indexOf(correctOption) };
+  });
   const answered = selectedIndex !== null;
-  const isCorrect = selectedIndex === correctIndex;
+  const isCorrect = selectedIndex === shuffled.correctIndex;
 
   const handleSelect = (index: number) => {
     if (answered) return;
     setSelectedIndex(index);
-    if (index === correctIndex) {
+    if (index === shuffled.correctIndex) {
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     } else {
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
@@ -175,7 +215,7 @@ function QuickCheckSection({
             {intro.quickCheckQuestion}
           </Text>
           <View style={styles.quizOptions}>
-            {intro.quickCheckOptions?.map((option, i) => (
+            {shuffled.options.map((option, i) => (
               <Pressable
                 key={i}
                 style={styles.quizOption}
@@ -279,7 +319,7 @@ const styles = StyleSheet.create({
   continueButton: {
     backgroundColor: colors.primary,
     borderRadius: borderRadius.md,
-    paddingVertical: spacing.md,
+    paddingVertical: spacing.lg,
     alignItems: 'center',
   },
   continueButtonPressed: {

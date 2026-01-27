@@ -15,8 +15,8 @@ export const colors = {
 
   // Text
   text: '#1A1A2E',          // Near-black
-  textSecondary: '#6B7280',
-  textTertiary: '#9CA3AF',
+  textSecondary: '#5B6370',
+  textTertiary: '#78716C',
   textOnPrimary: '#FFFFFF',
 
   // Semantic

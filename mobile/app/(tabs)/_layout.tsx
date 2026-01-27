@@ -1,4 +1,5 @@
 import { Tabs } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../../src/constants/theme';
 
 export default function TabsLayout() {
@@ -21,31 +22,39 @@ export default function TabsLayout() {
       }}
     >
       <Tabs.Screen
-        name="learn"
+        name="learn/index"
         options={{
           title: 'Learn',
-          tabBarIcon: () => null, // TODO: Add icons
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="book-outline" size={size} color={color} />
+          ),
         }}
       />
       <Tabs.Screen
-        name="words"
+        name="words/index"
         options={{
           title: 'My Words',
-          tabBarIcon: () => null,
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="star-outline" size={size} color={color} />
+          ),
         }}
       />
       <Tabs.Screen
-        name="challenge"
+        name="challenge/index"
         options={{
-          title: 'Challenge',
-          tabBarIcon: () => null,
+          title: 'Review',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="refresh-circle-outline" size={size} color={color} />
+          ),
         }}
       />
       <Tabs.Screen
-        name="library"
+        name="library/index"
         options={{
           title: 'Library',
-          tabBarIcon: () => null,
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="library-outline" size={size} color={color} />
+          ),
         }}
       />
     </Tabs>

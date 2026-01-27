@@ -7,6 +7,7 @@ interface LessonEntryCardProps {
   title: string;
   subtitle: string;
   wordCount: number;
+  wordPreviews?: string[];
   onStart: () => void;
 }
 
@@ -15,6 +16,7 @@ export function LessonEntryCard({
   title,
   subtitle,
   wordCount,
+  wordPreviews,
   onStart,
 }: LessonEntryCardProps) {
   return (
@@ -34,6 +36,11 @@ export function LessonEntryCard({
             {wordCount} new words
           </Text>
         </View>
+        {wordPreviews && wordPreviews.length > 0 && (
+          <Text variant="caption" color={colors.textTertiary} align="center" style={styles.preview}>
+            {wordPreviews.join('  ·  ')}
+          </Text>
+        )}
       </View>
       <Pressable
         style={({ pressed }) => [
@@ -71,10 +78,13 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surfaceAlt,
     borderRadius: borderRadius.full,
   },
+  preview: {
+    marginTop: spacing.sm,
+  },
   startButton: {
     backgroundColor: colors.primary,
     borderRadius: borderRadius.md,
-    paddingVertical: spacing.md,
+    paddingVertical: spacing.lg,
     alignItems: 'center',
   },
   startButtonPressed: {

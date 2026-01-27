@@ -22,13 +22,28 @@ export function ActivityQuickFire({
   const [currentRound, setCurrentRound] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [score, setScore] = useState(0);
+  const [finished, setFinished] = useState(false);
+  const [finalScore, setFinalScore] = useState(0);
 
-  const round = rounds[currentRound];
-  const showResult = selectedIndex !== null;
+  // Shuffle each round's options once on mount
+  const [shuffledRounds] = useState(() =>
+    rounds.map((r) => {
+      const correctOption = r.options[r.correctIndex];
+      const opts = [...r.options];
+      for (let i = opts.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [opts[i], opts[j]] = [opts[j], opts[i]];
+      }
+      return { ...r, options: opts, correctIndex: opts.indexOf(correctOption) };
+    }),
+  );
+
+  const round = shuffledRounds[currentRound];
+  const answered = selectedIndex !== null;
 
   const handleSelect = useCallback(
     (index: number) => {
-      if (showResult) return;
+      if (answered) return;
 
       setSelectedIndex(index);
       const isCorrect = index === round.correctIndex;
@@ -39,23 +54,68 @@ export function ActivityQuickFire({
       } else {
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
       }
-
-      setTimeout(() => {
-        if (currentRound < rounds.length - 1) {
-          setCurrentRound((r) => r + 1);
-          setSelectedIndex(null);
-        } else {
-          onComplete(isCorrect ? score + 1 : score, rounds.length);
-        }
-      }, 800);
     },
-    [showResult, round, currentRound, rounds.length, score, onComplete],
+    [answered, round],
   );
+
+  const handleNext = useCallback(() => {
+    if (currentRound < rounds.length - 1) {
+      setCurrentRound((r) => r + 1);
+      setSelectedIndex(null);
+    } else {
+      // score already includes this round's result from handleSelect
+      setFinalScore(score);
+      setFinished(true);
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    }
+  }, [currentRound, rounds.length, score]);
+
+  const handleFinish = useCallback(() => {
+    onComplete(finalScore, rounds.length);
+  }, [finalScore, rounds.length, onComplete]);
+
+  // Summary screen after all rounds
+  if (finished) {
+    const percent = Math.round((finalScore / rounds.length) * 100);
+    const message =
+      percent === 100
+        ? 'Perfect!'
+        : percent >= 60
+          ? 'Nice work!'
+          : 'Keep going — you\'ll get there!';
+
+    return (
+      <View style={styles.container}>
+        <View style={styles.summaryContent}>
+          <Text variant="h2" color={colors.primary} align="center">
+            {message}
+          </Text>
+          <Text variant="h1" align="center" style={styles.scoreNumber}>
+            {finalScore}/{rounds.length}
+          </Text>
+          <Text variant="body" color={colors.textSecondary} align="center">
+            correct
+          </Text>
+        </View>
+        <Pressable
+          style={({ pressed }) => [
+            styles.nextButton,
+            pressed && styles.nextButtonPressed,
+          ]}
+          onPress={handleFinish}
+        >
+          <Text variant="bodyBold" color={colors.textOnPrimary}>
+            Continue
+          </Text>
+        </Pressable>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
       <Text variant="h3" align="center" style={styles.title}>
-        Quick Fire!
+        Do you remember?
       </Text>
       <Text
         variant="caption"
@@ -72,14 +132,16 @@ export function ActivityQuickFire({
         </Text>
       </View>
 
-      {showResult && (
+      {answered && (
         <Text
           variant="bodyBold"
           align="center"
           color={selectedIndex === round.correctIndex ? colors.success : colors.error}
           style={styles.feedback}
         >
-          {selectedIndex === round.correctIndex ? 'Correct!' : 'Not quite!'}
+          {selectedIndex === round.correctIndex
+            ? 'Correct!'
+            : `It means "${round.options[round.correctIndex]}"`}
         </Text>
       )}
 
@@ -93,19 +155,19 @@ export function ActivityQuickFire({
               key={`${currentRound}-${i}`}
               style={[
                 styles.option,
-                showResult && isCorrect && styles.optionCorrect,
-                showResult && isSelected && !isCorrect && styles.optionWrong,
+                answered && isCorrect && styles.optionCorrect,
+                answered && isSelected && !isCorrect && styles.optionWrong,
               ]}
               onPress={() => handleSelect(i)}
-              disabled={showResult}
+              disabled={answered}
             >
               <Text
                 variant="bodyBold"
                 align="center"
                 color={
-                  showResult && isCorrect
+                  answered && isCorrect
                     ? colors.success
-                    : showResult && isSelected && !isCorrect
+                    : answered && isSelected && !isCorrect
                       ? colors.error
                       : colors.text
                 }
@@ -116,6 +178,21 @@ export function ActivityQuickFire({
           );
         })}
       </View>
+
+      {/* Always rendered to prevent layout shift — hidden until answered */}
+      <Pressable
+        style={({ pressed }) => [
+          styles.nextButton,
+          !answered && styles.nextButtonHidden,
+          pressed && answered && styles.nextButtonPressed,
+        ]}
+        onPress={handleNext}
+        disabled={!answered}
+      >
+        <Text variant="bodyBold" color={answered ? colors.textOnPrimary : 'transparent'}>
+          {currentRound < rounds.length - 1 ? 'Next' : 'See Results'}
+        </Text>
+      </Pressable>
     </View>
   );
 }
@@ -125,6 +202,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: spacing.lg,
     paddingTop: spacing.md,
+    paddingBottom: spacing.xl,
   },
   title: {
     marginBottom: spacing.xs,
@@ -142,7 +220,6 @@ const styles = StyleSheet.create({
   },
   options: {
     gap: spacing.md,
-    paddingBottom: spacing.xl,
   },
   option: {
     borderWidth: 1,
@@ -158,5 +235,28 @@ const styles = StyleSheet.create({
   optionWrong: {
     borderColor: colors.error,
     backgroundColor: '#FFF5F5',
+  },
+  nextButton: {
+    backgroundColor: colors.primary,
+    borderRadius: borderRadius.md,
+    paddingVertical: spacing.lg,
+    alignItems: 'center',
+    marginTop: spacing.md,
+  },
+  nextButtonHidden: {
+    backgroundColor: 'transparent',
+  },
+  nextButtonPressed: {
+    opacity: 0.8,
+  },
+  summaryContent: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: spacing.sm,
+  },
+  scoreNumber: {
+    fontSize: 56,
+    lineHeight: 64,
   },
 });

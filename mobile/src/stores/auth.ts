@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import * as SecureStore from 'expo-secure-store';
 import { usersApi } from '../api/users';
+import { useProgressStore } from './progress';
 
 interface User {
   id: string;
@@ -70,6 +71,14 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         name: profile.name,
         profilePicture: profile.profilePicture,
       },
+      onboardingCompleted: profile.progress.onboardingCompleted,
+    });
+    useProgressStore.getState().setProgress({
+      totalWordsLearned: profile.progress.totalWordsLearned,
+      currentLessonIndex: profile.progress.currentLessonIndex,
+      currentStreak: profile.streak.currentStreak,
+      longestStreak: profile.streak.longestStreak,
+      lastActivityAt: profile.progress.lastActivityAt,
       onboardingCompleted: profile.progress.onboardingCompleted,
     });
   },

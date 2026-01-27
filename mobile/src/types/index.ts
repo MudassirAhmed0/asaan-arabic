@@ -153,6 +153,8 @@ export interface LessonCompleteResponse {
   totalWordsLearned: number;
   currentLessonIndex: number;
   wordsInLesson: number;
+  currentStreak: number;
+  longestStreak: number;
 }
 
 // ── Streak ──

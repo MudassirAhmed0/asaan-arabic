@@ -25,7 +25,9 @@ export default function WordsScreen() {
 
       <View style={styles.content}>
         <Text variant="body" color={colors.textTertiary} align="center">
-          Your first 5 words are one lesson away
+          {totalWordsLearned > 0
+            ? 'Your word bank is growing — full list coming soon'
+            : 'Your first 5 words are one lesson away'}
         </Text>
       </View>
     </SafeAreaView>

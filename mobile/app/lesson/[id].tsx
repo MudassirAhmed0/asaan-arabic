@@ -1,4 +1,4 @@
-import { View, StyleSheet, Alert, ActivityIndicator } from 'react-native';
+import { View, Animated, StyleSheet, Alert, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useCallback, useRef } from 'react';
@@ -46,6 +46,37 @@ export default function LessonFlowScreen() {
   const totalWordsLearned = useProgressStore((s) => s.totalWordsLearned);
   const incrementWords = useProgressStore((s) => s.incrementWords);
   const advanceLesson = useProgressStore((s) => s.advanceLesson);
+  const setProgress = useProgressStore((s) => s.setProgress);
+
+  // Step transition animation
+  const fadeAnim = useRef(new Animated.Value(1)).current;
+  const slideAnim = useRef(new Animated.Value(0)).current;
+  const prevStepRef = useRef(currentStepIndex);
+
+  useEffect(() => {
+    if (prevStepRef.current !== currentStepIndex && steps.length > 0) {
+      const direction = currentStepIndex > prevStepRef.current ? 1 : -1;
+      prevStepRef.current = currentStepIndex;
+
+      fadeAnim.setValue(0.3);
+      slideAnim.setValue(direction * 16);
+
+      Animated.parallel([
+        Animated.spring(fadeAnim, {
+          toValue: 1,
+          useNativeDriver: true,
+          damping: 20,
+          stiffness: 300,
+        }),
+        Animated.spring(slideAnim, {
+          toValue: 0,
+          useNativeDriver: true,
+          damping: 20,
+          stiffness: 300,
+        }),
+      ]).start();
+    }
+  }, [currentStepIndex, steps.length]);
 
   // Capture pre-completion word count to avoid double-counting
   const preCompletionWordsRef = useRef<number | null>(null);
@@ -74,6 +105,10 @@ export default function LessonFlowScreen() {
         .then((result) => {
           incrementWords(result.wordsInLesson);
           advanceLesson();
+          setProgress({
+            currentStreak: result.currentStreak,
+            longestStreak: result.longestStreak,
+          });
         })
         .catch(() => {
           // Show completion screen anyway — progress syncs on next app open
@@ -185,6 +220,7 @@ export default function LessonFlowScreen() {
           title={content.lesson.title}
           subtitle={content.lesson.subtitle}
           wordCount={content.lesson.wordCount}
+          wordPreviews={content.words.map((w) => w.transliteration)}
           onStart={handleStart}
         />
       </SafeAreaView>
@@ -200,6 +236,12 @@ export default function LessonFlowScreen() {
         showBack={canGoBack()}
       />
 
+      <Animated.View
+        style={[
+          styles.animatedContent,
+          { opacity: fadeAnim, transform: [{ translateX: slideAnim }] },
+        ]}
+      >
       {currentStep?.type === 'word' && (
         <WordIntroduction
           word={content.words[currentStep.wordIndex]}
@@ -211,6 +253,7 @@ export default function LessonFlowScreen() {
         <MidLessonEncouragement
           message={content.midLessonMessage}
           wordCount={content.lesson.wordCount}
+          activityCount={content.activities.length}
           onContinue={nextStep}
         />
       )}
@@ -233,9 +276,12 @@ export default function LessonFlowScreen() {
             content.lesson.wordCount
           }
           celebrationStat={content.celebrationStat}
+          activityScore={score}
+          activityTotal={totalQuestions}
           onContinue={handleContinueAfterComplete}
         />
       )}
+      </Animated.View>
     </SafeAreaView>
   );
 }
@@ -257,7 +303,11 @@ function ActivityRenderer({
 
   switch (activity.type) {
     case 'MATCH': {
-      const pairs = (payload.pairs as Array<{ arabic: string; meaning: string }>) ?? [];
+      const rawPairs = (payload.pairs as Array<{ arabic: string; meaning: string }>) ?? [];
+      const pairs = rawPairs.map((p) => {
+        const word = words.find((w) => w.arabic === p.arabic);
+        return { ...p, transliteration: word?.transliteration };
+      });
       return (
         <ActivityMatch
           key={activity.id}
@@ -333,6 +383,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background,
+  },
+  animatedContent: {
+    flex: 1,
   },
   centered: {
     flex: 1,

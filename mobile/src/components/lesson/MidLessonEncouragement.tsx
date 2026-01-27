@@ -6,22 +6,24 @@ import type { MidLessonMessage } from '../../types';
 interface MidLessonEncouragementProps {
   message: MidLessonMessage;
   wordCount: number;
+  activityCount: number;
   onContinue: () => void;
 }
 
 export function MidLessonEncouragement({
   message,
   wordCount,
+  activityCount,
   onContinue,
 }: MidLessonEncouragementProps) {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
         <View style={styles.countBadge}>
-          <Text variant="h1" color={colors.primary}>
+          <Text variant="h1" color={colors.primary} style={styles.countNumber}>
             {wordCount}
           </Text>
-          <Text variant="caption" color={colors.textSecondary}>
+          <Text variant="body" color={colors.textSecondary}>
             words down!
           </Text>
         </View>
@@ -42,7 +44,7 @@ export function MidLessonEncouragement({
         onPress={onContinue}
       >
         <Text variant="bodyBold" color={colors.textOnPrimary}>
-          Let's make them stick!
+          {activityCount} quick {activityCount === 1 ? 'activity' : 'activities'} — let's go
         </Text>
       </Pressable>
     </View>
@@ -66,10 +68,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: spacing.md,
   },
+  countNumber: {
+    fontSize: 48,
+    lineHeight: 56,
+  },
   continueButton: {
     backgroundColor: colors.primary,
     borderRadius: borderRadius.md,
-    paddingVertical: spacing.md,
+    paddingVertical: spacing.lg,
     alignItems: 'center',
   },
   continueButtonPressed: {

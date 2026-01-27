@@ -20,6 +20,15 @@ export function ActivityFillMeaning({
   onComplete,
 }: ActivityFillMeaningProps) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [shuffled] = useState(() => {
+    const correctOption = options[correctIndex];
+    const shuffledOpts = [...options];
+    for (let i = shuffledOpts.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledOpts[i], shuffledOpts[j]] = [shuffledOpts[j], shuffledOpts[i]];
+    }
+    return { options: shuffledOpts, correctIndex: shuffledOpts.indexOf(correctOption) };
+  });
   const showResult = selectedIndex !== null;
 
   const handleSelect = useCallback(
@@ -27,7 +36,7 @@ export function ActivityFillMeaning({
       if (showResult) return;
 
       setSelectedIndex(index);
-      const isCorrect = index === correctIndex;
+      const isCorrect = index === shuffled.correctIndex;
 
       if (isCorrect) {
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
@@ -37,7 +46,7 @@ export function ActivityFillMeaning({
 
       setTimeout(() => onComplete(isCorrect), 800);
     },
-    [showResult, correctIndex, onComplete],
+    [showResult, shuffled.correctIndex, onComplete],
   );
 
   return (
@@ -64,16 +73,16 @@ export function ActivityFillMeaning({
         <Text
           variant="bodyBold"
           align="center"
-          color={selectedIndex === correctIndex ? colors.success : colors.error}
+          color={selectedIndex === shuffled.correctIndex ? colors.success : colors.error}
           style={styles.feedback}
         >
-          {selectedIndex === correctIndex ? 'Correct!' : `Not quite! It means "${options[correctIndex]}"`}
+          {selectedIndex === shuffled.correctIndex ? 'Correct!' : `Not quite! It means "${shuffled.options[shuffled.correctIndex]}"`}
         </Text>
       )}
 
       <View style={styles.options}>
-        {options.map((option, i) => {
-          const isCorrect = i === correctIndex;
+        {shuffled.options.map((option, i) => {
+          const isCorrect = i === shuffled.correctIndex;
           const isSelected = selectedIndex === i;
 
           return (
