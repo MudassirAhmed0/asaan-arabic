@@ -157,6 +157,47 @@ export interface LessonCompleteResponse {
   longestStreak: number;
 }
 
+// ── Learned Words Response ──
+
+export interface LearnedWordItem {
+  id: string;
+  wordId: string;
+  status: WordStatus;
+  timesCorrect: number;
+  timesIncorrect: number;
+  learnedAt: string;
+  word: Word & {
+    introduction?: { headline: string; style: IntroductionStyle };
+  };
+}
+
+export interface LearnedWordsResponse {
+  words: LearnedWordItem[];
+  totalCount: number;
+}
+
+export interface WordDetailResponse {
+  id: string;
+  arabic: string;
+  transliteration: string;
+  meaning: string;
+  frequency: number;
+  isUrduCognate: boolean;
+  urduCognateNote?: string;
+  audioUrl: string;
+  lessonId: string;
+  introduction: WordIntroduction | null;
+  ayahHighlights: AyahHighlight[];
+  lesson: { title: string; orderIndex: number };
+  progress: {
+    status: WordStatus;
+    timesCorrect: number;
+    timesIncorrect: number;
+    lastReviewedAt: string | null;
+    learnedAt: string;
+  } | null;
+}
+
 // ── Streak ──
 
 export interface StreakData {

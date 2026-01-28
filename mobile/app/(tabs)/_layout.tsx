@@ -42,9 +42,9 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="challenge/index"
         options={{
-          title: 'Review',
+          title: 'Practice',
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="refresh-circle-outline" size={size} color={color} />
+            <Ionicons name="flash-outline" size={size} color={color} />
           ),
         }}
       />

@@ -21,8 +21,11 @@ export const colors = {
 
   // Semantic
   success: '#22C55E',
+  successLight: '#F0FDF4',
   error: '#EF4444',
+  errorLight: '#FEF2F2',
   warning: '#F59E0B',
+  warningLight: '#FFFBEB',
 
   // Borders
   border: '#E5E7EB',

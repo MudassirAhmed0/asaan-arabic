@@ -1,6 +1,6 @@
 # Progress Tracker
 
-Last updated: 2026-01-27
+Last updated: 2026-01-29
 
 ---
 
@@ -53,7 +53,7 @@ Last updated: 2026-01-27
 ---
 
 ## Feature 2: Lesson List & Lesson Flow (CORE)
-**Status: BUILT + COMMITTED — awaiting Mudassir's manual testing**
+**Status: DONE**
 **Commit:** `8b5a334` on `main`
 
 ### Backend
@@ -95,36 +95,69 @@ Last updated: 2026-01-27
 - [x] CLAUDE.md updated with tone decisions
 
 ### Still Needed
-- [ ] **Mudassir manual test** — run full lesson flow, report bugs
-- [ ] Fix any bugs reported during testing
 - [ ] Unit tests (backend)
 - [ ] E2E tests (backend)
 
 ---
 
-## Feature 3: My Words (Word Bank)
-**Status: NOT STARTED**
+## Feature 3: Streak Display, Daily Review & Visual UX Polish
+**Status: DONE**
+**Commit:** `6ec633a` on `main`
 
-### Backend
-- [ ] `GET /words` — learned words
-- [ ] `GET /words/:id` — detail
-- [ ] `PATCH /words/:id/status` — revision toggle
-- [ ] `POST /words/review` — record result
-- [ ] `GET /words/self-test` — generate quiz
-- [ ] Edge cases + error handling
-- [ ] Unit tests
-- [ ] E2E tests
-
-### Frontend
-- [ ] WordCountBanner
-- [ ] Word list with search/filter
-- [ ] Status toggle (needs revision)
-- [ ] Self-test quiz
-- [ ] Empty state, error handling
+- [x] Streak badge + contextual greeting (welcome back + word count)
+- [x] Daily word review tab with QuickFire activity
+- [x] Visual improvements: Ionicons throughout, improved contrast, button sizing
+- [x] Backend: Words controller + service for learned words
+- [x] Visual share card for Instagram Stories (9:16 ratio, deep teal + gold) — commit `607e1c4`
+- [x] Fixed word counter to use server response as source of truth
 
 ---
 
-## Feature 4: Daily Challenge
+## Feature 4: My Words (Word Bank) + Smart Practice
+**Status: BUILT — awaiting Mudassir's manual testing**
+
+### Backend
+- [x] `GET /words` — learned words with search + status filter
+- [x] `GET /words/:id` — word detail with introduction, ayah highlights, progress
+- [x] `PATCH /words/:id/status` — toggle between LEARNED/NEEDS_REVISION
+- [x] `GET /words/practice` — configurable quiz (count param, status filter, revision words prioritized)
+- [x] `POST /words/quiz-results` — record results, auto-flag wrong words, auto-clear on 3 correct, update streak
+- [x] DTO validation (UpdateWordStatusDto, QuizResultsDto)
+- [x] Route ordering (static before parameterized)
+- [ ] Unit tests
+- [ ] E2E tests
+
+### Frontend — My Words tab
+- [x] Word count banner (large teal number, screenshot-worthy)
+- [x] Word list with search (debounced, by meaning/transliteration)
+- [x] Filter chips (All / Needs Revision)
+- [x] WordListItem — visible status button with label ("Known" / "Revise"), amber "Needs revision" badge
+- [x] Status toggle with haptic feedback
+- [x] Word detail screen (`/word/[id]`) — full word info, introduction, ayah examples, stats
+- [x] Empty states (no words, no revision words, no search results)
+- [x] Pull-to-refresh on word list
+- [x] "Practice" button navigates to Practice tab
+
+### Frontend — Practice tab (replaced old Review + Self-test)
+- [x] Merged Review tab + Self-test into unified "Practice" tab
+- [x] Word count picker (5 / 10 / 20 / All) with disabled state for unavailable counts
+- [x] Filter chips (All Words / Revision) with counts
+- [x] Smart revision: wrong answers auto-flagged, 3 correct answers auto-clears
+- [x] Per-word result tracking (timesCorrect, timesIncorrect updated)
+- [x] Wrong words summary on completion ("Words to revisit" with auto-flag notice)
+- [x] Share card on completion (Instagram Stories, score + vocabulary count)
+- [x] Streak updates after practice
+- [x] Deleted redundant self-test screen
+- [x] Tab renamed "Practice" with flash icon
+
+### Still Needed
+- [ ] **Mudassir manual test** — word bank, practice, revision flow
+- [ ] Unit tests (backend)
+- [ ] E2E tests (backend)
+
+---
+
+## Feature 5: Daily Challenge
 **Status: NOT STARTED**
 
 ### Backend
@@ -143,7 +176,7 @@ Last updated: 2026-01-27
 
 ---
 
-## Feature 5: Library
+## Feature 6: Library
 **Status: NOT STARTED**
 
 ### Backend
@@ -163,7 +196,7 @@ Last updated: 2026-01-27
 
 ---
 
-## Feature 6: Weekly Review
+## Feature 7: Weekly Review
 **Status: NOT STARTED**
 
 ### Backend
@@ -182,7 +215,7 @@ Last updated: 2026-01-27
 
 ---
 
-## Feature 7: Push Notifications
+## Feature 8: Push Notifications
 **Status: NOT STARTED**
 
 ### Backend
@@ -203,7 +236,7 @@ Last updated: 2026-01-27
 
 ---
 
-## Feature 8: Share Cards
+## Feature 9: Share Cards
 **Status: NOT STARTED**
 
 ### Backend
@@ -221,7 +254,7 @@ Last updated: 2026-01-27
 
 ---
 
-## Feature 9: Polish & QA
+## Feature 10: Polish & QA
 **Status: NOT STARTED**
 
 - [ ] Haptic feedback
@@ -234,7 +267,7 @@ Last updated: 2026-01-27
 
 ---
 
-## Feature 10: Deploy & Launch
+## Feature 11: Deploy & Launch
 **Status: NOT STARTED**
 
 - [ ] Deploy backend

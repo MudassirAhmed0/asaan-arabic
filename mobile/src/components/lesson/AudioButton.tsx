@@ -10,7 +10,7 @@ interface AudioButtonProps {
   audioUrl: string;
   arabicText?: string;
   label?: string;
-  size?: 'default' | 'large';
+  size?: 'default' | 'large' | 'icon';
 }
 
 const isFullUrl = (url: string) => url.startsWith('http://') || url.startsWith('https://');
@@ -60,8 +60,23 @@ export function AudioButton({ audioUrl, arabicText, label = 'Play', size = 'defa
   }, [audioUrl, arabicText]);
 
   const isLarge = size === 'large';
-  const iconSize = isLarge ? 20 : 16;
-  const iconColor = playing ? colors.textOnPrimary : colors.primary;
+  const isIcon = size === 'icon';
+  const iconSize = isIcon ? 24 : isLarge ? 20 : 16;
+  const iconColor = isIcon
+    ? (playing ? colors.primary : colors.textTertiary)
+    : (playing ? colors.textOnPrimary : colors.primary);
+
+  if (isIcon) {
+    return (
+      <Pressable
+        style={({ pressed }) => [styles.iconButton, pressed && styles.pressed]}
+        onPress={play}
+        hitSlop={12}
+      >
+        <Ionicons name={playing ? 'volume-high' : 'volume-medium-outline'} size={iconSize} color={iconColor} />
+      </Pressable>
+    );
+  }
 
   return (
     <Pressable
@@ -85,6 +100,9 @@ export function AudioButton({ audioUrl, arabicText, label = 'Play', size = 'defa
 }
 
 const styles = StyleSheet.create({
+  iconButton: {
+    padding: spacing.xs,
+  },
   button: {
     flexDirection: 'row',
     alignItems: 'center',

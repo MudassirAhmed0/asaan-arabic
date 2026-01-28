@@ -16,12 +16,12 @@ No feature moves forward until the previous one is tested and committed.
 - Ramadan launch target identified: launch 5-10 days before Ramadan (~10-15 day build window)
 - Technical stack decided: React Native + Expo (frontend), NestJS + PostgreSQL (backend)
 - No name yet. No design yet.
-- Phase: **Feature 2 built + copy polished + committed → Mudassir manual testing next**
+- Phase: **Features 0-4 built → Feature 4 awaiting manual testing → Next: Feature 5 (Daily Challenge)**
 
 ## What To Do Next
-1. **Mudassir tests Feature 2 end-to-end** — run backend (`npm run start:dev` in `backend/`) and Expo (`npx expo start` in `mobile/`), walk through lessons, report any bugs or issues
-2. **Fix all reported bugs** — revise until Feature 2 is stable
-3. **Once stable** — move to Feature 3 (My Words / Word Bank)
+1. **Mudassir tests Feature 4 (My Words)** — browse word bank, toggle revision status, search, run self-test
+2. **Fix any bugs** from testing
+3. **Once stable** — move to Feature 5 (Daily Challenge)
 4. See `progress.md` for full checklist of what's built and what's remaining
 
 ## Where We Want to Go
@@ -39,7 +39,7 @@ No feature moves forward until the previous one is tested and committed.
 5. **DONE** — Design what a single lesson actually looks like (screen-by-screen)
 6. **DONE** — Source Qur'anic word list → words.md (50 words, 10 lessons, from corpus.quran.com)
 7. **DONE** — Technical decisions: React Native + Expo, NestJS + PostgreSQL, FCM, JWT auth
-8. **IN PROGRESS** — Build (full feature set, not cut-down MVP) — Feature 2 built, testing next
+8. **IN PROGRESS** — Build (full feature set, not cut-down MVP) — Features 0-4 built, Feature 5 next
 9. Mudassir starts pre-Ramadan content campaign
 10. Launch on both Android + iOS
 

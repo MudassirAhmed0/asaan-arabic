@@ -1,29 +1,37 @@
 import { View, Pressable, StyleSheet } from 'react-native';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import * as Haptics from 'expo-haptics';
 import { Text } from '../ui/Text';
 import { colors, spacing, borderRadius } from '../../constants/theme';
 
 interface QuickFireRound {
+  wordId?: string;
   arabic: string;
   options: string[];
   correctIndex: number;
 }
 
+interface WordResult {
+  wordId: string;
+  correct: boolean;
+}
+
 interface ActivityQuickFireProps {
   rounds: QuickFireRound[];
-  onComplete: (score: number, total: number) => void;
+  onComplete: (score: number, total: number, results?: WordResult[]) => void;
+  onClose?: () => void;
 }
 
 export function ActivityQuickFire({
   rounds,
   onComplete,
+  onClose,
 }: ActivityQuickFireProps) {
   const [currentRound, setCurrentRound] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [score, setScore] = useState(0);
-  const [finished, setFinished] = useState(false);
-  const [finalScore, setFinalScore] = useState(0);
+  const scoreRef = useRef(0);
+  const resultsRef = useRef<WordResult[]>([]);
 
   // Shuffle each round's options once on mount
   const [shuffledRounds] = useState(() =>
@@ -40,6 +48,7 @@ export function ActivityQuickFire({
 
   const round = shuffledRounds[currentRound];
   const answered = selectedIndex !== null;
+  const isLastRound = currentRound >= rounds.length - 1;
 
   const handleSelect = useCallback(
     (index: number) => {
@@ -51,79 +60,50 @@ export function ActivityQuickFire({
       if (isCorrect) {
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
         setScore((s) => s + 1);
+        scoreRef.current += 1;
       } else {
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+      }
+
+      // Track per-word result if wordId is available
+      if (round.wordId) {
+        resultsRef.current.push({
+          wordId: round.wordId,
+          correct: isCorrect,
+        });
       }
     },
     [answered, round],
   );
 
   const handleNext = useCallback(() => {
-    if (currentRound < rounds.length - 1) {
+    if (!isLastRound) {
       setCurrentRound((r) => r + 1);
       setSelectedIndex(null);
     } else {
-      // score already includes this round's result from handleSelect
-      setFinalScore(score);
-      setFinished(true);
+      // Skip internal summary — go straight to parent's results
+      const wordResults = resultsRef.current.length > 0 ? resultsRef.current : undefined;
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+      onComplete(scoreRef.current, rounds.length, wordResults);
     }
-  }, [currentRound, rounds.length, score]);
-
-  const handleFinish = useCallback(() => {
-    onComplete(finalScore, rounds.length);
-  }, [finalScore, rounds.length, onComplete]);
-
-  // Summary screen after all rounds
-  if (finished) {
-    const percent = Math.round((finalScore / rounds.length) * 100);
-    const message =
-      percent === 100
-        ? 'Perfect!'
-        : percent >= 60
-          ? 'Nice work!'
-          : 'Keep going — you\'ll get there!';
-
-    return (
-      <View style={styles.container}>
-        <View style={styles.summaryContent}>
-          <Text variant="h2" color={colors.primary} align="center">
-            {message}
-          </Text>
-          <Text variant="h1" align="center" style={styles.scoreNumber}>
-            {finalScore}/{rounds.length}
-          </Text>
-          <Text variant="body" color={colors.textSecondary} align="center">
-            correct
-          </Text>
-        </View>
-        <Pressable
-          style={({ pressed }) => [
-            styles.nextButton,
-            pressed && styles.nextButtonPressed,
-          ]}
-          onPress={handleFinish}
-        >
-          <Text variant="bodyBold" color={colors.textOnPrimary}>
-            Continue
-          </Text>
-        </Pressable>
-      </View>
-    );
-  }
+  }, [isLastRound, rounds.length, onComplete]);
 
   return (
     <View style={styles.container}>
+      {/* Header with close button */}
+      <View style={styles.header}>
+        <Text variant="caption" color={colors.textSecondary}>
+          {currentRound + 1} of {rounds.length}
+        </Text>
+        {onClose && (
+          <Pressable onPress={onClose} hitSlop={12}>
+            <Text variant="body" color={colors.textTertiary}>✕</Text>
+          </Pressable>
+        )}
+      </View>
+
       <Text variant="h3" align="center" style={styles.title}>
         Do you remember?
-      </Text>
-      <Text
-        variant="caption"
-        color={colors.textSecondary}
-        align="center"
-        style={styles.subtitle}
-      >
-        {currentRound + 1} of {rounds.length}
       </Text>
 
       <View style={styles.arabicContainer}>
@@ -190,7 +170,7 @@ export function ActivityQuickFire({
         disabled={!answered}
       >
         <Text variant="bodyBold" color={answered ? colors.textOnPrimary : 'transparent'}>
-          {currentRound < rounds.length - 1 ? 'Next' : 'See Results'}
+          {isLastRound ? 'Done' : 'Next'}
         </Text>
       </Pressable>
     </View>
@@ -204,10 +184,13 @@ const styles = StyleSheet.create({
     paddingTop: spacing.md,
     paddingBottom: spacing.xl,
   },
-  title: {
-    marginBottom: spacing.xs,
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: spacing.sm,
   },
-  subtitle: {
+  title: {
     marginBottom: spacing.lg,
   },
   arabicContainer: {
@@ -230,11 +213,11 @@ const styles = StyleSheet.create({
   },
   optionCorrect: {
     borderColor: colors.success,
-    backgroundColor: '#F0FFF4',
+    backgroundColor: colors.successLight,
   },
   optionWrong: {
     borderColor: colors.error,
-    backgroundColor: '#FFF5F5',
+    backgroundColor: colors.errorLight,
   },
   nextButton: {
     backgroundColor: colors.primary,
@@ -248,15 +231,5 @@ const styles = StyleSheet.create({
   },
   nextButtonPressed: {
     opacity: 0.8,
-  },
-  summaryContent: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: spacing.sm,
-  },
-  scoreNumber: {
-    fontSize: 56,
-    lineHeight: 64,
   },
 });
