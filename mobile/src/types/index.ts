@@ -198,6 +198,7 @@ export interface WordDetailResponse {
   } | null;
 }
 
+
 // ── Streak ──
 
 export interface StreakData {

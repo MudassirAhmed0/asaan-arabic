@@ -158,41 +158,30 @@ Last updated: 2026-01-29
 ---
 
 ## Feature 5: Daily Challenge
-**Status: NOT STARTED**
+**Status: DONE**
+**Commit:** `6d9e461` on `main`
 
 ### Backend
-- [ ] `GET /challenges/today`
-- [ ] `POST /challenges/today/answer`
-- [ ] `GET /challenges/history`
-- [ ] Seed/auto-generate challenges
-- [ ] Edge cases + error handling
+- [x] `GET /challenges/today`
+- [x] `POST /challenges/today/answer`
+- [x] `GET /challenges/history`
+- [x] Seed 30 days of challenges (quiz + fact types)
+- [x] Edge cases + error handling (already answered, no challenge today)
 - [ ] Unit tests
 - [ ] E2E tests
 
 ### Frontend
-- [ ] Challenge tab (type-specific rendering)
-- [ ] History view
-- [ ] Error handling + already-answered state
+- [x] Compact banner on Learn tab (tappable, opens modal)
+- [x] Modal with full challenge content (quiz options with green/red feedback, facts with "Got it")
+- [x] Already-answered state (done banner)
+- [x] Error handling + loading states
 
 ---
 
 ## Feature 6: Library
-**Status: NOT STARTED**
+**Status: DEFERRED — post-launch**
 
-### Backend
-- [ ] `GET /library/surahs`
-- [ ] `GET /library/surahs/:number`
-- [ ] `GET /library/salah`
-- [ ] `GET /library/duas`
-- [ ] Seed library content
-- [ ] E2E tests
-
-### Frontend
-- [ ] Library home (3 sections)
-- [ ] Surah list + detail
-- [ ] Salah screen
-- [ ] Duas screen
-- [ ] Error handling + loading
+Decided to skip Library for launch. Quranic text accuracy is critical and needs proper verification. Library tab shows "Coming Soon" placeholder with 3 greyed-out cards (Surahs, Salah Guide, Duas). DB models exist but are unused. Will revisit after user feedback.
 
 ---
 
