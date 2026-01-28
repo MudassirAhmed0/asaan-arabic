@@ -7,6 +7,7 @@ import { UsersModule } from './users/users.module';
 import { StreaksModule } from './streaks/streaks.module';
 import { LessonsModule } from './lessons/lessons.module';
 import { WordsModule } from './words/words.module';
+import { ChallengesModule } from './challenges/challenges.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { WordsModule } from './words/words.module';
     StreaksModule,
     LessonsModule,
     WordsModule,
+    ChallengesModule,
   ],
 })
 export class AppModule {}

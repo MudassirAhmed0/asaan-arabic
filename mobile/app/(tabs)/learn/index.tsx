@@ -4,6 +4,7 @@ import { useRouter } from 'expo-router';
 import { useMemo } from 'react';
 import { Text } from '../../../src/components/ui/Text';
 import { LessonCard } from '../../../src/components/lesson/LessonCard';
+import { DailyChallengeCard } from '../../../src/components/challenge/DailyChallengeCard';
 import { colors, spacing, borderRadius } from '../../../src/constants/theme';
 import { useLessonList } from '../../../src/hooks/useLessons';
 import { useProgressStore } from '../../../src/stores/progress';
@@ -44,6 +45,7 @@ export default function LearnScreen() {
         data={lessons}
         keyExtractor={(item) => item.id}
         ListHeaderComponent={
+          <>
           <View style={styles.header}>
             <Text variant="h1">Learn</Text>
             <Text variant="body" color={colors.textSecondary}>
@@ -74,6 +76,8 @@ export default function LearnScreen() {
               </View>
             )}
           </View>
+          <DailyChallengeCard />
+        </>
         }
         renderItem={({ item }) => (
           <LessonCard lesson={item} onPress={() => handleLessonPress(item)} />
