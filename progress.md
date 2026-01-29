@@ -186,21 +186,30 @@ Decided to skip Library for launch. Quranic text accuracy is critical and needs 
 ---
 
 ## Feature 7: Weekly Review
-**Status: NOT STARTED**
+**Status: DONE**
+**Commit:** `f51d336` on `main`
 
 ### Backend
-- [ ] `GET /reviews/current`
-- [ ] `POST /reviews/submit`
-- [ ] `GET /reviews/history`
-- [ ] Edge cases
+- [x] `GET /reviews/current` — returns quiz rounds (max 20, revision-priority) or completed status
+- [x] `POST /reviews/submit` — saves review, flags wrong words as NEEDS_REVISION, auto-clears on 3 correct, updates streak
+- [x] `GET /reviews/history` — last 10 reviews
+- [x] ISO week calculation, requires 5+ learned words
 - [ ] Unit tests
 - [ ] E2E tests
 
 ### Frontend
-- [ ] Weekly review banner
-- [ ] Quiz screen
-- [ ] Score display + history
-- [ ] Error handling
+- [x] WeeklyReviewBanner on Learn tab (only shown when actionable — hidden when locked/completed)
+- [x] Full-screen quiz screen reusing ActivityQuickFire
+- [x] Results screen with score, wrong words list, share card
+- [x] Streak updates on completion
+
+### UX Polish (applied across all flows)
+- [x] Library tab hidden (href: null, Coming Soon placeholder)
+- [x] Warm copy: "MashaAllah! 5 new words", "words I know"
+- [x] Removed jargon: "auto-flagged for revision" → "These will show up more often in practice"
+- [x] Share icon on lesson complete button
+- [x] Flame icon on streak badge
+- [x] Dynamic quiz titles per context (lesson, practice, review, challenge)
 
 ---
 
