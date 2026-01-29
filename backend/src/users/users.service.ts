@@ -70,6 +70,9 @@ export class UsersService {
         name: true,
         profilePicture: true,
         createdAt: true,
+
+        soundEnabled: true,
+        hapticsEnabled: true,
       },
     });
 
@@ -120,6 +123,9 @@ export class UsersService {
         name: true,
         profilePicture: true,
         createdAt: true,
+
+        soundEnabled: true,
+        hapticsEnabled: true,
       },
     });
 

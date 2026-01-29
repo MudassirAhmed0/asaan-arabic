@@ -21,6 +21,10 @@ model User {
   createdAt      DateTime @default(now()) @map("created_at")
   updatedAt      DateTime @updatedAt @map("updated_at")
 
+  // Preferences
+  soundEnabled   Boolean        @default(true) @map("sound_enabled")
+  hapticsEnabled Boolean        @default(true) @map("haptics_enabled")
+
   refreshTokens     RefreshToken[]
   userProgress      UserProgress?
   lessonAttempts    LessonAttempt[]
@@ -88,8 +92,6 @@ model Word {
   transliteration String   @db.VarChar(100)
   meaning         String   @db.VarChar(255)
   frequency       Int
-  isUrduCognate   Boolean  @map("is_urdu_cognate")
-  urduCognateNote String?  @map("urdu_cognate_note") @db.VarChar(500)
   audioUrl        String   @map("audio_url") @db.VarChar(500)
   createdAt       DateTime @default(now()) @map("created_at")
 
@@ -108,8 +110,8 @@ model WordIntroduction {
   id    String            @id @default(uuid()) @db.Uuid
   style IntroductionStyle
 
-  headline String @db.VarChar(500)
-  body     String @db.Text
+  headline   String  @db.VarChar(500)
+  body       String  @db.Text
 
   ayahText String? @map("ayah_text") @db.Text
   ayahRef  String? @map("ayah_ref") @db.VarChar(50)
@@ -154,9 +156,9 @@ enum ActivityType {
 }
 
 model MidLessonMessage {
-  id       String @id @default(uuid()) @db.Uuid
-  headline String @db.VarChar(255)
-  body     String @db.Text
+  id         String  @id @default(uuid()) @db.Uuid
+  headline   String  @db.VarChar(255)
+  body       String  @db.Text
 
   lessonId String @unique @map("lesson_id") @db.Uuid
   lesson   Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
@@ -165,9 +167,9 @@ model MidLessonMessage {
 }
 
 model CelebrationStat {
-  id              String @id @default(uuid()) @db.Uuid
-  ayahCoverage    String @map("ayah_coverage") @db.VarChar(255)
-  cumulativeWords Int    @map("cumulative_words")
+  id               String  @id @default(uuid()) @db.Uuid
+  ayahCoverage     String  @map("ayah_coverage") @db.VarChar(255)
+  cumulativeWords  Int     @map("cumulative_words")
 
   lessonId String @unique @map("lesson_id") @db.Uuid
   lesson   Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)

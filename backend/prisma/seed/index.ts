@@ -50,8 +50,6 @@ async function main() {
         transliteration: wordData.transliteration,
         meaning: wordData.meaning,
         frequency: wordData.frequency,
-        isUrduCognate: wordData.isUrduCognate,
-        urduCognateNote: wordData.urduCognateNote,
         audioUrl: wordData.audioUrl,
         lessonId,
       },
@@ -61,8 +59,6 @@ async function main() {
         transliteration: wordData.transliteration,
         meaning: wordData.meaning,
         frequency: wordData.frequency,
-        isUrduCognate: wordData.isUrduCognate,
-        urduCognateNote: wordData.urduCognateNote,
         audioUrl: wordData.audioUrl,
         lessonId,
       },
@@ -76,7 +72,9 @@ async function main() {
       update: {
         style: intro.style,
         headline: intro.headline,
+
         body: intro.body,
+
         ayahText: intro.ayahText ?? null,
         ayahRef: intro.ayahRef ?? null,
         factStat: intro.factStat ?? null,
@@ -88,7 +86,9 @@ async function main() {
         wordId: word.id,
         style: intro.style,
         headline: intro.headline,
+
         body: intro.body,
+
         ayahText: intro.ayahText ?? null,
         ayahRef: intro.ayahRef ?? null,
         factStat: intro.factStat ?? null,
@@ -141,12 +141,16 @@ async function main() {
       where: { lessonId },
       update: {
         headline: msg.headline,
+
         body: msg.body,
+
       },
       create: {
         lessonId,
         headline: msg.headline,
+
         body: msg.body,
+
       },
     });
   }
@@ -164,11 +168,13 @@ async function main() {
       where: { lessonId },
       update: {
         ayahCoverage: cel.ayahCoverage,
+
         cumulativeWords: cel.cumulativeWords,
       },
       create: {
         lessonId,
         ayahCoverage: cel.ayahCoverage,
+
         cumulativeWords: cel.cumulativeWords,
       },
     });

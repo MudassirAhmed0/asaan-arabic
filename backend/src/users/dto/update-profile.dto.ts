@@ -1,4 +1,4 @@
-import { IsOptional, IsString, MaxLength, IsUrl } from 'class-validator';
+import { IsOptional, IsString, MaxLength, IsUrl, IsBoolean } from 'class-validator';
 
 export class UpdateProfileDto {
   @IsOptional()
@@ -11,4 +11,12 @@ export class UpdateProfileDto {
   @IsUrl()
   @MaxLength(500)
   profilePicture?: string;
+
+  @IsOptional()
+  @IsBoolean()
+  soundEnabled?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  hapticsEnabled?: boolean;
 }

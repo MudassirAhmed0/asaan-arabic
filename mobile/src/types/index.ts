@@ -16,8 +16,6 @@ export interface Word {
   transliteration: string;
   meaning: string;
   frequency: number;
-  isUrduCognate: boolean;
-  urduCognateNote?: string;
   audioUrl: string;
   lessonId: string;
   introduction?: WordIntroduction;
@@ -182,8 +180,6 @@ export interface WordDetailResponse {
   transliteration: string;
   meaning: string;
   frequency: number;
-  isUrduCognate: boolean;
-  urduCognateNote?: string;
   audioUrl: string;
   lessonId: string;
   introduction: WordIntroduction | null;

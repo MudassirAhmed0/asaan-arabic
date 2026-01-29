@@ -16,12 +16,12 @@ No feature moves forward until the previous one is tested and committed.
 - Ramadan launch target identified: launch 5-10 days before Ramadan (~10-15 day build window)
 - Technical stack decided: React Native + Expo (frontend), NestJS + PostgreSQL (backend)
 - No name yet. No design yet.
-- Phase: **Features 0-5 built, Feature 6 (Library) deferred → Next: Feature 7 (Weekly Review) or manual testing of Features 4-5**
+- Phase: **Features 0-7 built + committed → Feature 8 (Push Notifications) next**
 
 ## What To Do Next
-1. **Mudassir tests Features 4 & 5** — My Words (word bank, revision, practice) + Daily Challenge (banner on Learn tab, modal quiz/fact)
+1. **Mudassir tests Feature 7 (Weekly Review)** — banner on Learn tab, quiz flow, results screen
 2. **Fix any bugs** from testing
-3. **Once stable** — commit and move to Feature 7 (Weekly Review)
+3. **Once stable** — move to Feature 8 (Push Notifications)
 4. Feature 6 (Library) deferred to post-launch — needs proper Quranic text verification
 5. See `progress.md` for full checklist of what's built and what's remaining
 

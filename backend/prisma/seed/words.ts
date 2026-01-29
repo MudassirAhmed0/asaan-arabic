@@ -6,8 +6,6 @@ export interface WordSeedData {
   transliteration: string;
   meaning: string;
   frequency: number;
-  isUrduCognate: boolean;
-  urduCognateNote: string | null;
   audioUrl: string;
   lessonOrderIndex: number;
   introduction: {
@@ -31,8 +29,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Rabb',
     meaning: 'Lord, Sustainer',
     frequency: 975,
-    isUrduCognate: true,
-    urduCognateNote: 'Same word in Urdu — "Ya Rabb!" means "O Lord!"',
     audioUrl: '/audio/words/rabb.mp3',
     lessonOrderIndex: 1,
     introduction: {
@@ -47,8 +43,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Rahmah',
     meaning: 'Mercy',
     frequency: 339,
-    isUrduCognate: true,
-    urduCognateNote: 'From the same root as Ar-Rahman and Ar-Raheem',
     audioUrl: '/audio/words/rahmah.mp3',
     lessonOrderIndex: 1,
     introduction: {
@@ -65,8 +59,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Ilm',
     meaning: 'Knowledge',
     frequency: 382,
-    isUrduCognate: true,
-    urduCognateNote: 'Used constantly in Urdu — "ilm" means knowledge',
     audioUrl: '/audio/words/ilm.mp3',
     lessonOrderIndex: 1,
     introduction: {
@@ -82,8 +74,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Sabr',
     meaning: 'Patience',
     frequency: 103,
-    isUrduCognate: true,
-    urduCognateNote: 'Identical in Urdu — "sabr karo" means "be patient"',
     audioUrl: '/audio/words/sabr.mp3',
     lessonOrderIndex: 1,
     introduction: {
@@ -101,8 +91,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Huda',
     meaning: 'Guidance',
     frequency: 144,
-    isUrduCognate: true,
-    urduCognateNote: 'Related to "hidayat" in Urdu — guidance',
     audioUrl: '/audio/words/huda.mp3',
     lessonOrderIndex: 1,
     introduction: {
@@ -119,8 +107,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Allah',
     meaning: 'God',
     frequency: 2699,
-    isUrduCognate: true,
-    urduCognateNote: 'The same word used across all Muslim cultures',
     audioUrl: '/audio/words/allah.mp3',
     lessonOrderIndex: 2,
     introduction: {
@@ -136,8 +122,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Kitab',
     meaning: 'Book',
     frequency: 260,
-    isUrduCognate: true,
-    urduCognateNote: 'Used in Urdu for book — "kitab"',
     audioUrl: '/audio/words/kitab.mp3',
     lessonOrderIndex: 2,
     introduction: {
@@ -152,8 +136,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Ayah',
     meaning: 'Sign, Verse',
     frequency: 382,
-    isUrduCognate: true,
-    urduCognateNote: 'Used in Urdu to mean a verse of the Qur\'an',
     audioUrl: '/audio/words/ayah.mp3',
     lessonOrderIndex: 2,
     introduction: {
@@ -170,8 +152,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Rasool',
     meaning: 'Messenger',
     frequency: 332,
-    isUrduCognate: true,
-    urduCognateNote: 'Same word in Urdu — "Rasool Allah"',
     audioUrl: '/audio/words/rasool.mp3',
     lessonOrderIndex: 2,
     introduction: {
@@ -186,8 +166,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Haqq',
     meaning: 'Truth',
     frequency: 242,
-    isUrduCognate: true,
-    urduCognateNote: '"Haqq" is used in Urdu for truth and right',
     audioUrl: '/audio/words/haqq.mp3',
     lessonOrderIndex: 2,
     introduction: {
@@ -207,8 +185,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Ard',
     meaning: 'Earth',
     frequency: 461,
-    isUrduCognate: false,
-    urduCognateNote: 'Partially similar — "arz" is sometimes used in Urdu poetry',
     audioUrl: '/audio/words/ard.mp3',
     lessonOrderIndex: 3,
     introduction: {
@@ -224,8 +200,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Sama',
     meaning: 'Sky, Heaven',
     frequency: 310,
-    isUrduCognate: false,
-    urduCognateNote: 'Partially known — "asman" in Urdu comes from Persian, but "sama" is recognized',
     audioUrl: '/audio/words/sama.mp3',
     lessonOrderIndex: 3,
     introduction: {
@@ -242,8 +216,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Nafs',
     meaning: 'Self, Soul',
     frequency: 295,
-    isUrduCognate: true,
-    urduCognateNote: '"Nafs" is used in Urdu for self/ego — "nafs par qabu"',
     audioUrl: '/audio/words/nafs.mp3',
     lessonOrderIndex: 3,
     introduction: {
@@ -258,8 +230,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Noor',
     meaning: 'Light',
     frequency: 194,
-    isUrduCognate: true,
-    urduCognateNote: '"Noor" is a common name and word in Urdu meaning light',
     audioUrl: '/audio/words/noor.mp3',
     lessonOrderIndex: 3,
     introduction: {
@@ -274,8 +244,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Hayat',
     meaning: 'Life',
     frequency: 190,
-    isUrduCognate: true,
-    urduCognateNote: '"Hayat" is used in Urdu for life — "hayat-e-insani"',
     audioUrl: '/audio/words/hayat.mp3',
     lessonOrderIndex: 3,
     introduction: {
@@ -295,8 +263,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Alima',
     meaning: 'to know',
     frequency: 382,
-    isUrduCognate: true,
-    urduCognateNote: 'Root of "ilm" (knowledge) and "aalim" (scholar)',
     audioUrl: '/audio/words/alima.mp3',
     lessonOrderIndex: 4,
     introduction: {
@@ -311,8 +277,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Amila',
     meaning: 'to do, to work',
     frequency: 276,
-    isUrduCognate: true,
-    urduCognateNote: '"Amal" (deed/action) comes from this root',
     audioUrl: '/audio/words/amila.mp3',
     lessonOrderIndex: 4,
     introduction: {
@@ -329,8 +293,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Khalaqa',
     meaning: 'to create',
     frequency: 184,
-    isUrduCognate: true,
-    urduCognateNote: '"Khalq" (creation) and "Khaliq" (Creator) come from this root',
     audioUrl: '/audio/words/khalaqa.mp3',
     lessonOrderIndex: 4,
     introduction: {
@@ -346,8 +308,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Hada',
     meaning: 'to guide',
     frequency: 144,
-    isUrduCognate: true,
-    urduCognateNote: 'Root of "hidayat" (guidance) in Urdu',
     audioUrl: '/audio/words/hada.mp3',
     lessonOrderIndex: 4,
     introduction: {
@@ -362,8 +322,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Sami\'a',
     meaning: 'to hear',
     frequency: 78,
-    isUrduCognate: true,
-    urduCognateNote: '"Sami" (hearing) — As-Sami is one of Allah\'s names',
     audioUrl: '/audio/words/samia.mp3',
     lessonOrderIndex: 4,
     introduction: {
@@ -383,8 +341,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Jannah',
     meaning: 'Paradise, Garden',
     frequency: 147,
-    isUrduCognate: true,
-    urduCognateNote: '"Jannat" — same word used in Urdu for paradise',
     audioUrl: '/audio/words/jannah.mp3',
     lessonOrderIndex: 5,
     introduction: {
@@ -399,8 +355,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Nar',
     meaning: 'Fire, Hell',
     frequency: 145,
-    isUrduCognate: true,
-    urduCognateNote: '"Naar" is used in Urdu — "jahannam ki nar"',
     audioUrl: '/audio/words/nar.mp3',
     lessonOrderIndex: 5,
     introduction: {
@@ -417,8 +371,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Adhab',
     meaning: 'Punishment',
     frequency: 322,
-    isUrduCognate: true,
-    urduCognateNote: '"Azaab" in Urdu — same word, same meaning',
     audioUrl: '/audio/words/adhab.mp3',
     lessonOrderIndex: 5,
     introduction: {
@@ -434,8 +386,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Ajr',
     meaning: 'Reward',
     frequency: 105,
-    isUrduCognate: true,
-    urduCognateNote: '"Ajr" is used in Urdu for reward/compensation',
     audioUrl: '/audio/words/ajr.mp3',
     lessonOrderIndex: 5,
     introduction: {
@@ -450,8 +400,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Maghfirah',
     meaning: 'Forgiveness',
     frequency: 127,
-    isUrduCognate: true,
-    urduCognateNote: '"Maghfirat" in Urdu — asking for Allah\'s forgiveness',
     audioUrl: '/audio/words/maghfirah.mp3',
     lessonOrderIndex: 5,
     introduction: {
@@ -471,8 +419,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Aamana',
     meaning: 'to believe',
     frequency: 537,
-    isUrduCognate: true,
-    urduCognateNote: 'Root of "iman" (faith) and "mu\'min" (believer)',
     audioUrl: '/audio/words/aamana.mp3',
     lessonOrderIndex: 6,
     introduction: {
@@ -488,8 +434,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Kafara',
     meaning: 'to disbelieve',
     frequency: 289,
-    isUrduCognate: true,
-    urduCognateNote: '"Kufr" in Urdu comes from this root — literally "covering" the truth',
     audioUrl: '/audio/words/kafara.mp3',
     lessonOrderIndex: 6,
     introduction: {
@@ -506,8 +450,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Mu\'min',
     meaning: 'Believer',
     frequency: 195,
-    isUrduCognate: true,
-    urduCognateNote: '"Momin" in Urdu — a person of faith',
     audioUrl: '/audio/words/mumin.mp3',
     lessonOrderIndex: 6,
     introduction: {
@@ -522,8 +464,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Abada',
     meaning: 'to worship',
     frequency: 122,
-    isUrduCognate: true,
-    urduCognateNote: '"Ibadat" (worship) in Urdu comes from this root',
     audioUrl: '/audio/words/abada.mp3',
     lessonOrderIndex: 6,
     introduction: {
@@ -538,8 +478,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Ittaqa',
     meaning: 'to fear Allah, be righteous',
     frequency: 166,
-    isUrduCognate: true,
-    urduCognateNote: '"Taqwa" in Urdu — God-consciousness',
     audioUrl: '/audio/words/ittaqa.mp3',
     lessonOrderIndex: 6,
     introduction: {
@@ -559,8 +497,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Qawm',
     meaning: 'People, Nation',
     frequency: 383,
-    isUrduCognate: true,
-    urduCognateNote: '"Qaum" in Urdu means nation/people',
     audioUrl: '/audio/words/qawm.mp3',
     lessonOrderIndex: 7,
     introduction: {
@@ -575,8 +511,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Nas',
     meaning: 'Mankind',
     frequency: 241,
-    isUrduCognate: true,
-    urduCognateNote: 'You know Surah An-Nas — "mankind"',
     audioUrl: '/audio/words/nas.mp3',
     lessonOrderIndex: 7,
     introduction: {
@@ -591,8 +525,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Abd',
     meaning: 'Servant',
     frequency: 275,
-    isUrduCognate: true,
-    urduCognateNote: 'Common in names — Abdullah means "servant of Allah"',
     audioUrl: '/audio/words/abd.mp3',
     lessonOrderIndex: 7,
     introduction: {
@@ -609,8 +541,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Zalim',
     meaning: 'Oppressor',
     frequency: 110,
-    isUrduCognate: true,
-    urduCognateNote: '"Zalim" in Urdu — an unjust person',
     audioUrl: '/audio/words/zalim.mp3',
     lessonOrderIndex: 7,
     introduction: {
@@ -626,8 +556,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Nabi',
     meaning: 'Prophet',
     frequency: 75,
-    isUrduCognate: true,
-    urduCognateNote: '"Nabi" in Urdu — prophet',
     audioUrl: '/audio/words/nabi.mp3',
     lessonOrderIndex: 7,
     introduction: {
@@ -647,8 +575,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Salah',
     meaning: 'Prayer',
     frequency: 99,
-    isUrduCognate: true,
-    urduCognateNote: 'You know this as "Namaz" — the Qur\'an calls it "Salah"',
     audioUrl: '/audio/words/salah.mp3',
     lessonOrderIndex: 8,
     introduction: {
@@ -663,8 +589,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Shukr',
     meaning: 'Gratitude',
     frequency: 75,
-    isUrduCognate: true,
-    urduCognateNote: '"Shukriya" (thank you) comes from this root',
     audioUrl: '/audio/words/shukr.mp3',
     lessonOrderIndex: 8,
     introduction: {
@@ -679,8 +603,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Rizq',
     meaning: 'Provision',
     frequency: 123,
-    isUrduCognate: true,
-    urduCognateNote: '"Rizq" is used in Urdu — provision/sustenance from Allah',
     audioUrl: '/audio/words/rizq.mp3',
     lessonOrderIndex: 8,
     introduction: {
@@ -697,8 +619,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Ni\'mah',
     meaning: 'Blessing',
     frequency: 144,
-    isUrduCognate: true,
-    urduCognateNote: '"Naimat" in Urdu — blessing, bounty',
     audioUrl: '/audio/words/nimah.mp3',
     lessonOrderIndex: 8,
     introduction: {
@@ -714,8 +634,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Hikmah',
     meaning: 'Wisdom',
     frequency: 39,
-    isUrduCognate: true,
-    urduCognateNote: '"Hikmat" in Urdu — wisdom, a divine quality',
     audioUrl: '/audio/words/hikmah.mp3',
     lessonOrderIndex: 8,
     introduction: {
@@ -735,8 +653,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Qala',
     meaning: 'to say',
     frequency: 1618,
-    isUrduCognate: false,
-    urduCognateNote: 'Not a direct cognate, but "qaul" (saying) is used in Urdu',
     audioUrl: '/audio/words/qala.mp3',
     lessonOrderIndex: 9,
     introduction: {
@@ -752,8 +668,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Da\'a',
     meaning: 'to call, to pray',
     frequency: 170,
-    isUrduCognate: true,
-    urduCognateNote: '"Dua" (supplication) comes from this root',
     audioUrl: '/audio/words/daa.mp3',
     lessonOrderIndex: 9,
     introduction: {
@@ -768,8 +682,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Ghafara',
     meaning: 'to forgive',
     frequency: 65,
-    isUrduCognate: true,
-    urduCognateNote: '"Astaghfar" and "maghfirat" come from this root',
     audioUrl: '/audio/words/ghafara.mp3',
     lessonOrderIndex: 9,
     introduction: {
@@ -784,8 +696,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Dhakara',
     meaning: 'to remember, to mention',
     frequency: 84,
-    isUrduCognate: true,
-    urduCognateNote: '"Zikr" (remembrance of Allah) comes from this root',
     audioUrl: '/audio/words/dhakara.mp3',
     lessonOrderIndex: 9,
     introduction: {
@@ -802,8 +712,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Zalama',
     meaning: 'to oppress, to wrong',
     frequency: 110,
-    isUrduCognate: true,
-    urduCognateNote: '"Zulm" (oppression) — same root as "zalim"',
     audioUrl: '/audio/words/zalama.mp3',
     lessonOrderIndex: 9,
     introduction: {
@@ -823,8 +731,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Mawt',
     meaning: 'Death',
     frequency: 165,
-    isUrduCognate: true,
-    urduCognateNote: '"Maut" in Urdu — death',
     audioUrl: '/audio/words/mawt.mp3',
     lessonOrderIndex: 10,
     introduction: {
@@ -842,8 +748,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Sirat',
     meaning: 'Straight Path',
     frequency: 45,
-    isUrduCognate: true,
-    urduCognateNote: '"Sirat-e-mustaqeem" — the straight path from Al-Fatiha',
     audioUrl: '/audio/words/sirat.mp3',
     lessonOrderIndex: 10,
     introduction: {
@@ -858,8 +762,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Yawm',
     meaning: 'Day',
     frequency: 325,
-    isUrduCognate: false,
-    urduCognateNote: 'Not a direct cognate, but "Yawm al-Qiyamah" is known',
     audioUrl: '/audio/words/yawm.mp3',
     lessonOrderIndex: 10,
     introduction: {
@@ -876,8 +778,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Amr',
     meaning: 'Command, Matter',
     frequency: 166,
-    isUrduCognate: true,
-    urduCognateNote: '"Amr" in Urdu can mean command or matter',
     audioUrl: '/audio/words/amr.mp3',
     lessonOrderIndex: 10,
     introduction: {
@@ -893,8 +793,6 @@ export const WORDS: WordSeedData[] = [
     transliteration: 'Sabeel',
     meaning: 'Path, Way',
     frequency: 176,
-    isUrduCognate: true,
-    urduCognateNote: '"Fi sabeel illah" — in the path of Allah',
     audioUrl: '/audio/words/sabeel.mp3',
     lessonOrderIndex: 10,
     introduction: {

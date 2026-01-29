@@ -2,7 +2,6 @@ import { View, Pressable, StyleSheet } from 'react-native';
 import { Text } from '../ui/Text';
 import { colors, spacing, borderRadius } from '../../constants/theme';
 import type { MidLessonMessage } from '../../types';
-
 interface MidLessonEncouragementProps {
   message: MidLessonMessage;
   wordCount: number;

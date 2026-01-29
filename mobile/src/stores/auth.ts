@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import * as SecureStore from 'expo-secure-store';
 import { usersApi } from '../api/users';
 import { useProgressStore } from './progress';
+import { usePreferencesStore } from './preferences';
 
 interface User {
   id: string;
@@ -9,6 +10,7 @@ interface User {
   email?: string | null;
   name?: string | null;
   profilePicture?: string | null;
+  createdAt?: string | null;
 }
 
 interface AuthState {
@@ -70,6 +72,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         email: profile.email,
         name: profile.name,
         profilePicture: profile.profilePicture,
+        createdAt: profile.createdAt,
       },
       onboardingCompleted: profile.progress.onboardingCompleted,
     });
@@ -80,6 +83,10 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       longestStreak: profile.streak.longestStreak,
       lastActivityAt: profile.progress.lastActivityAt,
       onboardingCompleted: profile.progress.onboardingCompleted,
+    });
+    usePreferencesStore.getState().setPreferences({
+      soundEnabled: profile.soundEnabled,
+      hapticsEnabled: profile.hapticsEnabled,
     });
   },
 

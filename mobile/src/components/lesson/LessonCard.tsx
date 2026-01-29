@@ -3,7 +3,6 @@ import { Ionicons } from '@expo/vector-icons';
 import { Text } from '../ui/Text';
 import { colors, spacing, borderRadius } from '../../constants/theme';
 import type { LessonListItem } from '../../types';
-
 interface LessonCardProps {
   lesson: LessonListItem;
   onPress: () => void;

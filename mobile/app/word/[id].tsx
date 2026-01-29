@@ -14,7 +14,6 @@ import { Card } from '../../src/components/ui/Card';
 import { AudioButton } from '../../src/components/lesson/AudioButton';
 import { colors, spacing, borderRadius, typography } from '../../src/constants/theme';
 import { useWordDetail, useUpdateWordStatus } from '../../src/hooks/useWords';
-
 export default function WordDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
@@ -41,7 +40,7 @@ export default function WordDetailScreen() {
 
   const needsRevision = word.progress?.status === 'NEEDS_REVISION';
   const hasIntro = !!word.introduction;
-  const hasInfo = word.frequency > 0 || (word.isUrduCognate && word.urduCognateNote);
+  const hasInfo = word.frequency > 0;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -142,16 +141,6 @@ export default function WordDetailScreen() {
                       Frequency in Quran
                     </Text>
                     <Text variant="bodyBold">{word.frequency}x</Text>
-                  </View>
-                )}
-                {word.isUrduCognate && word.urduCognateNote && (
-                  <View style={styles.infoRow}>
-                    <Text variant="caption" color={colors.textTertiary}>
-                      Urdu Connection
-                    </Text>
-                    <Text variant="body" style={styles.infoValue}>
-                      {word.urduCognateNote}
-                    </Text>
                   </View>
                 )}
               </>

@@ -1,5 +1,4 @@
 import { api } from './client';
-import type { UserProgressSummary } from '../types';
 
 interface UserProfile {
   id: string;
@@ -8,6 +7,8 @@ interface UserProfile {
   name: string | null;
   profilePicture: string | null;
   createdAt: string;
+  soundEnabled: boolean;
+  hapticsEnabled: boolean;
   progress: {
     totalWordsLearned: number;
     currentLessonIndex: number;
@@ -21,13 +22,20 @@ interface UserProfile {
   };
 }
 
+interface UpdateProfilePayload {
+  name?: string;
+  profilePicture?: string;
+  soundEnabled?: boolean;
+  hapticsEnabled?: boolean;
+}
+
 export const usersApi = {
   getProfile: async () => {
     const { data } = await api.get<UserProfile>('/users/me');
     return data;
   },
 
-  updateProfile: async (update: { name?: string; profilePicture?: string }) => {
+  updateProfile: async (update: UpdateProfilePayload) => {
     const { data } = await api.patch<UserProfile>('/users/me', update);
     return data;
   },
