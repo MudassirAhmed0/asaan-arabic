@@ -3,6 +3,7 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import { captureRef } from 'react-native-view-shot';
 import * as Sharing from 'expo-sharing';
 import * as Haptics from 'expo-haptics';
+import { Ionicons } from '@expo/vector-icons';
 import { Text } from '../ui/Text';
 import { colors, spacing, borderRadius } from '../../constants/theme';
 import type { CelebrationStat } from '../../types';
@@ -108,7 +109,7 @@ export function LessonComplete({
 
       <View style={styles.content}>
         <Text variant="h1" color={colors.primary} align="center">
-          {wordsInLesson} New Words Unlocked!
+          MashaAllah! {wordsInLesson} new words
         </Text>
 
         <View style={styles.counterContainer}>
@@ -141,6 +142,7 @@ export function LessonComplete({
           ]}
           onPress={handleShareInstagram}
         >
+          <Ionicons name="share-outline" size={18} color={colors.textOnPrimary} />
           <Text variant="bodyBold" color={colors.textOnPrimary}>
             Share to Story
           </Text>
@@ -263,10 +265,13 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
   },
   shareButton: {
+    flexDirection: 'row',
     backgroundColor: colors.primary,
     borderRadius: borderRadius.md,
     paddingVertical: spacing.lg,
     alignItems: 'center',
+    justifyContent: 'center',
+    gap: spacing.sm,
   },
   continueButton: {
     borderRadius: borderRadius.md,

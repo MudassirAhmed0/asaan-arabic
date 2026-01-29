@@ -39,6 +39,14 @@ export default function RootLayout() {
         <Stack.Screen name="(onboarding)" />
         <Stack.Screen name="(tabs)" />
         <Stack.Screen
+          name="review"
+          options={{
+            headerShown: false,
+            animation: 'slide_from_bottom',
+            gestureEnabled: false,
+          }}
+        />
+        <Stack.Screen
           name="lesson/[id]"
           options={{
             headerShown: false,

@@ -20,12 +20,14 @@ interface ActivityQuickFireProps {
   rounds: QuickFireRound[];
   onComplete: (score: number, total: number, results?: WordResult[]) => void;
   onClose?: () => void;
+  title?: string;
 }
 
 export function ActivityQuickFire({
   rounds,
   onComplete,
   onClose,
+  title = 'Do you remember?',
 }: ActivityQuickFireProps) {
   const [currentRound, setCurrentRound] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
@@ -103,7 +105,7 @@ export function ActivityQuickFire({
       </View>
 
       <Text variant="h3" align="center" style={styles.title}>
-        Do you remember?
+        {title}
       </Text>
 
       <View style={styles.arabicContainer}>

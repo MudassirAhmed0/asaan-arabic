@@ -209,6 +209,7 @@ export default function PracticeScreen() {
           rounds={activeRounds}
           onComplete={handleComplete}
           onClose={handleClose}
+          title={practiceMode === 'revision' ? "Let's nail these" : 'Quick recall'}
         />
       </SafeAreaView>
     );
@@ -297,7 +298,7 @@ export default function PracticeScreen() {
                 </View>
               ))}
               <Text variant="small" color={colors.textTertiary}>
-                Auto-flagged for revision
+                These will show up more often in practice
               </Text>
             </Card>
           )}
@@ -349,7 +350,7 @@ export default function PracticeScreen() {
         <Card style={styles.statsCard}>
           <Text style={styles.statsNumber}>{data.totalLearned}</Text>
           <Text variant="body" color={colors.textSecondary} align="center">
-            words learned
+            Quranic words I know
           </Text>
           {data.revisionCount > 0 && (
             <Text variant="caption" color={colors.warning} align="center" style={styles.revisionNote}>

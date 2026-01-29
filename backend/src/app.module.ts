@@ -8,6 +8,7 @@ import { StreaksModule } from './streaks/streaks.module';
 import { LessonsModule } from './lessons/lessons.module';
 import { WordsModule } from './words/words.module';
 import { ChallengesModule } from './challenges/challenges.module';
+import { ReviewsModule } from './reviews/reviews.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { ChallengesModule } from './challenges/challenges.module';
     LessonsModule,
     WordsModule,
     ChallengesModule,
+    ReviewsModule,
   ],
 })
 export class AppModule {}

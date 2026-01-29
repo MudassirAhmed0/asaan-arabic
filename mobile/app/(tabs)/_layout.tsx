@@ -51,10 +51,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="library/index"
         options={{
-          title: 'Library',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="library-outline" size={size} color={color} />
-          ),
+          href: null,
         }}
       />
     </Tabs>

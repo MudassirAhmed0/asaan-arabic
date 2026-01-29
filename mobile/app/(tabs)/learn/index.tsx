@@ -1,10 +1,12 @@
 import { View, FlatList, StyleSheet, ActivityIndicator } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useMemo } from 'react';
 import { Text } from '../../../src/components/ui/Text';
 import { LessonCard } from '../../../src/components/lesson/LessonCard';
 import { DailyChallengeCard } from '../../../src/components/challenge/DailyChallengeCard';
+import { WeeklyReviewBanner } from '../../../src/components/review/WeeklyReviewBanner';
 import { colors, spacing, borderRadius } from '../../../src/constants/theme';
 import { useLessonList } from '../../../src/hooks/useLessons';
 import { useProgressStore } from '../../../src/stores/progress';
@@ -65,6 +67,7 @@ export default function LearnScreen() {
                 )}
                 {currentStreak > 0 && (
                   <View style={styles.streakBadge}>
+                    <Ionicons name="flame" size={18} color={colors.accent} />
                     <Text variant="h2" color={colors.accent}>
                       {currentStreak}
                     </Text>
@@ -77,6 +80,7 @@ export default function LearnScreen() {
             )}
           </View>
           <DailyChallengeCard />
+          <WeeklyReviewBanner />
         </>
         }
         renderItem={({ item }) => (
