@@ -1,8 +1,10 @@
 import { View, StyleSheet, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
-import * as Google from 'expo-auth-session/providers/google';
-import * as WebBrowser from 'expo-web-browser';
+import {
+  GoogleSignin,
+  statusCodes,
+} from '@react-native-google-signin/google-signin';
 import { useEffect, useState } from 'react';
 import { Text } from '../../src/components/ui/Text';
 import { Button } from '../../src/components/ui/Button';
@@ -10,32 +12,44 @@ import { colors, spacing } from '../../src/constants/theme';
 import { authApi } from '../../src/api/auth';
 import { useAuthStore } from '../../src/stores/auth';
 
-WebBrowser.maybeCompleteAuthSession();
+GoogleSignin.configure({
+  webClientId: process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID,
+  iosClientId: process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID,
+});
 
 export default function WelcomeScreen() {
   const { setTokens, fetchProfile, onboardingCompleted } = useAuthStore();
   const [googleLoading, setGoogleLoading] = useState(false);
   const [devLoading, setDevLoading] = useState(false);
 
-  const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
-    clientId: process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID,
-  });
+  const handleGoogleSignIn = async () => {
+    try {
+      setGoogleLoading(true);
+      await GoogleSignin.hasPlayServices();
+      const response = await GoogleSignin.signIn();
+      const idToken = response.data?.idToken;
 
-  useEffect(() => {
-    if (response?.type === 'success') {
-      const idToken = response.params.id_token;
-      handleGoogleAuth(idToken);
-    } else if (response?.type === 'error') {
-      setGoogleLoading(false);
-      Alert.alert('Error', 'Google sign-in failed. Please try again.');
-    } else if (response?.type === 'dismiss') {
+      if (!idToken) {
+        Alert.alert('Error', 'Could not get ID token from Google.');
+        return;
+      }
+
+      await handleGoogleAuth(idToken);
+    } catch (error: any) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // User cancelled — do nothing
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        Alert.alert('Error', 'Google Play Services is not available on this device.');
+      } else {
+        Alert.alert('Error', 'Google sign-in failed. Please try again.');
+      }
+    } finally {
       setGoogleLoading(false);
     }
-  }, [response]);
+  };
 
   const handleGoogleAuth = async (idToken: string) => {
     try {
-      setGoogleLoading(true);
       const result = await authApi.googleAuth(idToken);
       await setTokens(result.accessToken, result.refreshToken);
       await fetchProfile();
@@ -49,8 +63,6 @@ export default function WelcomeScreen() {
       const message =
         error?.response?.data?.message || 'Google sign-in failed. Please try again.';
       Alert.alert('Error', message);
-    } finally {
-      setGoogleLoading(false);
     }
   };
 
@@ -98,22 +110,11 @@ export default function WelcomeScreen() {
 
         <View style={styles.actions}>
           <Button
-            title="Continue with Phone"
-            onPress={() => router.push('/(auth)/phone-login')}
-            size="lg"
-            style={styles.button}
-          />
-          <Button
             title="Continue with Google"
-            onPress={() => {
-              setGoogleLoading(true);
-              promptAsync();
-            }}
-            variant="outline"
+            onPress={handleGoogleSignIn}
             size="lg"
             style={styles.button}
             loading={googleLoading}
-            disabled={!request}
           />
           {__DEV__ && (
             <Button

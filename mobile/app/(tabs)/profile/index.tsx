@@ -10,7 +10,8 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import * as Notifications from 'expo-notifications';
 import { Text } from '../../../src/components/ui/Text';
 import { Card } from '../../../src/components/ui/Card';
 import { colors, spacing, borderRadius } from '../../../src/constants/theme';
@@ -18,6 +19,10 @@ import { useAuthStore } from '../../../src/stores/auth';
 import { useProgressStore } from '../../../src/stores/progress';
 import { usePreferencesStore } from '../../../src/stores/preferences';
 import { usersApi } from '../../../src/api/users';
+import {
+  registerForPushNotifications,
+  unregisterPushNotifications,
+} from '../../../src/services/notifications';
 
 export default function ProfileScreen() {
   const user = useAuthStore((s) => s.user);
@@ -29,6 +34,23 @@ export default function ProfileScreen() {
   const [nameModalVisible, setNameModalVisible] = useState(false);
   const [editName, setEditName] = useState(user?.name ?? '');
   const [saving, setSaving] = useState(false);
+  const [notificationsEnabled, setNotificationsEnabled] = useState(false);
+
+  useEffect(() => {
+    Notifications.getPermissionsAsync().then(({ status }) => {
+      setNotificationsEnabled(status === 'granted');
+    });
+  }, []);
+
+  const handleNotificationToggle = async (value: boolean) => {
+    if (value) {
+      const token = await registerForPushNotifications();
+      setNotificationsEnabled(!!token);
+    } else {
+      await unregisterPushNotifications();
+      setNotificationsEnabled(false);
+    }
+  };
 
   const handleToggle = async (key: 'soundEnabled' | 'hapticsEnabled', value: boolean) => {
     const prev = key === 'soundEnabled' ? soundEnabled : hapticsEnabled;
@@ -200,6 +222,16 @@ export default function ProfileScreen() {
           </Text>
         </View>
         <Card style={styles.settingsCard} padded={false}>
+          <View style={styles.settingRow}>
+            <Text variant="body">Notifications</Text>
+            <Switch
+              value={notificationsEnabled}
+              onValueChange={handleNotificationToggle}
+              trackColor={{ false: colors.border, true: colors.primaryLight }}
+              thumbColor={colors.surface}
+            />
+          </View>
+          <View style={styles.settingDivider} />
           <View style={styles.settingRow}>
             <Text variant="body">Sound Effects</Text>
             <Switch

@@ -16,14 +16,13 @@ No feature moves forward until the previous one is tested and committed.
 - Ramadan launch target identified: launch 5-10 days before Ramadan (~10-15 day build window)
 - Technical stack decided: React Native + Expo (frontend), NestJS + PostgreSQL (backend)
 - No name yet. No design yet.
-- Phase: **Features 0-7 built + committed → Feature 8 (Push Notifications) next**
+- Phase: **Features 0-8 built + committed → Firebase setup pending**
 
 ## What To Do Next
-1. **Mudassir tests Feature 7 (Weekly Review)** — banner on Learn tab, quiz flow, results screen
-2. **Fix any bugs** from testing
-3. **Once stable** — move to Feature 8 (Push Notifications)
-4. Feature 6 (Library) deferred to post-launch — needs proper Quranic text verification
-5. See `progress.md` for full checklist of what's built and what's remaining
+1. **Set up Firebase** — create project, add Android/iOS apps, download config files, set env vars (`FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, `FIREBASE_PRIVATE_KEY`), place `google-services.json` and `GoogleService-Info.plist`
+2. **Test push notifications** — run `npx expo prebuild`, build dev client, verify token registration + daily reminder cron
+3. Feature 6 (Library) deferred to post-launch — needs proper Quranic text verification
+4. See `progress.md` for full checklist of what's built and what's remaining
 
 ## Where We Want to Go
 - Launch full-featured app (Module 1 partial content, all engagement features) before Ramadan
@@ -84,7 +83,7 @@ No feature moves forward until the previous one is tested and committed.
 - Hosting choice: Railway vs Render vs AWS?
 
 ## Action Items for Mudassir
-- **Test Feature 2** — run the app, complete a full lesson, report bugs
+- **Set up Firebase project** — create project at console.firebase.google.com, generate service account key, add config files to mobile app
 - Schedule Qari recording session for 50 words (parallel with dev)
 - Start planning pre-Ramadan content
 - Think about app name

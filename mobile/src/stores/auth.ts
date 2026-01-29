@@ -3,6 +3,7 @@ import * as SecureStore from 'expo-secure-store';
 import { usersApi } from '../api/users';
 import { useProgressStore } from './progress';
 import { usePreferencesStore } from './preferences';
+import { registerForPushNotifications, unregisterPushNotifications } from '../services/notifications';
 
 interface User {
   id: string;
@@ -88,11 +89,15 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       soundEnabled: profile.soundEnabled,
       hapticsEnabled: profile.hapticsEnabled,
     });
+
+    // Register for push notifications after profile load
+    registerForPushNotifications();
   },
 
   setOnboardingCompleted: (value) => set({ onboardingCompleted: value }),
 
   logout: async () => {
+    await unregisterPushNotifications();
     await SecureStore.deleteItemAsync('accessToken');
     await SecureStore.deleteItemAsync('refreshToken');
     set({ user: null, isAuthenticated: false, onboardingCompleted: false });

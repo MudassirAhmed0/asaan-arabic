@@ -37,18 +37,6 @@ model User {
   @@map("users")
 }
 
-model OtpCode {
-  id        String   @id @default(uuid()) @db.Uuid
-  phone     String   @db.VarChar(15)
-  code      String   @db.VarChar(4)
-  expiresAt DateTime @map("expires_at")
-  used      Boolean  @default(false)
-  createdAt DateTime @default(now()) @map("created_at")
-
-  @@index([phone])
-  @@map("otp_codes")
-}
-
 model RefreshToken {
   id        String   @id @default(uuid()) @db.Uuid
   userId    String   @map("user_id") @db.Uuid

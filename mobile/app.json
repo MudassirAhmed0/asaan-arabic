@@ -32,7 +32,19 @@
     "plugins": [
       "expo-router",
       "expo-font",
-      "expo-secure-store"
+      "expo-secure-store",
+      [
+        "expo-notifications",
+        {
+          "sounds": []
+        }
+      ],
+      [
+        "@react-native-google-signin/google-signin",
+        {
+          "iosUrlScheme": "com.googleusercontent.apps.540164772312-e8cfp955ejoec2u33s7t0q4htspr0lbn"
+        }
+      ]
     ]
   }
 }

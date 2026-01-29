@@ -7,16 +7,6 @@ interface AuthResponse {
 }
 
 export const authApi = {
-  sendOtp: async (phone: string) => {
-    const { data } = await api.post<{ message: string }>('/auth/otp/send', { phone });
-    return data;
-  },
-
-  verifyOtp: async (phone: string, code: string) => {
-    const { data } = await api.post<AuthResponse>('/auth/otp/verify', { phone, code });
-    return data;
-  },
-
   googleAuth: async (idToken: string) => {
     const { data } = await api.post<AuthResponse>('/auth/google', { idToken });
     return data;
