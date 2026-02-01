@@ -31,6 +31,12 @@ export class UsersController {
     return this.usersService.updateProfile(user.id, dto);
   }
 
+  @Post('me/reset-progress')
+  @HttpCode(200)
+  async resetProgress(@CurrentUser() user: PrismaTypes.User) {
+    return this.usersService.resetProgress(user.id);
+  }
+
   @Post('me/onboarding')
   @HttpCode(200)
   async completeOnboarding(@CurrentUser() user: PrismaTypes.User) {

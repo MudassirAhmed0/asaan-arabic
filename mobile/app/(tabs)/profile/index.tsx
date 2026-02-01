@@ -15,9 +15,11 @@ import * as Notifications from 'expo-notifications';
 import { Text } from '../../../src/components/ui/Text';
 import { Card } from '../../../src/components/ui/Card';
 import { colors, spacing, borderRadius } from '../../../src/constants/theme';
+import { useRouter } from 'expo-router';
 import { useAuthStore } from '../../../src/stores/auth';
 import { useProgressStore } from '../../../src/stores/progress';
 import { usePreferencesStore } from '../../../src/stores/preferences';
+import { useQueryClient } from '@tanstack/react-query';
 import { usersApi } from '../../../src/api/users';
 import {
   registerForPushNotifications,
@@ -25,6 +27,8 @@ import {
 } from '../../../src/services/notifications';
 
 export default function ProfileScreen() {
+  const router = useRouter();
+  const queryClient = useQueryClient();
   const user = useAuthStore((s) => s.user);
   const logout = useAuthStore((s) => s.logout);
   const { totalWordsLearned, currentStreak, longestStreak, currentLessonIndex } =
@@ -80,13 +84,50 @@ export default function ProfileScreen() {
     }
   };
 
+  const handleResetProgress = () => {
+    Alert.alert(
+      'Reset All Progress',
+      'This will delete all your learned words, lesson progress, and streaks. This cannot be undone.',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Reset',
+          style: 'destructive',
+          onPress: async () => {
+            try {
+              await usersApi.resetProgress();
+              useProgressStore.getState().setProgress({
+                totalWordsLearned: 0,
+                currentLessonIndex: 1,
+                currentStreak: 0,
+                longestStreak: 0,
+                lastActivityAt: null,
+              });
+              queryClient.invalidateQueries();
+              Alert.alert('Done', 'Progress has been reset.');
+            } catch {
+              Alert.alert('Error', 'Could not reset progress.');
+            }
+          },
+        },
+      ],
+    );
+  };
+
   const handleLogout = () => {
     Alert.alert(
       'Log Out',
       'Your progress is saved and will be here when you return.',
       [
         { text: 'Cancel', style: 'cancel' },
-        { text: 'Log Out', style: 'destructive', onPress: logout },
+        {
+          text: 'Log Out',
+          style: 'destructive',
+          onPress: async () => {
+            await logout();
+            router.replace('/(auth)/welcome');
+          },
+        },
       ],
     );
   };
@@ -277,6 +318,25 @@ export default function ProfileScreen() {
             </Text>
           </View>
         </Card>
+
+        {/* Dev: Reset Progress */}
+        {__DEV__ && (
+          <>
+            <View style={styles.sectionHeader}>
+              <Text variant="caption" color={colors.textTertiary} style={styles.sectionLabel}>
+                DEVELOPER
+              </Text>
+            </View>
+            <Card style={styles.settingsCard} padded={false}>
+              <Pressable style={styles.settingRow} onPress={handleResetProgress}>
+                <Text variant="body" color={colors.error}>
+                  Reset All Progress
+                </Text>
+                <Ionicons name="trash-outline" size={18} color={colors.error} />
+              </Pressable>
+            </Card>
+          </>
+        )}
 
         {/* Logout */}
         <Pressable

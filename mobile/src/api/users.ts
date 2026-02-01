@@ -40,6 +40,11 @@ export const usersApi = {
     return data;
   },
 
+  resetProgress: async () => {
+    const { data } = await api.post<{ message: string }>('/users/me/reset-progress');
+    return data;
+  },
+
   completeOnboarding: async () => {
     const { data } = await api.post<{ message: string; onboardingCompleted: boolean }>(
       '/users/me/onboarding',

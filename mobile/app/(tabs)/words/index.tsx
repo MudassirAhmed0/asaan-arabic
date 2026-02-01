@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useState, useCallback, useMemo } from 'react';
-import { useRouter } from 'expo-router';
+import { useRouter, useFocusEffect } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Text } from '../../../src/components/ui/Text';
 import { Card } from '../../../src/components/ui/Card';
@@ -27,6 +27,12 @@ export default function WordsScreen() {
   const searchParam = search.length >= 2 ? search : undefined;
 
   const { data, isLoading, refetch } = useLearnedWords(searchParam, statusParam);
+
+  useFocusEffect(
+    useCallback(() => {
+      refetch();
+    }, [refetch]),
+  );
 
   const handleWordPress = useCallback(
     (wordId: string) => {

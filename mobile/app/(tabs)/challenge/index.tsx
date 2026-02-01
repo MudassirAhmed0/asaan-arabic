@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useState, useCallback, useRef } from 'react';
+import { useFocusEffect } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import * as Haptics from 'expo-haptics';
 import { captureRef } from 'react-native-view-shot';
@@ -39,6 +40,12 @@ export default function PracticeScreen() {
 
   // Always fetch with no filter for the idle screen counts
   const { data, isLoading, refetch } = usePractice();
+
+  useFocusEffect(
+    useCallback(() => {
+      if (phase === 'idle') refetch();
+    }, [refetch, phase]),
+  );
   const submitResults = useSubmitQuizResults();
 
   const [activeRounds, setActiveRounds] = useState<PracticeRound[]>([]);
@@ -183,7 +190,7 @@ export default function PracticeScreen() {
             Test your recall
           </Text>
         </View>
-        <View style={styles.centered}>
+        <View style={styles.emptyCenter}>
           <Ionicons name="flash-outline" size={48} color={colors.textTertiary} />
           <Text variant="h3" align="center">
             Learn a few more words
@@ -443,6 +450,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: spacing.lg,
     gap: spacing.lg,
+  },
+  emptyCenter: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: spacing.lg,
+    gap: spacing.sm,
   },
   emptySubtext: {
     maxWidth: 280,

@@ -18,8 +18,10 @@ export class StreaksService {
   }
 
   async recordActivity(userId: string) {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    // Use UTC date strings to avoid timezone issues
+    const now = new Date();
+    const todayStr = now.toISOString().split('T')[0]; // "YYYY-MM-DD"
+    const today = new Date(todayStr + 'T00:00:00.000Z');
 
     const existing = await this.prisma.streakRecord.findUnique({
       where: { userId },
@@ -37,19 +39,18 @@ export class StreaksService {
       });
     }
 
-    const lastActive = existing.lastActiveDate
-      ? new Date(existing.lastActiveDate)
-      : null;
+    if (existing.lastActiveDate) {
+      const lastStr = existing.lastActiveDate.toISOString().split('T')[0];
 
-    if (lastActive) {
-      lastActive.setHours(0, 0, 0, 0);
-      const diffMs = today.getTime() - lastActive.getTime();
-      const diffDays = Math.round(diffMs / (1000 * 60 * 60 * 24));
-
-      if (diffDays === 0) {
+      if (lastStr === todayStr) {
         // Same day — no change
         return existing;
       }
+
+      // Check if consecutive day
+      const lastDate = new Date(lastStr + 'T00:00:00.000Z');
+      const diffMs = today.getTime() - lastDate.getTime();
+      const diffDays = Math.round(diffMs / (1000 * 60 * 60 * 24));
 
       if (diffDays === 1) {
         // Consecutive day — increment

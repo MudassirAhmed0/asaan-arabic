@@ -24,7 +24,7 @@ export interface AuthResponse extends AuthTokens {
 export class AuthService {
   private readonly logger = new Logger(AuthService.name);
   private googleClient: OAuth2Client;
-  private googleClientId: string;
+  private googleClientIds: string[];
 
   constructor(
     private prisma: PrismaService,
@@ -32,8 +32,19 @@ export class AuthService {
     private jwt: JwtService,
     private config: ConfigService,
   ) {
-    this.googleClientId = this.config.get<string>('GOOGLE_CLIENT_ID') ?? '';
-    this.googleClient = new OAuth2Client(this.googleClientId);
+    // Support multiple client IDs for web, iOS, and Android
+    const webClientId = this.config.get<string>('GOOGLE_CLIENT_ID') ?? '';
+    const iosClientId = this.config.get<string>('GOOGLE_IOS_CLIENT_ID') ?? '';
+    const androidClientId = this.config.get<string>('GOOGLE_ANDROID_CLIENT_ID') ?? '';
+    
+    // Filter out empty strings and store all valid client IDs
+    this.googleClientIds = [webClientId, iosClientId, androidClientId].filter(id => id);
+    
+    if (this.googleClientIds.length === 0) {
+      this.logger.warn('No Google client IDs configured');
+    }
+    
+    this.googleClient = new OAuth2Client();
   }
 
   // --- Google Flow ---
@@ -187,19 +198,32 @@ export class AuthService {
   }
 
   private async verifyGoogleToken(idToken: string) {
-    try {
-      const ticket = await this.googleClient.verifyIdToken({
-        idToken,
-        audience: this.googleClientId,
-      });
-      const payload = ticket.getPayload();
-      if (!payload) {
-        throw new Error('No payload');
+    // Try to verify the token against all configured client IDs
+    const errors: string[] = [];
+    
+    for (const clientId of this.googleClientIds) {
+      try {
+        const ticket = await this.googleClient.verifyIdToken({
+          idToken,
+          audience: clientId,
+        });
+        const payload = ticket.getPayload();
+        if (!payload) {
+          errors.push(`No payload for client ID: ${clientId}`);
+          continue;
+        }
+        // Successfully verified with this client ID
+        this.logger.log(`Token verified with client ID: ${clientId.substring(0, 20)}...`);
+        return payload;
+      } catch (error) {
+        errors.push(`Failed with ${clientId.substring(0, 20)}...: ${error.message}`);
+        continue;
       }
-      return payload;
-    } catch {
-      throw new UnauthorizedException('Invalid Google token');
     }
+    
+    // If we get here, none of the client IDs worked
+    this.logger.error(`Token verification failed for all client IDs: ${errors.join(', ')}`);
+    throw new UnauthorizedException('Invalid Google token');
   }
 
   private hashToken(token: string): string {
