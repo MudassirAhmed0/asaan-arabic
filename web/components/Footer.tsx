@@ -26,7 +26,7 @@ export default function Footer() {
           </Link>
         </div>
         <a
-          href="https://instagram.com"
+          href="https://instagram.com/asaanarabic.app"
           target="_blank"
           rel="noopener noreferrer"
           className="text-text-secondary hover:text-primary transition-colors text-sm"
