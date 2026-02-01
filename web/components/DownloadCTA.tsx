@@ -1,5 +1,7 @@
 'use client';
 
+import SubscribeForm from './SubscribeForm';
+
 const isPreLaunch = process.env.NEXT_PUBLIC_LAUNCH_MODE !== 'launched';
 
 export default function DownloadCTA() {
@@ -18,22 +20,7 @@ export default function DownloadCTA() {
             <p className="text-text-tertiary text-sm mb-3">
               Be the first to know when we launch
             </p>
-            <form
-              className="flex gap-2"
-              onSubmit={(e) => e.preventDefault()}
-            >
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-3 rounded-full border border-border bg-bg text-text text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-              />
-              <button
-                type="submit"
-                className="bg-primary text-white px-6 py-3 rounded-full text-sm font-medium hover:bg-primary-dark transition-colors"
-              >
-                Notify me
-              </button>
-            </form>
+            <SubscribeForm inputBg="bg-bg" />
           </div>
         ) : (
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
