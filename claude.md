@@ -1,4 +1,4 @@
-# Project Status — Arabic Learning App for Pakistan
+# Project Status — Asaan Arabic | "Samajh ke Parho"
 
 ## Development Workflow
 Each feature follows this cycle:
@@ -15,8 +15,10 @@ No feature moves forward until the previous one is tested and committed.
 - Three core files established: goals.md, planning.md, claude.md
 - Ramadan launch target identified: launch 5-10 days before Ramadan (~10-15 day build window)
 - Technical stack decided: React Native + Expo (frontend), NestJS + PostgreSQL (backend)
-- No name yet. No design yet.
-- Phase: **Features 0-8 built + committed → Firebase setup pending**
+- App name decided: **Asaan Arabic** — Tagline: **"Samajh ke Parho"**
+- Hosting decided: **Railway**
+- Phase: **Features 0-7 done, Feature 8 partial → Beta launch prep**
+- New workstreams: CMS, Admin Panel, Website — all building in parallel
 
 ## What To Do Next
 1. **Set up Firebase** — create project, add Android/iOS apps, download config files, set env vars (`FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, `FIREBASE_PRIVATE_KEY`), place `google-services.json` and `GoogleService-Info.plist`
@@ -79,12 +81,15 @@ No feature moves forward until the previous one is tested and committed.
 | Copy decisions documented in copy-decisions.md | All copy changes, rationale, and before/after tracked in a dedicated file. |
 
 ## Open Questions / Unknowns
-- App name?
-- Hosting choice: Railway vs Render vs AWS?
+- Admin panel framework (Next.js vs Vite + React?)
+- Analytics pipeline design
+- Streak freeze/grace period mechanics
+
+## Virtual Team
+A 12-role AI virtual team operates from `/team/`. Each role has its own MD file with principles, biases, and red lines. Run standups, consult specialists, and log decisions. See `/team/README.md` for usage.
 
 ## Action Items for Mudassir
 - **Set up Firebase project** — create project at console.firebase.google.com, generate service account key, add config files to mobile app
 - Schedule Qari recording session for 50 words (parallel with dev)
-- Start planning pre-Ramadan content
-- Think about app name
-- Choose hosting
+- **Start pre-Ramadan campaign content — Monday Feb 9th**
+- Prepare app store developer accounts (Apple + Google)
