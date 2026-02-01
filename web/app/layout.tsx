@@ -7,6 +7,7 @@ import Footer from '@/components/Footer';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://asaanarabic.com'),
   title: 'Asaan Arabic — Samajh ke Parho',
   description:
     'Learn Quranic Arabic the easy way. Understand what you hear in salah, Taraweeh, and daily duas. 5 words a day, 5 minutes a lesson.',
@@ -20,6 +21,13 @@ export const metadata: Metadata = {
     'Salah meaning',
     'Arabic vocabulary',
   ],
+  icons: {
+    icon: [
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+    ],
+    apple: '/apple-touch-icon.png',
+  },
   openGraph: {
     title: 'Asaan Arabic — Samajh ke Parho',
     description:
@@ -28,12 +36,21 @@ export const metadata: Metadata = {
     siteName: 'Asaan Arabic',
     locale: 'en_PK',
     type: 'website',
+    images: [
+      {
+        url: '/og-image-base.png',
+        width: 1200,
+        height: 630,
+        alt: 'Asaan Arabic — Samajh ke Parho',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Asaan Arabic — Samajh ke Parho',
     description:
       'Understand what you hear in salah and Taraweeh. Learn 5 Quranic words a day.',
+    images: ['/og-image-base.png'],
   },
 };
 
