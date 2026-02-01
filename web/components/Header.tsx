@@ -13,7 +13,7 @@ export default function Header() {
           href="#download"
           className="bg-primary text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-primary-dark transition-colors"
         >
-          Download
+          Get Early Access
         </a>
       </div>
     </header>
