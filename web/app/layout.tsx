@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/og-image-final.png',
+        url: '/og-image.png',
         width: 1200,
         height: 630,
         alt: 'Asaan Arabic — Samajh ke Parho',
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     title: 'Asaan Arabic — Understand the Quran, One Word at a Time',
     description:
       'Learn 5 Quranic Arabic words a day in just 5 minutes. Understand what you hear in salah, Taraweeh, and daily duas. Free forever, no ads.',
-    images: ['/og-image-final.png'],
+    images: ['/og-image.png'],
   },
 };
 
