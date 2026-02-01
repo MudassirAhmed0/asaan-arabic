@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { track } from '@vercel/analytics';
 
 interface SubscribeFormProps {
   inputBg?: string;
@@ -49,13 +50,16 @@ export default function SubscribeForm({ inputBg = 'bg-surface' }: SubscribeFormP
       }
 
       setStatus('success');
-      setMessage(
-        data.message === 'Already subscribed'
-          ? 'You\'re already on the list!'
-          : 'You\'re in! We\'ll notify you at launch.'
-      );
+      if (data.message === 'Already subscribed') {
+        track('subscribe_duplicate');
+        setMessage('You\'re already on the list!');
+      } else {
+        track('subscribe');
+        setMessage('You\'re in! We\'ll notify you at launch.');
+      }
       setEmail('');
     } catch {
+      track('subscribe_error', { reason: 'network' });
       setStatus('error');
       setMessage('Could not connect. Check your internet and try again.');
     }
