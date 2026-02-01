@@ -36,12 +36,10 @@ Owns the revenue model, pricing strategy, paywall design, and conversion optimiz
 - Design payment infrastructure (payment gateways that work in Pakistan)
 - Plan seasonal pricing (Ramadan offers, Eid specials)
 
-## Current Revenue Model
-- **Module 1 (Free)**: 150 words, 30 lessons — complete learning experience
-- **Module 2 (Premium)**: Grammar, guided Quran reading, advanced review
-- **Pricing (tentative)**:
-  - Monthly: PKR 600-800 (~$2-3 USD)
-  - Lifetime: PKR 8,000-10,000 (~$28-35 USD)
+## Current Revenue Model (Updated — DECISION-011)
+- **Free forever**: All word/vocabulary learning — every lesson, every module, no limits
+- **Premium (future)**: Advanced/fun learning mode — deeper content, video/reels, fun activities, beyond just words. 10-20 min sessions. Launches when CEO decides the time is right.
+- **Pricing**: TBD — will be decided when premium mode is designed
 - **No ads, ever**
 
 ## Current Assessments
@@ -62,6 +60,6 @@ Owns the revenue model, pricing strategy, paywall design, and conversion optimiz
 
 ## Monetization Roadmap
 1. **Launch (Ramadan)**: Everything free — focus on acquisition and retention
-2. **Post-Ramadan Month 1**: Introduce Module 2 preview — show what's coming
-3. **Post-Ramadan Month 2**: Open Module 2 with early-bird lifetime pricing
-4. **Month 3+**: Regular pricing, seasonal offers, referral discounts
+2. **Post-Ramadan**: Continue free, grow audience, validate retention
+3. **When CEO decides**: Design and launch premium advanced/fun learning mode
+4. **Pricing decided at that point** based on audience size and engagement data

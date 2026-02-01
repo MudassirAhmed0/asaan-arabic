@@ -10,7 +10,7 @@ export default function DownloadCTA() {
           Start your journey today
         </h2>
         <p className="text-text-secondary text-lg mb-10">
-          Free to download. No ads, ever. Your first 10 lessons are on us.
+          Free forever. No ads, ever. Every lesson, every word — yours to keep.
         </p>
 
         {isPreLaunch ? (

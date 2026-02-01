@@ -108,3 +108,13 @@ All major decisions are recorded here with full context: who proposed, who weigh
 **Rationale:** CEO wants to see the plan. Streak anxiety is a real churn risk.
 **CEO Verdict:** Plan approved. **Not a priority for now** — implement after beta launch.
 **Status:** Approved, deferred
+
+### [DECISION-011] Monetization Model Change — Free Words Forever
+**Date:** 2026-02-01
+**Raised by:** CEO
+**Consulted:** Monetization Strategist, Product Strategist, Behavioral Psychologist
+**Decision:** All word/vocabulary learning content is **free forever** — no module gating, no paywall on lessons. Premium will be a separate **advanced/fun learning mode** (longer lessons 10-20 min, deeper content, video/reels, fun activities, beyond just words). Premium launches later when audience is established and CEO decides the timing.
+**Rationale:** Free vocabulary removes recommendation friction. Premium becomes a "want" not a "need." Monetize depth and entertainment, not basic learning. Spotify model — free is genuinely great, premium is for people who want more.
+**Supersedes:** Previous Module 1 free / Module 2 premium split
+**CEO Verdict:** Approved
+**Status:** Active

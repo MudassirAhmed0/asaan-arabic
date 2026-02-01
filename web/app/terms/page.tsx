@@ -45,9 +45,10 @@ export default function TermsPage() {
 
       <h2 className="text-xl font-bold mt-8 mb-4">Free &amp; Premium Content</h2>
       <p className="text-text-secondary leading-relaxed mb-6">
-        Module 1 is free and will remain free. Premium features (Module 2 and
-        beyond) may be offered as paid subscriptions in the future. Pricing will
-        be clearly communicated before any purchase.
+        All vocabulary and word learning content is free and will remain free
+        forever. We may offer optional premium features in the future (such as
+        advanced learning modes). Any paid features will be clearly communicated
+        before any purchase. Free content will never be restricted or removed.
       </p>
 
       <h2 className="text-xl font-bold mt-8 mb-4">Termination</h2>

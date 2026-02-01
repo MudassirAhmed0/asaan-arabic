@@ -42,8 +42,8 @@ export default function SupportPage() {
           <div>
             <h3 className="font-bold mb-2">Is the app free?</h3>
             <p className="text-text-secondary">
-              Yes. Module 1 (10 lessons, 50 words) is completely free with no
-              ads. Premium content may be offered in the future.
+              Yes. All word learning content is completely free forever with no
+              ads. We may offer optional advanced learning features in the future.
             </p>
           </div>
           <div>
