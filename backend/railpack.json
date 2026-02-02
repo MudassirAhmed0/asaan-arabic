@@ -9,6 +9,6 @@
     }
   },
   "deploy": {
-    "startCommand": "sleep 5 && npx prisma migrate deploy && npx tsx prisma/seed/index.ts && npm run start:prod"
+    "startCommand": "sleep 5 && npx prisma migrate deploy && npm run start:prod"
   }
 }
