@@ -1,0 +1,14 @@
+{
+  "$schema": "https://schema.railpack.com",
+  "steps": {
+    "build": {
+      "commands": [
+        "npx prisma generate",
+        "npm run build"
+      ]
+    }
+  },
+  "deploy": {
+    "startCommand": "npx prisma migrate deploy && npx tsx prisma/seed/index.ts && npm run start:prod"
+  }
+}
