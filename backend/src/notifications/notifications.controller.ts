@@ -21,4 +21,11 @@ export class NotificationsController {
     await this.notificationsService.unregisterToken(body.token);
     return { message: 'Token unregistered' };
   }
+
+  // Manual test — hit this to trigger a push right now
+  @Post('test')
+  async test(@CurrentUser() user: User) {
+    await this.notificationsService.sendTestNotification();
+    return { message: 'Test notification sent' };
+  }
 }

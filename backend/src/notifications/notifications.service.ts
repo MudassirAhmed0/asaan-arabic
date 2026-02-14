@@ -35,6 +35,18 @@ export class NotificationsService {
     });
   }
 
+  async sendTestNotification() {
+    this.logger.log('Sending test notification...');
+    return this.sendDailyReminder();
+  }
+
+  // 17:00 UTC = 10:00 PM PKT — TEMPORARY TEST CRON (remove after testing)
+  @Cron('0 17 * * *')
+  async sendTestReminder() {
+    this.logger.log('Running TEST 10 PM PKT cron...');
+    return this.sendDailyReminder();
+  }
+
   // 4:00 UTC = 9:00 AM PKT
   @Cron('0 4 * * *')
   async sendDailyReminder() {

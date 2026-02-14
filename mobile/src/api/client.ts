@@ -3,6 +3,12 @@ import * as SecureStore from 'expo-secure-store';
 
 const API_BASE_URL = process.env.EXPO_PUBLIC_API_URL || 'http://localhost:3000';
 
+// Callback for when token refresh fails — lets the auth store react
+let onSessionExpired: (() => void) | null = null;
+export const setOnSessionExpired = (cb: () => void) => {
+  onSessionExpired = cb;
+};
+
 export const api = axios.create({
   baseURL: API_BASE_URL,
   timeout: 15000,
@@ -43,9 +49,10 @@ api.interceptors.response.use(
         originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;
         return api(originalRequest);
       } catch {
-        // Refresh failed — clear tokens and let the auth state handle redirect
+        // Refresh failed — clear tokens and notify auth store
         await SecureStore.deleteItemAsync('accessToken');
         await SecureStore.deleteItemAsync('refreshToken');
+        onSessionExpired?.();
         return Promise.reject(error);
       }
     }

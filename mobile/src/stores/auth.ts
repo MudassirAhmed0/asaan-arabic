@@ -4,6 +4,7 @@ import { usersApi } from '../api/users';
 import { useProgressStore } from './progress';
 import { usePreferencesStore } from './preferences';
 import { registerForPushNotifications, unregisterPushNotifications } from '../services/notifications';
+import { setOnSessionExpired } from '../api/client';
 
 interface User {
   id: string;
@@ -25,6 +26,7 @@ interface AuthState {
   loadSession: () => Promise<void>;
   fetchProfile: () => Promise<void>;
   setOnboardingCompleted: (value: boolean) => void;
+  clearSession: () => void;
   logout: () => Promise<void>;
 }
 
@@ -44,6 +46,11 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 
   loadSession: async () => {
     try {
+      // Register callback so interceptor can signal session expiry
+      setOnSessionExpired(() => {
+        useAuthStore.getState().clearSession();
+      });
+
       const token = await SecureStore.getItemAsync('accessToken');
       if (!token) {
         set({ isAuthenticated: false, isLoading: false });
@@ -57,7 +64,12 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         await get().fetchProfile();
       } catch {
         // Token might be expired — the interceptor will try to refresh
-        // If refresh also fails, tokens are cleared and user redirects to auth
+        // If refresh also fails, interceptor clears tokens + calls clearSession
+        // Double-check: if tokens were cleared, update auth state
+        const remainingToken = await SecureStore.getItemAsync('accessToken');
+        if (!remainingToken) {
+          set({ isAuthenticated: false, user: null, onboardingCompleted: false });
+        }
       }
     } finally {
       set({ isLoading: false });
@@ -95,6 +107,10 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   },
 
   setOnboardingCompleted: (value) => set({ onboardingCompleted: value }),
+
+  clearSession: () => {
+    set({ user: null, isAuthenticated: false, onboardingCompleted: false });
+  },
 
   logout: async () => {
     await unregisterPushNotifications();

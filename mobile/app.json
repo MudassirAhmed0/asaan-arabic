@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Quranic",
-    "slug": "quranic",
-    "scheme": "quranic",
+    "name": "Asaan Arabic",
+    "slug": "asaan-arabic",
+    "scheme": "asaan-arabic",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -15,7 +15,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.quranic.app"
+      "bundleIdentifier": "com.asaanarabic.app"
     },
     "android": {
       "adaptiveIcon": {
@@ -24,7 +24,7 @@
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "package": "com.quranic.app"
+      "package": "com.asaanarabic.app"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -33,6 +33,7 @@
       "expo-router",
       "expo-font",
       "expo-secure-store",
+      "expo-updates",
       [
         "expo-notifications",
         {
@@ -45,6 +46,18 @@
           "iosUrlScheme": "com.googleusercontent.apps.540164772312-e8cfp955ejoec2u33s7t0q4htspr0lbn"
         }
       ]
-    ]
+    ],
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/48035e78-1e1d-48fc-8c6e-a1e7e717bb2e"
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "48035e78-1e1d-48fc-8c6e-a1e7e717bb2e"
+      }
+    }
   }
 }
