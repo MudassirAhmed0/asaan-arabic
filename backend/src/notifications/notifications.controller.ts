@@ -23,9 +23,9 @@ export class NotificationsController {
     return { message: 'Token unregistered' };
   }
 
-  // Manual test — no auth so we can trigger via curl (TEMPORARY)
   @Post('test')
-  async test() {
+  @UseGuards(JwtAuthGuard)
+  async test(@CurrentUser() user: User) {
     await this.notificationsService.sendTestNotification();
     return { message: 'Test notification sent' };
   }
