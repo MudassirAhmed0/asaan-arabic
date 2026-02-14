@@ -9,7 +9,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Min',
     meaning: 'from, of',
     frequency: 3226,
-    audioUrl: '/audio/words/min.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/min.mp3',
     lessonOrderIndex: 21,
     introduction: {
       style: IntroductionStyle.FUN_FACT,
@@ -24,7 +24,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Fi',
     meaning: 'in, within',
     frequency: 1701,
-    audioUrl: '/audio/words/fi.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/fi.mp3',
     lessonOrderIndex: 21,
     introduction: {
       style: IntroductionStyle.COGNATE,
@@ -38,7 +38,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Ala',
     meaning: 'upon, on',
     frequency: 1445,
-    audioUrl: '/audio/words/ala.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/ala.mp3',
     lessonOrderIndex: 21,
     introduction: {
       style: IntroductionStyle.QURAN_CONTEXT,
@@ -54,7 +54,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Ila',
     meaning: 'to, toward',
     frequency: 742,
-    audioUrl: '/audio/words/ila.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/ila.mp3',
     lessonOrderIndex: 21,
     introduction: {
       style: IntroductionStyle.LIFE_CONNECTION,
@@ -68,7 +68,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'An',
     meaning: 'from, about',
     frequency: 465,
-    audioUrl: '/audio/words/an.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/an-from.mp3',
     lessonOrderIndex: 21,
     introduction: {
       style: IntroductionStyle.QUICK_CHECK,
@@ -87,7 +87,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Inna',
     meaning: 'Indeed, Verily',
     frequency: 1682,
-    audioUrl: '/audio/words/inna.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/inna.mp3',
     lessonOrderIndex: 22,
     introduction: {
       style: IntroductionStyle.FUN_FACT,
@@ -102,7 +102,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'La',
     meaning: 'No, Not',
     frequency: 1364,
-    audioUrl: '/audio/words/la.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/la.mp3',
     lessonOrderIndex: 22,
     introduction: {
       style: IntroductionStyle.COGNATE,
@@ -116,7 +116,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Kull',
     meaning: 'Every, All',
     frequency: 373,
-    audioUrl: '/audio/words/kull.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/kull.mp3',
     lessonOrderIndex: 22,
     introduction: {
       style: IntroductionStyle.QURAN_CONTEXT,
@@ -132,7 +132,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Illa',
     meaning: 'Except',
     frequency: 661,
-    audioUrl: '/audio/words/illa.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/illa.mp3',
     lessonOrderIndex: 22,
     introduction: {
       style: IntroductionStyle.LIFE_CONNECTION,
@@ -146,7 +146,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Qad',
     meaning: 'Certainly, Already',
     frequency: 406,
-    audioUrl: '/audio/words/qad.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/qad.mp3',
     lessonOrderIndex: 22,
     introduction: {
       style: IntroductionStyle.QUICK_CHECK,
@@ -165,7 +165,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Alladhi',
     meaning: 'who, which, that',
     frequency: 1442,
-    audioUrl: '/audio/words/alladhi.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/alladhi.mp3',
     lessonOrderIndex: 23,
     introduction: {
       style: IntroductionStyle.FUN_FACT,
@@ -180,7 +180,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Hadha',
     meaning: 'this',
     frequency: 317,
-    audioUrl: '/audio/words/hadha.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/hadha.mp3',
     lessonOrderIndex: 23,
     introduction: {
       style: IntroductionStyle.COGNATE,
@@ -194,7 +194,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Dhalika',
     meaning: 'that',
     frequency: 520,
-    audioUrl: '/audio/words/dhalika.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/dhalika.mp3',
     lessonOrderIndex: 23,
     introduction: {
       style: IntroductionStyle.QURAN_CONTEXT,
@@ -210,7 +210,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Man',
     meaning: 'who, whoever',
     frequency: 606,
-    audioUrl: '/audio/words/man.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/man.mp3',
     lessonOrderIndex: 23,
     introduction: {
       style: IntroductionStyle.LIFE_CONNECTION,
@@ -224,7 +224,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Ma',
     meaning: 'what, that which',
     frequency: 1266,
-    audioUrl: '/audio/words/ma.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/ma.mp3',
     lessonOrderIndex: 23,
     introduction: {
       style: IntroductionStyle.QUICK_CHECK,
@@ -243,7 +243,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Lam',
     meaning: 'did not',
     frequency: 353,
-    audioUrl: '/audio/words/lam.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/lam.mp3',
     lessonOrderIndex: 24,
     introduction: {
       style: IntroductionStyle.FUN_FACT,
@@ -258,7 +258,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Lan',
     meaning: 'will never',
     frequency: 104,
-    audioUrl: '/audio/words/lan.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/lan.mp3',
     lessonOrderIndex: 24,
     introduction: {
       style: IntroductionStyle.QURAN_CONTEXT,
@@ -274,7 +274,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Bal',
     meaning: 'rather, but',
     frequency: 122,
-    audioUrl: '/audio/words/bal.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/bal.mp3',
     lessonOrderIndex: 24,
     introduction: {
       style: IntroductionStyle.COGNATE,
@@ -288,7 +288,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Hal',
     meaning: 'is? did?',
     frequency: 93,
-    audioUrl: '/audio/words/hal.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/hal.mp3',
     lessonOrderIndex: 24,
     introduction: {
       style: IntroductionStyle.LIFE_CONNECTION,
@@ -302,7 +302,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Law',
     meaning: 'if (hypothetical)',
     frequency: 184,
-    audioUrl: '/audio/words/law.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/law.mp3',
     lessonOrderIndex: 24,
     introduction: {
       style: IntroductionStyle.QUICK_CHECK,
@@ -321,7 +321,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Shay\'',
     meaning: 'Thing',
     frequency: 283,
-    audioUrl: '/audio/words/shay.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/shay.mp3',
     lessonOrderIndex: 25,
     introduction: {
       style: IntroductionStyle.FUN_FACT,
@@ -336,7 +336,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Makan',
     meaning: 'Place',
     frequency: 25,
-    audioUrl: '/audio/words/makan.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/makan.mp3',
     lessonOrderIndex: 25,
     introduction: {
       style: IntroductionStyle.COGNATE,
@@ -350,7 +350,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Bayt',
     meaning: 'House',
     frequency: 65,
-    audioUrl: '/audio/words/bayt.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/bayt.mp3',
     lessonOrderIndex: 25,
     introduction: {
       style: IntroductionStyle.QURAN_CONTEXT,
@@ -366,7 +366,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Masjid',
     meaning: 'Mosque',
     frequency: 28,
-    audioUrl: '/audio/words/masjid.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/masjid.mp3',
     lessonOrderIndex: 25,
     introduction: {
       style: IntroductionStyle.LIFE_CONNECTION,
@@ -380,7 +380,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Dar',
     meaning: 'Abode, Dwelling',
     frequency: 48,
-    audioUrl: '/audio/words/dar.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/dar.mp3',
     lessonOrderIndex: 25,
     introduction: {
       style: IntroductionStyle.QUICK_CHECK,
@@ -399,7 +399,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Kalimah',
     meaning: 'Word',
     frequency: 28,
-    audioUrl: '/audio/words/kalimah.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/kalimah.mp3',
     lessonOrderIndex: 26,
     introduction: {
       style: IntroductionStyle.COGNATE,
@@ -413,7 +413,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Qawl',
     meaning: 'Saying, Word',
     frequency: 92,
-    audioUrl: '/audio/words/qawl.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/qawl.mp3',
     lessonOrderIndex: 26,
     introduction: {
       style: IntroductionStyle.FUN_FACT,
@@ -428,7 +428,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Hadith',
     meaning: 'Speech, Narration',
     frequency: 28,
-    audioUrl: '/audio/words/hadith.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/hadith.mp3',
     lessonOrderIndex: 26,
     introduction: {
       style: IntroductionStyle.QURAN_CONTEXT,
@@ -444,7 +444,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Dhikr',
     meaning: 'Remembrance',
     frequency: 76,
-    audioUrl: '/audio/words/dhikr.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/dhikr.mp3',
     lessonOrderIndex: 26,
     introduction: {
       style: IntroductionStyle.LIFE_CONNECTION,
@@ -458,7 +458,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Ism',
     meaning: 'Name',
     frequency: 39,
-    audioUrl: '/audio/words/ism.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/ism.mp3',
     lessonOrderIndex: 26,
     introduction: {
       style: IntroductionStyle.QUICK_CHECK,
@@ -477,7 +477,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Ata\'a',
     meaning: 'to obey',
     frequency: 72,
-    audioUrl: '/audio/words/ataa.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/ataa.mp3',
     lessonOrderIndex: 27,
     introduction: {
       style: IntroductionStyle.COGNATE,
@@ -491,7 +491,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Asa',
     meaning: 'to disobey',
     frequency: 27,
-    audioUrl: '/audio/words/asa.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/asa.mp3',
     lessonOrderIndex: 27,
     introduction: {
       style: IntroductionStyle.QURAN_CONTEXT,
@@ -507,7 +507,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Kadhdhaba',
     meaning: 'to deny, reject',
     frequency: 176,
-    audioUrl: '/audio/words/kadhdhaba.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/kadhdhaba.mp3',
     lessonOrderIndex: 27,
     introduction: {
       style: IntroductionStyle.FUN_FACT,
@@ -522,7 +522,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Taba',
     meaning: 'to repent',
     frequency: 63,
-    audioUrl: '/audio/words/taba.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/taba.mp3',
     lessonOrderIndex: 27,
     introduction: {
       style: IntroductionStyle.LIFE_CONNECTION,
@@ -536,7 +536,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Najja',
     meaning: 'to save, deliver',
     frequency: 37,
-    audioUrl: '/audio/words/najja.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/najja.mp3',
     lessonOrderIndex: 27,
     introduction: {
       style: IntroductionStyle.QUICK_CHECK,
@@ -555,7 +555,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Wa\'ada',
     meaning: 'to promise',
     frequency: 70,
-    audioUrl: '/audio/words/waada.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/waada.mp3',
     lessonOrderIndex: 28,
     introduction: {
       style: IntroductionStyle.COGNATE,
@@ -569,7 +569,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Wa\'d',
     meaning: 'Promise',
     frequency: 49,
-    audioUrl: '/audio/words/wad.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/waad.mp3',
     lessonOrderIndex: 28,
     introduction: {
       style: IntroductionStyle.FUN_FACT,
@@ -584,7 +584,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Andhara',
     meaning: 'to warn',
     frequency: 44,
-    audioUrl: '/audio/words/andhara.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/andhara.mp3',
     lessonOrderIndex: 28,
     introduction: {
       style: IntroductionStyle.QURAN_CONTEXT,
@@ -600,7 +600,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Bashshara',
     meaning: 'to give glad tidings',
     frequency: 38,
-    audioUrl: '/audio/words/bashshara.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/bashshara.mp3',
     lessonOrderIndex: 28,
     introduction: {
       style: IntroductionStyle.LIFE_CONNECTION,
@@ -614,7 +614,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Sawfa',
     meaning: 'shall, will',
     frequency: 42,
-    audioUrl: '/audio/words/sawfa.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/sawfa.mp3',
     lessonOrderIndex: 28,
     introduction: {
       style: IntroductionStyle.QUICK_CHECK,
@@ -633,7 +633,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Aleem',
     meaning: 'All-Knowing',
     frequency: 101,
-    audioUrl: '/audio/words/aleem.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/aleem.mp3',
     lessonOrderIndex: 29,
     introduction: {
       style: IntroductionStyle.COGNATE,
@@ -647,7 +647,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Rahim',
     meaning: 'Most Merciful',
     frequency: 112,
-    audioUrl: '/audio/words/rahim.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/rahim.mp3',
     lessonOrderIndex: 29,
     introduction: {
       style: IntroductionStyle.QURAN_CONTEXT,
@@ -663,7 +663,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Ghafoor',
     meaning: 'Most Forgiving',
     frequency: 62,
-    audioUrl: '/audio/words/ghafoor.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/ghafoor.mp3',
     lessonOrderIndex: 29,
     introduction: {
       style: IntroductionStyle.FUN_FACT,
@@ -678,7 +678,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Sami\'',
     meaning: 'All-Hearing',
     frequency: 39,
-    audioUrl: '/audio/words/sami.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/samii.mp3',
     lessonOrderIndex: 29,
     introduction: {
       style: IntroductionStyle.LIFE_CONNECTION,
@@ -692,7 +692,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Hakim',
     meaning: 'All-Wise',
     frequency: 84,
-    audioUrl: '/audio/words/hakim.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/hakim.mp3',
     lessonOrderIndex: 29,
     introduction: {
       style: IntroductionStyle.QUICK_CHECK,
@@ -711,7 +711,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Ahd',
     meaning: 'Covenant, Promise',
     frequency: 29,
-    audioUrl: '/audio/words/ahd.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/ahd.mp3',
     lessonOrderIndex: 30,
     introduction: {
       style: IntroductionStyle.COGNATE,
@@ -725,7 +725,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Shahid',
     meaning: 'Witness, Martyr',
     frequency: 40,
-    audioUrl: '/audio/words/shahid.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/shahid.mp3',
     lessonOrderIndex: 30,
     introduction: {
       style: IntroductionStyle.FUN_FACT,
@@ -740,7 +740,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Hukm',
     meaning: 'Judgment, Rule',
     frequency: 30,
-    audioUrl: '/audio/words/hukm.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/hukm.mp3',
     lessonOrderIndex: 30,
     introduction: {
       style: IntroductionStyle.QURAN_CONTEXT,
@@ -756,7 +756,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Mathal',
     meaning: 'Parable, Example',
     frequency: 87,
-    audioUrl: '/audio/words/mathal.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/mathal.mp3',
     lessonOrderIndex: 30,
     introduction: {
       style: IntroductionStyle.LIFE_CONNECTION,
@@ -770,7 +770,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Ahl',
     meaning: 'Family, People of',
     frequency: 127,
-    audioUrl: '/audio/words/ahl.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/ahl.mp3',
     lessonOrderIndex: 30,
     introduction: {
       style: IntroductionStyle.QUICK_CHECK,
@@ -789,7 +789,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Kana',
     meaning: 'to be, was',
     frequency: 1358,
-    audioUrl: '/audio/words/kana.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/kana.mp3',
     lessonOrderIndex: 31,
     introduction: {
       style: IntroductionStyle.FUN_FACT,
@@ -804,7 +804,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Laysa',
     meaning: 'is not',
     frequency: 89,
-    audioUrl: '/audio/words/laysa.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/laysa.mp3',
     lessonOrderIndex: 31,
     introduction: {
       style: IntroductionStyle.QURAN_CONTEXT,
@@ -820,7 +820,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Fa\'ala',
     meaning: 'to do',
     frequency: 88,
-    audioUrl: '/audio/words/faala.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/faala.mp3',
     lessonOrderIndex: 31,
     introduction: {
       style: IntroductionStyle.COGNATE,
@@ -834,7 +834,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Wajada',
     meaning: 'to find',
     frequency: 106,
-    audioUrl: '/audio/words/wajada.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/wajada.mp3',
     lessonOrderIndex: 31,
     introduction: {
       style: IntroductionStyle.LIFE_CONNECTION,
@@ -848,7 +848,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Sa\'ala',
     meaning: 'to ask',
     frequency: 106,
-    audioUrl: '/audio/words/saala.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/saala.mp3',
     lessonOrderIndex: 31,
     introduction: {
       style: IntroductionStyle.QUICK_CHECK,
@@ -867,7 +867,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Insan',
     meaning: 'Human, Mankind',
     frequency: 71,
-    audioUrl: '/audio/words/insan.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/insan.mp3',
     lessonOrderIndex: 32,
     introduction: {
       style: IntroductionStyle.COGNATE,
@@ -881,7 +881,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Wajh',
     meaning: 'Face',
     frequency: 71,
-    audioUrl: '/audio/words/wajh.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/wajh.mp3',
     lessonOrderIndex: 32,
     introduction: {
       style: IntroductionStyle.QURAN_CONTEXT,
@@ -897,7 +897,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Yad',
     meaning: 'Hand',
     frequency: 120,
-    audioUrl: '/audio/words/yad.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/yad.mp3',
     lessonOrderIndex: 32,
     introduction: {
       style: IntroductionStyle.FUN_FACT,
@@ -912,7 +912,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Ayn',
     meaning: 'Eye, Spring',
     frequency: 57,
-    audioUrl: '/audio/words/ayn.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/ayn.mp3',
     lessonOrderIndex: 32,
     introduction: {
       style: IntroductionStyle.LIFE_CONNECTION,
@@ -926,7 +926,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Khalq',
     meaning: 'Creation',
     frequency: 52,
-    audioUrl: '/audio/words/khalq.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/khalq.mp3',
     lessonOrderIndex: 32,
     introduction: {
       style: IntroductionStyle.QUICK_CHECK,
@@ -945,7 +945,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Malak',
     meaning: 'Angel',
     frequency: 88,
-    audioUrl: '/audio/words/malak.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/malak.mp3',
     lessonOrderIndex: 33,
     introduction: {
       style: IntroductionStyle.FUN_FACT,
@@ -960,7 +960,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Shaytan',
     meaning: 'Satan, Devil',
     frequency: 80,
-    audioUrl: '/audio/words/shaytan.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/shaytan.mp3',
     lessonOrderIndex: 33,
     introduction: {
       style: IntroductionStyle.COGNATE,
@@ -974,7 +974,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Jahannam',
     meaning: 'Hellfire',
     frequency: 77,
-    audioUrl: '/audio/words/jahannam.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/jahannam.mp3',
     lessonOrderIndex: 33,
     introduction: {
       style: IntroductionStyle.QURAN_CONTEXT,
@@ -990,7 +990,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Khalid',
     meaning: 'Abiding forever',
     frequency: 74,
-    audioUrl: '/audio/words/khalid.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/khalid.mp3',
     lessonOrderIndex: 33,
     introduction: {
       style: IntroductionStyle.LIFE_CONNECTION,
@@ -1004,7 +1004,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Ashab',
     meaning: 'Companions, People of',
     frequency: 78,
-    audioUrl: '/audio/words/ashab.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/ashab.mp3',
     lessonOrderIndex: 33,
     introduction: {
       style: IntroductionStyle.QUICK_CHECK,
@@ -1023,7 +1023,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Walad',
     meaning: 'Child, Offspring',
     frequency: 56,
-    audioUrl: '/audio/words/walad.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/walad.mp3',
     lessonOrderIndex: 34,
     introduction: {
       style: IntroductionStyle.COGNATE,
@@ -1037,7 +1037,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Ibn',
     meaning: 'Son',
     frequency: 63,
-    audioUrl: '/audio/words/ibn.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/ibn.mp3',
     lessonOrderIndex: 34,
     introduction: {
       style: IntroductionStyle.FUN_FACT,
@@ -1052,7 +1052,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Akh',
     meaning: 'Brother',
     frequency: 75,
-    audioUrl: '/audio/words/akh.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/akh.mp3',
     lessonOrderIndex: 34,
     introduction: {
       style: IntroductionStyle.QURAN_CONTEXT,
@@ -1068,7 +1068,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Nisa\'',
     meaning: 'Women',
     frequency: 59,
-    audioUrl: '/audio/words/nisa.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/nisa.mp3',
     lessonOrderIndex: 34,
     introduction: {
       style: IntroductionStyle.LIFE_CONNECTION,
@@ -1082,7 +1082,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Zawj',
     meaning: 'Spouse, Pair',
     frequency: 76,
-    audioUrl: '/audio/words/zawj.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/zawj.mp3',
     lessonOrderIndex: 34,
     introduction: {
       style: IntroductionStyle.QUICK_CHECK,
@@ -1101,7 +1101,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Mal',
     meaning: 'Wealth, Property',
     frequency: 86,
-    audioUrl: '/audio/words/mal.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/mal.mp3',
     lessonOrderIndex: 35,
     introduction: {
       style: IntroductionStyle.COGNATE,
@@ -1115,7 +1115,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Amal',
     meaning: 'Deed, Work',
     frequency: 71,
-    audioUrl: '/audio/words/amal.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/amal.mp3',
     lessonOrderIndex: 35,
     introduction: {
       style: IntroductionStyle.FUN_FACT,
@@ -1130,7 +1130,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Kasaba',
     meaning: 'to earn',
     frequency: 62,
-    audioUrl: '/audio/words/kasaba.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/kasaba.mp3',
     lessonOrderIndex: 35,
     introduction: {
       style: IntroductionStyle.QURAN_CONTEXT,
@@ -1146,7 +1146,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Mata\'',
     meaning: 'Provision, Enjoyment',
     frequency: 35,
-    audioUrl: '/audio/words/mata.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/mata.mp3',
     lessonOrderIndex: 35,
     introduction: {
       style: IntroductionStyle.LIFE_CONNECTION,
@@ -1160,7 +1160,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Kathir',
     meaning: 'Much, Many',
     frequency: 42,
-    audioUrl: '/audio/words/kathir.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/kathir.mp3',
     lessonOrderIndex: 35,
     introduction: {
       style: IntroductionStyle.QUICK_CHECK,
@@ -1179,7 +1179,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Thumma',
     meaning: 'Then, Moreover',
     frequency: 338,
-    audioUrl: '/audio/words/thumma.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/thumma.mp3',
     lessonOrderIndex: 36,
     introduction: {
       style: IntroductionStyle.FUN_FACT,
@@ -1194,7 +1194,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Aw',
     meaning: 'Or',
     frequency: 280,
-    audioUrl: '/audio/words/aw.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/aw.mp3',
     lessonOrderIndex: 36,
     introduction: {
       style: IntroductionStyle.COGNATE,
@@ -1208,7 +1208,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Hatta',
     meaning: 'Until',
     frequency: 95,
-    audioUrl: '/audio/words/hatta.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/hatta.mp3',
     lessonOrderIndex: 36,
     introduction: {
       style: IntroductionStyle.QURAN_CONTEXT,
@@ -1224,7 +1224,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'La\'alla',
     meaning: 'Perhaps, So that',
     frequency: 123,
-    audioUrl: '/audio/words/laalla.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/laalla.mp3',
     lessonOrderIndex: 36,
     introduction: {
       style: IntroductionStyle.LIFE_CONNECTION,
@@ -1238,7 +1238,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Lakin',
     meaning: 'But, However',
     frequency: 65,
-    audioUrl: '/audio/words/lakin.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/lakin.mp3',
     lessonOrderIndex: 36,
     introduction: {
       style: IntroductionStyle.QUICK_CHECK,
@@ -1257,7 +1257,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Qabla',
     meaning: 'Before',
     frequency: 197,
-    audioUrl: '/audio/words/qabla.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/qabla.mp3',
     lessonOrderIndex: 37,
     introduction: {
       style: IntroductionStyle.COGNATE,
@@ -1271,7 +1271,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Ba\'da',
     meaning: 'After',
     frequency: 133,
-    audioUrl: '/audio/words/bada.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/baad.mp3',
     lessonOrderIndex: 37,
     introduction: {
       style: IntroductionStyle.QURAN_CONTEXT,
@@ -1287,7 +1287,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Inda',
     meaning: 'At, Near, With',
     frequency: 160,
-    audioUrl: '/audio/words/inda.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/inda.mp3',
     lessonOrderIndex: 37,
     introduction: {
       style: IntroductionStyle.FUN_FACT,
@@ -1302,7 +1302,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Bayna',
     meaning: 'Between',
     frequency: 243,
-    audioUrl: '/audio/words/bayna.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/bayna.mp3',
     lessonOrderIndex: 37,
     introduction: {
       style: IntroductionStyle.LIFE_CONNECTION,
@@ -1316,7 +1316,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Ma\'a',
     meaning: 'With, Together',
     frequency: 159,
-    audioUrl: '/audio/words/maa.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/maa-with.mp3',
     lessonOrderIndex: 37,
     introduction: {
       style: IntroductionStyle.QUICK_CHECK,
@@ -1335,7 +1335,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Ba\'d',
     meaning: 'Some, Part',
     frequency: 157,
-    audioUrl: '/audio/words/bad.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/baad-some.mp3',
     lessonOrderIndex: 38,
     introduction: {
       style: IntroductionStyle.FUN_FACT,
@@ -1350,7 +1350,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Ula\'ika',
     meaning: 'Those',
     frequency: 204,
-    audioUrl: '/audio/words/ulaika.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/ulaika.mp3',
     lessonOrderIndex: 38,
     introduction: {
       style: IntroductionStyle.QURAN_CONTEXT,
@@ -1366,7 +1366,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Idha',
     meaning: 'When, If',
     frequency: 405,
-    audioUrl: '/audio/words/idha.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/idha.mp3',
     lessonOrderIndex: 38,
     introduction: {
       style: IntroductionStyle.COGNATE,
@@ -1380,7 +1380,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Ayyuha',
     meaning: 'O (vocative)',
     frequency: 153,
-    audioUrl: '/audio/words/ayyuha.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/ayyuha.mp3',
     lessonOrderIndex: 38,
     introduction: {
       style: IntroductionStyle.LIFE_CONNECTION,
@@ -1394,7 +1394,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Ahad',
     meaning: 'One, Anyone',
     frequency: 74,
-    audioUrl: '/audio/words/ahad.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/ahad.mp3',
     lessonOrderIndex: 38,
     introduction: {
       style: IntroductionStyle.QUICK_CHECK,
@@ -1413,7 +1413,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Ilah',
     meaning: 'God, Deity',
     frequency: 147,
-    audioUrl: '/audio/words/ilah.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/ilah.mp3',
     lessonOrderIndex: 39,
     introduction: {
       style: IntroductionStyle.FUN_FACT,
@@ -1428,7 +1428,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Ghayr',
     meaning: 'Other, Besides',
     frequency: 144,
-    audioUrl: '/audio/words/ghayr.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/ghayr.mp3',
     lessonOrderIndex: 39,
     introduction: {
       style: IntroductionStyle.COGNATE,
@@ -1442,7 +1442,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Akhir',
     meaning: 'Last, Other',
     frequency: 133,
-    audioUrl: '/audio/words/akhir.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/akhir.mp3',
     lessonOrderIndex: 39,
     introduction: {
       style: IntroductionStyle.QURAN_CONTEXT,
@@ -1458,7 +1458,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Qalil',
     meaning: 'Few, Little',
     frequency: 43,
-    audioUrl: '/audio/words/qalil.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/qalil.mp3',
     lessonOrderIndex: 39,
     introduction: {
       style: IntroductionStyle.LIFE_CONNECTION,
@@ -1472,7 +1472,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Jami\'',
     meaning: 'All, Together',
     frequency: 53,
-    audioUrl: '/audio/words/jami.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/jami.mp3',
     lessonOrderIndex: 39,
     introduction: {
       style: IntroductionStyle.QUICK_CHECK,
@@ -1491,7 +1491,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Nasara',
     meaning: 'to help, give victory',
     frequency: 59,
-    audioUrl: '/audio/words/nasara.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/nasara.mp3',
     lessonOrderIndex: 40,
     introduction: {
       style: IntroductionStyle.COGNATE,
@@ -1505,7 +1505,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Fitnah',
     meaning: 'Trial, Temptation',
     frequency: 34,
-    audioUrl: '/audio/words/fitnah.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/fitnah.mp3',
     lessonOrderIndex: 40,
     introduction: {
       style: IntroductionStyle.FUN_FACT,
@@ -1520,7 +1520,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Aduww',
     meaning: 'Enemy',
     frequency: 49,
-    audioUrl: '/audio/words/aduww.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/aduww.mp3',
     lessonOrderIndex: 40,
     introduction: {
       style: IntroductionStyle.QURAN_CONTEXT,
@@ -1536,7 +1536,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Nasr',
     meaning: 'Help, Victory',
     frequency: 22,
-    audioUrl: '/audio/words/nasr.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/nasr.mp3',
     lessonOrderIndex: 40,
     introduction: {
       style: IntroductionStyle.LIFE_CONNECTION,
@@ -1550,7 +1550,7 @@ export const WORDS_L21_L40: WordSeedData[] = [
     transliteration: 'Wali',
     meaning: 'Guardian, Protector',
     frequency: 86,
-    audioUrl: '/audio/words/wali.mp3',
+    audioUrl: 'https://pub-5c2533d63fce46da8ebdcbe7cc5fe339.r2.dev/words/wali.mp3',
     lessonOrderIndex: 40,
     introduction: {
       style: IntroductionStyle.QUICK_CHECK,
