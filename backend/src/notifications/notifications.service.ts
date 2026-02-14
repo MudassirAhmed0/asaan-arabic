@@ -8,8 +8,8 @@ import {
   PrayerTimes,
 } from 'adhan';
 
-// Lahore — central Pakistan, covers most of the population
-const PAKISTAN_COORDS = new Coordinates(31.5204, 74.3587);
+// Karachi — largest city, safe default
+const PAKISTAN_COORDS = new Coordinates(24.8607, 67.0011);
 const FAJR_DELAY_MS = 15 * 60 * 1000; // 15 minutes after Fajr
 
 @Injectable()
