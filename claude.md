@@ -17,8 +17,10 @@ No feature moves forward until the previous one is tested and committed.
 - Technical stack: React Native + Expo (frontend), NestJS + PostgreSQL (backend)
 - App name: **Asaan Arabic** — Tagline: **"Samajh ke Parho"**
 - Hosting: **Railway** (backend), **Vercel** (website)
-- Phase: **Features 0-9 done, Feature 8 code-complete, Beta APK live, OTA updates active**
+- Phase: **Features 0-10 built, Feature 10 awaiting testing, Beta APK live, OTA updates active**
 - **300-word seed data COMPLETE** — 12 seed files, ~9,300 lines (60 lessons, 300 words, 180 activities, 90 challenges, 60 mid-messages, 60 celebrations)
+- **60 Arabic Insights seeded** — 1 per lesson (ROOT_PATTERN, GRAMMAR_TIP, CULTURAL_NOTE, PATTERN_RECOGNITION, WORD_FAMILY)
+- **Premium/Freemium system BUILT** — RevenueCat SDK, subscriptions backend, taste-then-lock gating on Arabic Insights, Practice, Weekly Review
 - Backend deployed to Railway (auto-deploys from `main`)
 - Preview APK built and distributed (EAS Build)
 - OTA updates configured and tested (first update pushed Feb 14)
@@ -27,16 +29,14 @@ No feature moves forward until the previous one is tested and committed.
 - Push notifications: code 100% complete on both ends, pending Firebase env vars on Railway
 - CMS built (`/cms`), Website live (`/web` on Vercel)
 - Pre-Ramadan Instagram campaign: 20 posts done (Feb 2-11), campaign live
-- Freemium model locked: words free forever, grammar/practice/review premium (DECISION-013)
-- Premium introduction: taste-then-lock, lesson-based gating (DECISION-014)
 
 ## What To Do Next
-1. **Set Firebase env vars on Railway** — `FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, `FIREBASE_PRIVATE_KEY` → test push notification end-to-end
-2. **Run production seed** — execute 300-word seed data against Railway PostgreSQL
-3. **Build new APK** — splash screen fix (Android 12+) requires native rebuild
-4. **Remove temporary test cron** — 10 PM PKT notification cron in notifications.service.ts
-5. **Add AyahHighlights** — Qur'anic ayah examples for all 300 words
-6. **Build premium system** — ArabicInsight model, UserSubscription, frosted glass lock UI, purchase flow
+1. **Test premium/freemium system** — Mudassir manual test: Arabic Insights in lesson flow, practice gating, review gating, upgrade flow
+2. **Run production seed** — execute 300-word seed + 60 insights against Railway PostgreSQL
+3. **Run Prisma migration on Railway** — ArabicInsight + UserSubscription tables
+4. **Set Firebase env vars on Railway** — `FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, `FIREBASE_PRIVATE_KEY` → test push notifications
+5. **Build new APK** — splash screen fix (Android 12+) + RevenueCat SDK requires native rebuild
+6. **Add AyahHighlights** — Qur'anic ayah examples for all 300 words
 7. **App Store submissions** — Apple + Google developer accounts, store listings
 8. Feature 6 (Library) deferred to post-launch
 9. See `progress.md` for full checklist
@@ -62,10 +62,12 @@ No feature moves forward until the previous one is tested and committed.
 10. **DONE** — Deploy backend to Railway, configure EAS builds + OTA updates
 11. **DONE** — Fix beta bugs (auth persistence, splash screen, session expiry)
 12. **DONE** — Build push notification system (backend + mobile, pending Firebase config)
-13. **IN PROGRESS** — Firebase setup + test push notifications
-14. **IN PROGRESS** — Run production seed against Railway DB
-15. **NEXT** — Build premium features (frosted lock UI, purchase flow, subscription tracking)
-16. **NEXT** — App Store submissions (Apple + Google)
+13. **DONE** — Build premium system (RevenueCat, subscriptions, Arabic Insights, gating on Practice + Review)
+14. **IN PROGRESS** — Test premium system end-to-end
+15. **IN PROGRESS** — Firebase setup + test push notifications
+16. **NEXT** — Run production seed + migration against Railway DB
+17. **NEXT** — Build new APK (RevenueCat SDK needs native rebuild)
+18. **NEXT** — App Store submissions (Apple + Google)
 17. Mudassir pre-Ramadan campaign LIVE (started Feb 2, 20 posts done)
 18. Launch on both Android + iOS
 
@@ -102,8 +104,7 @@ No feature moves forward until the previous one is tested and committed.
 | Copy decisions documented in copy-decisions.md | All copy changes, rationale, and before/after tracked. |
 
 ## Open Questions / Unknowns
-- Payment gateway integration (App Store/Play Store + JazzCash/EasyPaisa)
-- Audio file CDN (S3 + CloudFront vs Cloudflare R2)
+- Payment gateway integration (JazzCash/EasyPaisa for Pakistan — RevenueCat handles App Store/Play Store)
 - Analytics pipeline design
 - CMS deployment and admin auth
 - Streak freeze/grace period mechanics (deferred to post-beta — DECISION-010)
@@ -112,9 +113,9 @@ No feature moves forward until the previous one is tested and committed.
 A 12-role AI virtual team operates from `/team/`. Each role has its own MD file with principles, biases, and red lines. Run standups, consult specialists, and log decisions. See `/team/README.md` for usage.
 
 ## Action Items for Mudassir
-- **Set Firebase env vars on Railway** — `FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, `FIREBASE_PRIVATE_KEY` (service account key already generated)
-- **Add `google-services.json`** (Android) and **`GoogleService-Info.plist`** (iOS) to mobile app for production builds
+- **Test premium/freemium system** — complete lessons 1-8+, verify insight gating, practice lock after 25 words, review lock after first completion
+- **Set Firebase env vars on Railway** — `FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, `FIREBASE_PRIVATE_KEY`
+- **Set up RevenueCat project** — create apps (iOS/Android), configure "AsaanArabic Pro" entitlement, add products (monthly/annual/lifetime), set webhook URL
 - Schedule Qari recording session for **300 words** (parallel with dev)
-- Pre-Ramadan campaign LIVE (started Feb 2, 20 posts done) — need new content from Feb 12+
 - Prepare app store developer accounts (Apple + Google)
 - Review 300-word seed data for accuracy

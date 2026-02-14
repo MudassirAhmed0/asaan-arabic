@@ -1,6 +1,6 @@
 # Progress Tracker
 
-Last updated: 2026-02-14
+Last updated: 2026-02-15
 
 ---
 
@@ -262,7 +262,7 @@ Decided to skip Library for launch. Quranic text accuracy is critical and needs 
 
 ### Still Needed
 - [ ] AyahHighlights for all 300 words
-- [ ] Arabic Insights (grammar nuggets, 1 per lesson) — DECISION-012
+- [x] Arabic Insights (grammar nuggets, 1 per lesson) — DECISION-012 — 60 insights seeded
 - [ ] Verify all ayah texts against mushaf
 - [ ] Verify all word frequencies against corpus data
 - [ ] Run seed against production database
@@ -271,45 +271,66 @@ Decided to skip Library for launch. Quranic text accuracy is critical and needs 
 ---
 
 ## Feature 10: Premium / Freemium System (DECISION-013, 014)
-**Status: NOT STARTED**
+**Status: BUILT — awaiting Mudassir's manual testing**
+**Commit:** `ef9d4ec` on `main`
 
 ### Backend
-- [ ] `ArabicInsight` model (1 per lesson: headline, body, pattern, quranic example, try-it question)
-- [ ] `UserSubscription` model (premium status, plan type, expiry, referral credits)
-- [ ] `isPremium` flag on `LessonActivity`
-- [ ] `patternsUnlocked` on `UserProgress`
-- [ ] Premium check middleware (free vs premium content gating)
-- [ ] `POST /subscriptions/purchase` — handle purchase
-- [ ] `GET /subscriptions/status` — check premium status
+- [x] `ArabicInsight` model + migration (type, title, body, examples JSON, 1 per lesson)
+- [x] `InsightType` enum (ROOT_PATTERN, GRAMMAR_TIP, CULTURAL_NOTE, PATTERN_RECOGNITION, WORD_FAMILY)
+- [x] 60 Arabic Insights seeded (insights-part1/2/3.ts)
+- [x] `UserSubscription` model + migration (revenuecatId, status, platform, productId, purchasedAt, expiresAt)
+- [x] `SubscriptionStatus` enum (ACTIVE, EXPIRED, CANCELLED, BILLING_RETRY)
+- [x] `GET /subscriptions/status` — returns isPremium + subscription details
+- [x] `POST /subscriptions/verify` — client sends RevenueCat customer ID, backend upserts subscription
+- [x] `POST /subscriptions/webhook` — RevenueCat event handling (purchase, renewal, cancel, expire)
+- [x] `isPremium()` check in SubscriptionsService
+- [x] Lesson list returns `premiumTier` (free/taste/premium) + `isPremiumUser`
+- [x] Lesson content returns `premiumTier` + `isPremiumUser` (no 403, all lessons accessible)
+- [x] Practice gating: `isPremiumLocked` returned when totalLearned > 25 and not premium
+- [x] Weekly Review gating: `isPremiumLocked` returned when completedCount > 0 and not premium
 - [ ] Referral tracking endpoints
+- [ ] `patternsUnlocked` on `UserProgress`
+- [ ] `isPremium` flag on individual `LessonActivity` (advanced activity gating)
 
 ### Frontend
-- [ ] Frosted glass overlay component for locked premium content
-- [ ] Gold "Premium — free for you!" badge component
-- [ ] "Free preview X of 4" counter
-- [ ] Premium purchase flow (monthly/annual/lifetime)
-- [ ] Lock states on Practice mode, Weekly Review, advanced activities
+- [x] RevenueCat SDK integrated (`react-native-purchases` + `react-native-purchases-ui`)
+- [x] RevenueCat service (`services/purchases.ts`) — init, checkEntitlement, restore, reset
+- [x] Premium Zustand store (`stores/premium.ts`) — isPremium, checkPremiumStatus, restore, syncPurchaseToBackend
+- [x] Subscriptions API client (`api/subscriptions.ts`) — getStatus, verify
+- [x] RevenueCat init on login, reset on logout (auth store updated)
+- [x] Native paywall via `RevenueCatUI.presentPaywall()` — used from ArabicInsight + Practice + Review
+- [x] Paywall route (`app/paywall.tsx`) — modal presentation
+- [x] ArabicInsight component — 3 states: absent (1-3), full with gold badge (4-7), blurred with lock overlay + upgrade CTA (8+)
+- [x] Lesson flow updated — insight step after words, before mid-message (when tier !== 'free')
+- [x] LessonCard — 3-phase badges: none (1-3), "Premium — free for you!" (4-7), "Premium" (8+)
+- [x] All lessons tappable — only sequence lock, no premium lock on lessons
+- [x] Practice screen — premium gate with curiosity card when locked (shows stats + what they're missing)
+- [x] Weekly Review screen — premium gate when locked (shows features + upgrade CTA)
+- [x] Weekly Review banner — gold premium badge with lock when locked
+- [x] Profile screen — Subscription section with upgrade CTA / active status + restore purchases
+- [ ] "Free preview X of 4" counter on taste-phase insights
 - [ ] Pattern count display alongside word count
-- [ ] Premium conversion bottom sheet (value pitch + pricing)
+- [ ] Advanced activity types (Pattern Match, Decode the Ayah)
+- [ ] Premium conversion bottom sheet (currently uses native RevenueCat paywall)
+- [ ] Referral program UI
 
 ---
 
 ## Feature 11: Share Cards
-**Status: NOT STARTED**
+**Status: PARTIALLY BUILT**
 
-### Backend
-- [ ] `GET /share/progress-card`
-- [ ] `GET /share/milestone-card/:milestone`
-- [ ] `GET /share/lesson-card/:lessonId`
-- [ ] satori + sharp setup
-- [ ] Arabic font embedding
-- [ ] Include pattern count on share cards
+### Built (client-side capture via react-native-view-shot)
+- [x] Share card on lesson complete (score + vocabulary count)
+- [x] Share card on practice completion (score + vocabulary count)
+- [x] Share card on weekly review (score + week number + recall %)
+- [x] Instagram Stories deep link + fallback to expo-sharing
+- [x] Hidden capture card pattern (off-screen View + captureRef)
 
-### Frontend
-- [ ] Share button on lesson complete
-- [ ] Share button on My Words
+### Still Needed
+- [ ] Server-side share cards (satori + sharp for richer design)
+- [ ] Share button on My Words screen
 - [ ] Milestone modal + share
-- [ ] expo-sharing integration
+- [ ] Pattern count on share cards
 
 ---
 
