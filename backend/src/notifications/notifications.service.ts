@@ -37,14 +37,36 @@ export class NotificationsService {
 
   async sendTestNotification() {
     this.logger.log('Sending test notification...');
-    return this.sendDailyReminder();
+    return this.sendToAll(
+      'Time to learn!',
+      "Your daily Qur'anic words are waiting. Just 5 minutes today.",
+      { type: 'test' },
+    );
   }
 
-  // 4:00 UTC = 9:00 AM PKT
-  @Cron('0 4 * * *')
-  async sendDailyReminder() {
-    this.logger.log('Running daily reminder cron...');
+  // 0:30 UTC = 5:30 AM PKT (~10-15 min after Fajr)
+  @Cron('30 0 * * *')
+  async sendFajrReminder() {
+    this.logger.log('Running post-Fajr reminder cron...');
+    return this.sendToAll(
+      'Start your day with the Quran',
+      'Learn 5 new words before the world wakes up.',
+      { type: 'fajr_reminder' },
+    );
+  }
 
+  // 18:00 UTC = 11:00 PM PKT
+  @Cron('0 18 * * *')
+  async sendNightReminder() {
+    this.logger.log('Running night reminder cron...');
+    return this.sendToAll(
+      "Don't break your streak",
+      'A quick lesson before bed — just 5 minutes.',
+      { type: 'night_reminder' },
+    );
+  }
+
+  private async sendToAll(title: string, body: string, data: Record<string, string>) {
     const tokens = await this.prisma.fcmToken.findMany({
       where: { active: true },
       select: { token: true },
@@ -56,16 +78,9 @@ export class NotificationsService {
     }
 
     const tokenStrings = tokens.map((t) => t.token);
-
-    const failedTokens = await this.firebase.sendToTokens(
-      tokenStrings,
-      'Time to learn!',
-      "Your daily Qur'anic words are waiting. Just 5 minutes today.",
-      { type: 'daily_reminder' },
-    );
-
+    const failedTokens = await this.firebase.sendToTokens(tokenStrings, title, body, data);
     await this.deactivateTokens(failedTokens);
 
-    this.logger.log(`Daily reminder sent to ${tokenStrings.length} devices`);
+    this.logger.log(`${data.type} sent to ${tokenStrings.length} devices`);
   }
 }
