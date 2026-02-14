@@ -137,10 +137,25 @@ Teaching note: "Notice هَدَى (to guide) and هُدَى (guidance) from Less
 
 ---
 
-## Lessons 11-30: TODO
-Remaining 100 words to complete full Module 1 (150 words total).
+## Lessons 11-60: TODO (DECISION-015 — 300 Words Total)
+Remaining 250 words to complete full 300-word set across 60 lessons.
 Will source from corpus.quran.com continuing by frequency, adding:
 - More verbs (come, give, see, enter, follow, send, etc.)
 - More nouns (deen, tawbah, barakah, fitna, ummah, etc.)
 - Basic time/place words (night, morning, after, before, etc.)
 - Descriptive words (great, wise, strong, etc.)
+- Common prepositions/particles (fi, min, ila, ala, bi, la, ma, etc.)
+- Pronouns and demonstratives (huwa, hiya, hadha, etc.)
+- Abstract concepts (dhikr, tawbah, shafa'ah, etc.)
+
+### Each Lesson Also Includes (DECISION-012):
+- **1 Arabic Insight** (grammar nugget) — tied to the lesson's words
+- Grammar concepts escalate: roots → verb patterns → possessives → prepositions → plurals → negation → advanced forms
+
+### Lesson Tiers:
+- Lessons 1-10: Foundation vocabulary — heavily cognate, simple meanings
+- Lessons 11-20: Expanded vocabulary — more verbs, less cognate reliance
+- Lessons 21-30: Intermediate vocabulary — abstract concepts, particles
+- Lessons 31-40: Advanced vocabulary — less common but high-impact
+- Lessons 41-50: Contextual vocabulary — thematic groupings
+- Lessons 51-60: Completion vocabulary — rounding out to 300 words, 70% Quranic coverage

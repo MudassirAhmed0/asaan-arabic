@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "293435425921",
+    "project_id": "asaan-arabic",
+    "storage_bucket": "asaan-arabic.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:293435425921:android:acad0ef00ae144ffc5b980",
+        "android_client_info": {
+          "package_name": "com.asaanarabic.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuHENc773KJF3PlMFmCBdzPWqsYK_dHVY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

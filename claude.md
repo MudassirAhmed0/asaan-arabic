@@ -13,37 +13,61 @@ No feature moves forward until the previous one is tested and committed.
 ## Where We Are Right Now
 - Product direction defined and aligned
 - Three core files established: goals.md, planning.md, claude.md
-- Ramadan launch target identified: launch 5-10 days before Ramadan (~10-15 day build window)
-- Technical stack decided: React Native + Expo (frontend), NestJS + PostgreSQL (backend)
-- App name decided: **Asaan Arabic** — Tagline: **"Samajh ke Parho"**
-- Hosting decided: **Railway**
-- Phase: **Features 0-7 done, Feature 8 partial → Beta launch prep**
-- New workstreams: CMS, Admin Panel, Website — all building in parallel
+- Ramadan launch target: launch before Ramadan (late Feb / early March 2026)
+- Technical stack: React Native + Expo (frontend), NestJS + PostgreSQL (backend)
+- App name: **Asaan Arabic** — Tagline: **"Samajh ke Parho"**
+- Hosting: **Railway** (backend), **Vercel** (website)
+- Phase: **Features 0-9 done, Feature 8 code-complete, Beta APK live, OTA updates active**
+- **300-word seed data COMPLETE** — 12 seed files, ~9,300 lines (60 lessons, 300 words, 180 activities, 90 challenges, 60 mid-messages, 60 celebrations)
+- Backend deployed to Railway (auto-deploys from `main`)
+- Preview APK built and distributed (EAS Build)
+- OTA updates configured and tested (first update pushed Feb 14)
+- Auth persistence bugs fixed (session expiry + onboarding state)
+- Splash screen redesigned (768x768 square, needs new APK for Android 12+)
+- Push notifications: code 100% complete on both ends, pending Firebase env vars on Railway
+- CMS built (`/cms`), Website live (`/web` on Vercel)
+- Pre-Ramadan Instagram campaign: 20 posts done (Feb 2-11), campaign live
+- Freemium model locked: words free forever, grammar/practice/review premium (DECISION-013)
+- Premium introduction: taste-then-lock, lesson-based gating (DECISION-014)
 
 ## What To Do Next
-1. **Set up Firebase** — create project, add Android/iOS apps, download config files, set env vars (`FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, `FIREBASE_PRIVATE_KEY`), place `google-services.json` and `GoogleService-Info.plist`
-2. **Test push notifications** — run `npx expo prebuild`, build dev client, verify token registration + daily reminder cron
-3. Feature 6 (Library) deferred to post-launch — needs proper Quranic text verification
-4. See `progress.md` for full checklist of what's built and what's remaining
+1. **Set Firebase env vars on Railway** — `FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, `FIREBASE_PRIVATE_KEY` → test push notification end-to-end
+2. **Run production seed** — execute 300-word seed data against Railway PostgreSQL
+3. **Build new APK** — splash screen fix (Android 12+) requires native rebuild
+4. **Remove temporary test cron** — 10 PM PKT notification cron in notifications.service.ts
+5. **Add AyahHighlights** — Qur'anic ayah examples for all 300 words
+6. **Build premium system** — ArabicInsight model, UserSubscription, frosted glass lock UI, purchase flow
+7. **App Store submissions** — Apple + Google developer accounts, store listings
+8. Feature 6 (Library) deferred to post-launch
+9. See `progress.md` for full checklist
 
 ## Where We Want to Go
-- Launch full-featured app (Module 1 partial content, all engagement features) before Ramadan
+- Launch full-featured app (300 words, 60 lessons, freemium model) before Ramadan
 - Founder-led Instagram campaign drives initial users
-- Users learn Qur'anic words daily through Ramadan
-- Validate retention + product-market fit during Ramadan
-- After Ramadan: complete Module 1, build Module 2, introduce premium
+- Users learn Qur'anic words + grammar patterns daily through Ramadan
+- Free users share word counts, premium users unlock grammar insights and practice
+- Validate retention + premium conversion during Ramadan
+- After Ramadan: optimize conversion, add Decode the Ayah, expand content
 
 ## Current Plan
 1. **DONE** — Define product direction, user persona, core concept
-2. **DONE** — Define app structure (Learn, My Words, Library, Daily Challenge)
+2. **DONE** — Define app structure (Learn, My Words, Practice, Daily Challenge)
 3. **DONE** — Define distribution strategy (founder-led content, Instagram, pre-Ramadan campaign)
-4. **DONE** — Define retention plan (word counter, daily challenge, milestones)
-5. **DONE** — Design what a single lesson actually looks like (screen-by-screen)
-6. **DONE** — Source Qur'anic word list → words.md (50 words, 10 lessons, from corpus.quran.com)
+4. **DONE** — Define retention plan (word counter, daily challenge, milestones, pattern counter)
+5. **DONE** — Design what a single lesson actually looks like (screen-by-screen, including Arabic Insight)
+6. **DONE** — Source Qur'anic word list → words.md (300 words complete)
 7. **DONE** — Technical decisions: React Native + Expo, NestJS + PostgreSQL, FCM, JWT auth
-8. **IN PROGRESS** — Build (full feature set, not cut-down MVP) — Features 0-4 built, Feature 5 next
-9. Mudassir starts pre-Ramadan content campaign
-10. Launch on both Android + iOS
+8. **DONE** — Freemium model designed (DECISION-013, 014): words free forever, grammar/practice premium, taste-then-lock
+9. **DONE** — Build 300-word seed data (60 lessons, 300 words, 180 activities, 90 challenges, all content)
+10. **DONE** — Deploy backend to Railway, configure EAS builds + OTA updates
+11. **DONE** — Fix beta bugs (auth persistence, splash screen, session expiry)
+12. **DONE** — Build push notification system (backend + mobile, pending Firebase config)
+13. **IN PROGRESS** — Firebase setup + test push notifications
+14. **IN PROGRESS** — Run production seed against Railway DB
+15. **NEXT** — Build premium features (frosted lock UI, purchase flow, subscription tracking)
+16. **NEXT** — App Store submissions (Apple + Google)
+17. Mudassir pre-Ramadan campaign LIVE (started Feb 2, 20 posts done)
+18. Launch on both Android + iOS
 
 ## Decisions Made
 
@@ -51,45 +75,46 @@ No feature moves forward until the previous one is tested and committed.
 |---|---|
 | Qur'anic Arabic only, not MSA | User's motivation is understanding Qur'an and prayers, not conversation |
 | English app flow, Urdu as learning aid | Digitally active Pakistanis prefer English interfaces. Urdu helps with Arabic cognates. |
-| Word-centric learning, not surah-centric | Learning 5 words/day builds real vocabulary. Surah translations are reference, not learning. |
-| Three surfaces + daily challenge | Learn (lessons), My Words (word bank), Library (reference), Daily Challenge (retention hook). Each has a clear job. |
-| Module 1 free, Module 2 premium | Free module drives word-of-mouth. Premium unlocks depth after trust is built. |
+| Word-centric learning with grammar woven in | 5 words + 1 Arabic Insight per lesson. Words alone don't create comprehension. |
+| Words free forever, grammar/practice premium | Words drive word-of-mouth. Premium unlocks depth (grammar, practice, review). No time limit. (DECISION-013) |
+| Taste-then-lock premium introduction | Lessons 1-3 free, 4-7 premium free with badge, 8+ locked. Lesson-based gating. (DECISION-014) |
+| 300 words across 60 lessons | Full "70% of Quran" claim. 2 months of content at launch. (DECISION-015) |
 | No ads, ever | Religious content + ads = broken trust. No-ads is a differentiator. |
 | Pakistan-first | Don't dilute focus. Diaspora is a bonus, not the target. |
 | Founder-led content as primary distribution | People follow people, not apps. Mudassir's authentic content > paid marketing. |
 | Instagram as primary sharing platform | This is where the target audience actually shares and discovers. Not WhatsApp. |
-| Word count as social currency | Designed to be screenshotted, shared on Instagram, flexed in gatherings. |
-| Daily challenge as second retention hook | 1-minute engagement keeps users opening the app even on lazy days. Competitive element. |
+| Word count + pattern count as social currency | Two shareable metrics. Designed to be screenshotted, shared on Instagram, flexed in gatherings. |
+| Daily challenge as retention hook | 1-minute engagement keeps users opening the app even on lazy days. Stays free. |
 | Ramadan launch target | Biggest motivation window of the year. Scarcity + aspiration campaign angle. |
-| MVP with 7-10 lessons at launch | Ship fast, add lessons during Ramadan. Users do 1/day so we stay ahead. |
-| Lesson flow: Introduce → Reinforce → Celebrate | 3-phase structure. ~11 screens per lesson. 5-10 min. |
-| No two words introduced the same way | Rotate between 5 styles: cognate, Qur'an context, fun fact, quick check, life connection. Prevents monotony. |
-| Lesson 1 uses mostly Urdu cognates | First impression must be "I already know more Arabic than I thought." Confidence hook. |
-| Activities reinforce, not test | Supportive tone. "Let's make these stick" not "quiz time." |
-| Every lesson ends with word count + Qur'anic stat | The payoff screen. "These 5 words appear in 2,800+ ayahs." Makes small progress feel significant. |
-| 50 launch words in words.md | Frequency-based from corpus.quran.com. ~40/50 Urdu cognates. Thematically grouped into 10 lessons. |
-| Word list is a separate file (words.md) | Content asset, not planning notes. Will grow to 150+ words. Easier to reference and update. |
-| React Native + Expo for frontend | Cross-platform (Android + iOS), OTA updates for pushing lessons during Ramadan, TypeScript + Claude = fast dev. |
-| NestJS + PostgreSQL for backend | Full ownership, no vendor lock-in, predictable costs at scale. Supabase rejected — cost scaling unpredictable, not production-grade for scalable apps. |
-| Firebase Cloud Messaging for push | Free, works on both platforms, industry standard. |
-| JWT auth (email/password first) | Simple, built into NestJS. Google sign-in added later. |
-| Build ALL engagement features, not cut-down MVP | Mudassir + Claude = 10x dev speed. No reason to defer streaks, library, weekly review, etc. Only defer business decisions (premium, leaderboards). |
-| Both Android + iOS at launch | Expo makes this one codebase. No reason to limit to one platform. |
-| Professional Qari audio, recorded in parallel with dev | Ship with real Qari pronunciation from day one. No AI TTS. No temporary audio. |
-| Warm coaching tone, not clinical/educational | Copy should feel like a supportive friend, not a textbook. "Play quick games" not "Practice & reinforce". "words I know" not "words learned". Respectful but not casual — no "Let's do this" for a Quran app. |
-| Every word introduction headline must be unique | No two words should have the same headline ("You already know this!" was repeated 7 times). Each headline should be specific to that word. |
-| Copy decisions documented in copy-decisions.md | All copy changes, rationale, and before/after tracked in a dedicated file. |
+| Lesson flow: Introduce → Insight → Reinforce → Celebrate | 4-phase structure. ~12 screens per lesson. 5-10 min. |
+| No two words introduced the same way | Rotate between 5 styles: cognate, Qur'an context, fun fact, quick check, life connection. |
+| Lesson 1 uses mostly Urdu cognates | First impression must be "I already know more Arabic than I thought." |
+| Activities: 2 free + 1 premium per lesson | Match + Fill Meaning free. Pattern Match / Spot in Quran premium. |
+| Every lesson ends with word count + Qur'anic stat | The payoff screen. Makes small progress feel significant. |
+| React Native + Expo for frontend | Cross-platform, OTA updates, TypeScript + Claude = fast dev. |
+| NestJS + PostgreSQL for backend | Full ownership, no vendor lock-in, predictable costs. |
+| Firebase Cloud Messaging for push | Free, both platforms, industry standard. |
+| Professional Qari audio, recorded in parallel | Ship with real Qari pronunciation. No AI TTS. |
+| Warm coaching tone, not clinical/educational | Supportive friend, not textbook. Respectful but not casual. |
+| Premium copy: never guilt-based | "Your words are yours forever" not "Don't miss out on Quran learning" |
+| Pricing: PKR 799/mo, 4999/yr, 7999 lifetime | Lifetime expected top seller. JazzCash/EasyPaisa essential. |
+| Referral program | Refer friend → +7 days premium free. Friend completes Lesson 1 → +7 more. |
+| Copy decisions documented in copy-decisions.md | All copy changes, rationale, and before/after tracked. |
 
 ## Open Questions / Unknowns
-- Admin panel framework (Next.js vs Vite + React?)
+- Payment gateway integration (App Store/Play Store + JazzCash/EasyPaisa)
+- Audio file CDN (S3 + CloudFront vs Cloudflare R2)
 - Analytics pipeline design
-- Streak freeze/grace period mechanics
+- CMS deployment and admin auth
+- Streak freeze/grace period mechanics (deferred to post-beta — DECISION-010)
 
 ## Virtual Team
 A 12-role AI virtual team operates from `/team/`. Each role has its own MD file with principles, biases, and red lines. Run standups, consult specialists, and log decisions. See `/team/README.md` for usage.
 
 ## Action Items for Mudassir
-- **Set up Firebase project** — create project at console.firebase.google.com, generate service account key, add config files to mobile app
-- Schedule Qari recording session for 50 words (parallel with dev)
-- **Start pre-Ramadan campaign content — Monday Feb 9th**
+- **Set Firebase env vars on Railway** — `FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, `FIREBASE_PRIVATE_KEY` (service account key already generated)
+- **Add `google-services.json`** (Android) and **`GoogleService-Info.plist`** (iOS) to mobile app for production builds
+- Schedule Qari recording session for **300 words** (parallel with dev)
+- Pre-Ramadan campaign LIVE (started Feb 2, 20 posts done) — need new content from Feb 12+
 - Prepare app store developer accounts (Apple + Google)
+- Review 300-word seed data for accuracy

@@ -47,11 +47,16 @@ Owns user acquisition, activation, and viral loops. Responsible for getting the 
 
 ## Current Assessments
 - Word counter as social currency is the strongest viral mechanic — invest in share card design
+- **Pattern counter as SECOND shareable metric** — "12 Arabic patterns unlocked" alongside word count
 - Pre-Ramadan campaign window is critical — 5-10 days of content before launch
 - First impression (app store listing) needs professional screenshots
 - The "I learned 50 Quranic words" milestone is inherently shareable in Muslim communities
 - Instagram Reels showing the app in action will outperform static posts
-- Missing: referral mechanic — "invite a friend to learn together" could be powerful
+- **Referral program designed:** refer friend → +7 days premium free, friend completes Lesson 1 → +7 more days
+- Grammar integration changes positioning from "learn Arabic words" to "actually understand the Quran" — 10x more compelling
+- Freemium model means "the app is free!" is always true — no asterisk, no "free trial"
+- Non-paying users still share word counts = free marketing that never stops
+- The blurred Arabic Insight is marketing built INTO the product
 
 ## Pre-Ramadan Campaign Plan (Draft)
 - Week -2: Teaser content — "What if you could understand 10% of the Quran in 30 days?"

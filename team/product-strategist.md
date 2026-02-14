@@ -32,14 +32,20 @@ Owns the product roadmap, feature prioritization, and user journey. Decides what
 - Kill features that aren't working
 
 ## Current Assessments
-- Core learning loop (lessons + words + challenge) is solid
+- Core learning loop (lessons + words + grammar insight + challenge) is solid
 - Onboarding needs optimization — first lesson completion rate is the #1 metric
-- Weekly review is a strong retention mechanic but needs data to validate
+- Weekly review is a strong retention mechanic (now premium feature)
 - Library deferral was correct — shipping bad Quranic content is worse than not shipping
-- CMS is now a priority — lesson iteration speed is a competitive advantage
+- CMS is now a priority — 60 lessons of content needs manageable editing
 - Admin panel enables data-driven decisions — build it early
+- **300 words across 60 lessons** is the launch content scope (DECISION-015)
+- **Freemium model** (DECISION-013): words free forever, grammar/practice/review premium
+- **Taste then lock** (DECISION-014): Lessons 1-3 free → Lessons 4-7 premium free preview → Lesson 8+ locked
+- The free vs premium split is clean and creates natural conversion pressure
+- No time-based paywall — lesson-based gating converts better (engaged users hit wall fastest)
 
 ## Standing Questions
 - What's the Day 1 → Day 7 retention target?
 - What's the lesson completion rate target?
-- At what point do we introduce Module 2?
+- Premium conversion rate target? (5-10% of active users is healthy for freemium)
+- When to add Decode the Ayah and Build the Phrase activities? (post-launch)

@@ -36,20 +36,55 @@ Owns the revenue model, pricing strategy, paywall design, and conversion optimiz
 - Design payment infrastructure (payment gateways that work in Pakistan)
 - Plan seasonal pricing (Ramadan offers, Eid specials)
 
-## Current Revenue Model (Updated — DECISION-011)
-- **Free forever**: All word/vocabulary learning — every lesson, every module, no limits
-- **Premium (future)**: Advanced/fun learning mode — deeper content, video/reels, fun activities, beyond just words. 10-20 min sessions. Launches when CEO decides the time is right.
-- **Pricing**: TBD — will be decided when premium mode is designed
-- **No ads, ever**
+## Current Revenue Model (Updated — DECISION-013 + DECISION-014)
+
+### Free Forever (no time limit)
+- All 300 words across all 60 lessons — word count always grows
+- All word introductions (5 styles per lesson)
+- Word bank (browse all learned words, see meanings)
+- Basic lesson activities (Match + Fill Meaning)
+- Daily Challenge (retention hook)
+- Mid-lesson encouragement + lesson completion celebration
+- Share cards + word count (always shareable)
+
+### Premium (Asaan Arabic Premium)
+- Arabic Insights (grammar nuggets) — blurred in lesson flow for free users
+- Practice mode (quiz/review on learned words from word bank)
+- Weekly Review
+- Advanced activities (Pattern Match, Decode the Ayah)
+- Pattern count as second progress metric ("12 Arabic patterns unlocked")
+
+### Pricing (Pakistan-optimized)
+| Plan | Price | Notes |
+|---|---|---|
+| Monthly | PKR 799/month | "Less than a pizza" |
+| Annual | PKR 4,999/year | "Save 48%" — best value badge |
+| Lifetime | PKR 7,999 one-time | Expected top seller in Pakistan |
+
+### Premium Introduction (DECISION-014)
+- Lessons 1-3: no premium features (trust phase)
+- Lessons 4-7: premium features UNLOCKED FREE with gold "Premium — free for you!" badge (taste phase)
+- Lesson 8+: premium features BLURRED/LOCKED (lock phase)
+- Practice mode: free until 25 words, then locks
+- Weekly Review: first one free, then locks
+- Lesson-based gating, NOT day-based
+
+### Referral Program
+- Non-payers refer a friend who downloads → +7 days premium free
+- Friend completes Lesson 1 → +7 more days
+- Share progress card → +1 day
+
+### No ads — ever
 
 ## Current Assessments
-- Module 1 free is correct — 150 words is genuinely valuable and builds the habit
-- Lifetime pricing will be the primary revenue driver in Pakistan (payment friction)
+- Lifetime pricing will be the primary revenue driver in Pakistan (payment friction, subscription fatigue)
 - JazzCash/EasyPaisa integration is essential — credit cards are minority in Pakistan
-- The paywall moment should be after Module 1 completion — user has formed habit and sees value
+- The freemium model creates conversion pressure naturally: more words = more need for practice mode
+- Every blurred Arabic Insight is a micro-pitch for premium — no countdown needed
 - Ramadan pricing: consider a special "Ramadan Lifetime" offer
-- Corporate/institutional licensing (Islamic schools, companies) could be a revenue stream
+- Corporate/institutional licensing (Islamic schools, companies) could be a future revenue stream
 - Concern: Pakistan App Store/Play Store payment infrastructure is limited
+- The 4 free Arabic Insights (Lessons 4-7) are the best conversion tool — they must be mind-blowing
 
 ## Payment Gateway Considerations (Pakistan)
 - Google Play / Apple Pay — standard but limited penetration

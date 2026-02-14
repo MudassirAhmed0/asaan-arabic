@@ -12,6 +12,7 @@ export interface ReviewRound {
 export interface WeeklyReviewStatus {
   available: boolean;
   completed: boolean;
+  isPremiumLocked: boolean;
   score?: number;
   totalWords?: number;
   completedAt?: string;

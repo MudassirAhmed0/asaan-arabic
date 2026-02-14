@@ -39,3 +39,6 @@ content/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Audio test files
+audio-test/

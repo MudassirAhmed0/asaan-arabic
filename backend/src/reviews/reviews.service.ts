@@ -1,12 +1,14 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { PrismaService } from '../prisma';
 import { StreaksService } from '../streaks/streaks.service';
+import { SubscriptionsService } from '../subscriptions/subscriptions.service';
 
 @Injectable()
 export class ReviewsService {
   constructor(
     private prisma: PrismaService,
     private streaksService: StreaksService,
+    private subscriptionsService: SubscriptionsService,
   ) {}
 
   private getISOWeek(date: Date): { weekNumber: number; year: number } {
@@ -36,6 +38,7 @@ export class ReviewsService {
       return {
         available: true,
         completed: true,
+        isPremiumLocked: false,
         score: existing.score,
         totalWords: existing.totalWords,
         completedAt: existing.completedAt.toISOString(),
@@ -43,6 +46,25 @@ export class ReviewsService {
         year,
         rounds: [],
       };
+    }
+
+    // First review is free, subsequent reviews require premium
+    const completedCount = await this.prisma.weeklyReview.count({
+      where: { userId },
+    });
+
+    if (completedCount > 0) {
+      const isPremium = await this.subscriptionsService.isPremium(userId);
+      if (!isPremium) {
+        return {
+          available: true,
+          completed: false,
+          isPremiumLocked: true,
+          weekNumber,
+          year,
+          rounds: [],
+        };
+      }
     }
 
     // Get learned words
@@ -57,6 +79,7 @@ export class ReviewsService {
       return {
         available: false,
         completed: false,
+        isPremiumLocked: false,
         weekNumber,
         year,
         rounds: [],
@@ -103,6 +126,7 @@ export class ReviewsService {
     return {
       available: true,
       completed: false,
+      isPremiumLocked: false,
       weekNumber,
       year,
       rounds,

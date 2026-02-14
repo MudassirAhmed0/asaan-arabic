@@ -1,6 +1,6 @@
 # Progress Tracker
 
-Last updated: 2026-01-29
+Last updated: 2026-02-14
 
 ---
 
@@ -11,9 +11,9 @@ Last updated: 2026-01-29
 - [x] Extend Prisma schema with all new models (20+ models, enums, relations)
 - [x] Run migration (`20260126211650_add_content_progress_library_models`)
 - [x] Create seed script infrastructure (`prisma/seed/`)
-- [x] Seed 10 lessons + 50 words + introductions + 25 activities + 10 mid-messages + 10 celebrations + 30 challenges
+- [x] Seed 60 lessons + 300 words + introductions + 180 activities + 60 mid-messages + 60 celebrations + 90 challenges
 - [x] Fix Prisma v7 PrismaClient: `@prisma/adapter-pg` driver adapter required (no `url` in schema)
-- [ ] Verify via Prisma Studio
+- [x] Backend deployed to Railway
 
 ### Frontend
 - [x] Initialize Expo project (`mobile/`) — Expo SDK 54, TypeScript, blank template
@@ -214,27 +214,87 @@ Decided to skip Library for launch. Quranic text accuracy is critical and needs 
 ---
 
 ## Feature 8: Push Notifications
-**Status: NOT STARTED**
+**Status: CODE COMPLETE — pending Firebase config**
+**Commit:** `9ea40b8` on `main`
 
 ### Backend
-- [ ] FirebaseModule (Admin SDK)
-- [ ] `POST /notifications/register`
-- [ ] `DELETE /notifications/unregister`
-- [ ] Cron: daily challenge (9 AM PKT)
-- [ ] Cron: streak reminder (8 PM PKT)
-- [ ] Cron: weekly review (Fri 6 PM PKT)
+- [x] FirebaseModule (Admin SDK, initializes from env vars)
+- [x] FirebaseService (`sendToTokens()` multicast with auto-deactivation of invalid tokens)
+- [x] `POST /notifications/register` — register FCM token
+- [x] `DELETE /notifications/unregister` — deactivate token
+- [x] `POST /notifications/test` — manual test endpoint (temporary)
+- [x] Cron: daily reminder at 4:00 UTC / 9:00 AM PKT
+- [x] Cron: test reminder at 17:00 UTC / 10:00 PM PKT (TEMPORARY — remove after testing)
+- [ ] Cron: streak reminder (8 PM PKT) — not yet
+- [ ] Cron: weekly review (Fri 6 PM PKT) — not yet
 - [ ] Unit tests
 
 ### Frontend
-- [ ] Request permissions
-- [ ] Register FCM token
+- [x] Request permissions (`getDevicePushTokenAsync`)
+- [x] Register FCM token (auto-registers after `fetchProfile`)
+- [x] Unregister token on logout
 - [ ] Foreground notification handling
 - [ ] Deep link on tap
-- [ ] Permission denied handling
+
+### Pending
+- [ ] **Mudassir: Set Firebase env vars on Railway** (`FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, `FIREBASE_PRIVATE_KEY`)
+- [ ] Test end-to-end push notification
+- [ ] Remove temporary 10 PM test cron after verification
 
 ---
 
-## Feature 9: Share Cards
+## Feature 9: 300-Word Content Build (DECISION-015)
+**Status: SEED DATA DONE**
+**Commit:** `9ea40b8` on `main`
+
+### Content Generation — Seed Files (12 files, ~9,300 lines)
+- [x] Lessons 1-60 (300 words) — all words with arabic, transliteration, meaning, rootLetters, frequency, partOfSpeech
+- [x] Words L1-L20 (100 words) — `words-l1-l20.ts`
+- [x] Words L21-L40 (100 words) — `words-l21-l40.ts`
+- [x] Words L41-L60 (100 words) — `words-l41-l60.ts`
+- [x] Introductions for all 300 words (5 styles: COGNATE, QURAN_CONTEXT, FUN_FACT, QUICK_CHECK, LIFE_CONNECTION)
+- [x] Activities L1-L30 (90 activities) — `activities-l1-l30.ts`
+- [x] Activities L31-L60 (90 activities) — `activities-l31-l60.ts`
+- [x] Mid-lesson messages for all 60 lessons — `mid-messages.ts`
+- [x] Celebrations for all 60 lessons (with ayah coverage stats)
+- [x] Daily challenges (90 challenges) — `challenges.ts`
+- [x] Lesson metadata (titles, descriptions, difficulty) — `lessons.ts`
+
+### Still Needed
+- [ ] AyahHighlights for all 300 words
+- [ ] Arabic Insights (grammar nuggets, 1 per lesson) — DECISION-012
+- [ ] Verify all ayah texts against mushaf
+- [ ] Verify all word frequencies against corpus data
+- [ ] Run seed against production database
+- [ ] Review celebration stat ayah coverage numbers
+
+---
+
+## Feature 10: Premium / Freemium System (DECISION-013, 014)
+**Status: NOT STARTED**
+
+### Backend
+- [ ] `ArabicInsight` model (1 per lesson: headline, body, pattern, quranic example, try-it question)
+- [ ] `UserSubscription` model (premium status, plan type, expiry, referral credits)
+- [ ] `isPremium` flag on `LessonActivity`
+- [ ] `patternsUnlocked` on `UserProgress`
+- [ ] Premium check middleware (free vs premium content gating)
+- [ ] `POST /subscriptions/purchase` — handle purchase
+- [ ] `GET /subscriptions/status` — check premium status
+- [ ] Referral tracking endpoints
+
+### Frontend
+- [ ] Frosted glass overlay component for locked premium content
+- [ ] Gold "Premium — free for you!" badge component
+- [ ] "Free preview X of 4" counter
+- [ ] Premium purchase flow (monthly/annual/lifetime)
+- [ ] Lock states on Practice mode, Weekly Review, advanced activities
+- [ ] Pattern count display alongside word count
+- [ ] Premium conversion bottom sheet (value pitch + pricing)
+
+---
+
+## Feature 11: Share Cards
 **Status: NOT STARTED**
 
 ### Backend
@@ -243,6 +303,7 @@ Decided to skip Library for launch. Quranic text accuracy is critical and needs 
 - [ ] `GET /share/lesson-card/:lessonId`
 - [ ] satori + sharp setup
 - [ ] Arabic font embedding
+- [ ] Include pattern count on share cards
 
 ### Frontend
 - [ ] Share button on lesson complete
@@ -252,25 +313,59 @@ Decided to skip Library for launch. Quranic text accuracy is critical and needs 
 
 ---
 
-## Feature 10: Polish & QA
-**Status: NOT STARTED**
+## Feature 12: Polish & QA
+**Status: IN PROGRESS**
 
-- [ ] Haptic feedback
+- [x] App icon (adaptive icon for Android, standard icon for iOS)
+- [x] Splash screen — 768x768 عین icon, `resizeMode: "contain"`, cream background (needs new APK to take effect on Android 12+)
+- [x] Auth persistence — `onboardingCompleted` persisted in SecureStore (pushed via OTA)
+- [x] Session expiry handling — interceptor ↔ Zustand bridged via `setOnSessionExpired` callback
+- [x] OTA updates configured — `expo-updates` with channels (preview/production), first OTA pushed
+- [ ] Haptic feedback (partially implemented in word status toggle)
 - [ ] Smooth animations
 - [ ] Loading skeletons everywhere
 - [ ] Offline mode
-- [ ] App icon + splash screen
 - [ ] Performance audit
 - [ ] Full E2E walkthrough
 
 ---
 
-## Feature 11: Deploy & Launch
-**Status: NOT STARTED**
+## Feature 13: Deploy & Launch
+**Status: IN PROGRESS**
 
-- [ ] Deploy backend
-- [ ] Production seed
-- [ ] EAS Build config
-- [ ] App Store submissions
+- [x] Backend deployed to Railway (auto-deploys from `main`)
+- [x] Railway deployment config (Dockerfile, startup delay for DB readiness)
+- [x] EAS Build config (development, preview with APK, production with autoIncrement)
+- [x] EAS channels configured (preview, production)
+- [x] OTA updates infrastructure (`expo-updates`, `eas update --channel preview`)
+- [x] First preview APK built and distributed
+- [x] First OTA update pushed (auth persistence fix)
+- [ ] Production seed (run 300-word seed data against Railway PostgreSQL)
+- [ ] Set Firebase env vars on Railway
+- [ ] App Store submissions (Apple + Google)
 - [ ] Sentry crash reporting
 - [ ] Analytics
+- [ ] Payment gateway integration
+
+---
+
+## Feature 14: CMS & Admin Panel
+**Status: BUILT**
+**Commit:** `d197d0f` on `main`
+
+- [x] Full CMS built in `/cms` — manage lessons, words, challenges, surahs, duas, salah steps
+- [x] Shares same Prisma schema and PostgreSQL database as backend
+- [x] CRUD operations for all content types
+- [ ] Deploy CMS (needs hosting decision)
+- [ ] Admin authentication
+
+---
+
+## Feature 15: Website / Landing Page
+**Status: BUILT**
+**Commit:** on `main`
+
+- [x] Landing page in `/web` — app promotion, email capture
+- [x] Vercel Analytics + Speed Insights
+- [x] Subscribe event tracking
+- [x] Deployed to Vercel

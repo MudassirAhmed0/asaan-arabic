@@ -7,6 +7,7 @@ import { ACTIVITIES } from './activities';
 import { MID_MESSAGES } from './mid-messages';
 import { CELEBRATIONS } from './celebrations';
 import { CHALLENGES } from './challenges';
+import { INSIGHTS } from './insights';
 
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
 const prisma = new PrismaClient({ adapter });
@@ -129,7 +130,39 @@ async function main() {
   }
   console.log(`  ✓ ${ACTIVITIES.length} activities seeded\n`);
 
-  // ── 4. Seed Mid-Lesson Messages ──
+  // ── 3.5. Clean up old activities (reduced from 3 to 2 per lesson) ──
+  await prisma.lessonActivity.deleteMany({
+    where: { orderIndex: { gte: 3 } },
+  });
+
+  // ── 4. Seed Arabic Insights ──
+  console.log('💡 Seeding Arabic insights...');
+  for (const insight of INSIGHTS) {
+    const lessonId = lessonMap.get(insight.lessonOrderIndex);
+    if (!lessonId) {
+      throw new Error(`Lesson ${insight.lessonOrderIndex} not found for insight`);
+    }
+
+    await prisma.arabicInsight.upsert({
+      where: { lessonId },
+      update: {
+        type: insight.type,
+        title: insight.title,
+        body: insight.body,
+        examples: insight.examples,
+      },
+      create: {
+        lessonId,
+        type: insight.type,
+        title: insight.title,
+        body: insight.body,
+        examples: insight.examples,
+      },
+    });
+  }
+  console.log(`  ✓ ${INSIGHTS.length} Arabic insights seeded\n`);
+
+  // ── 5. Seed Mid-Lesson Messages ──
   console.log('💬 Seeding mid-lesson messages...');
   for (const msg of MID_MESSAGES) {
     const lessonId = lessonMap.get(msg.lessonOrderIndex);
@@ -156,7 +189,7 @@ async function main() {
   }
   console.log(`  ✓ ${MID_MESSAGES.length} mid-lesson messages seeded\n`);
 
-  // ── 5. Seed Celebration Stats ──
+  // ── 6. Seed Celebration Stats ──
   console.log('🎉 Seeding celebration stats...');
   for (const cel of CELEBRATIONS) {
     const lessonId = lessonMap.get(cel.lessonOrderIndex);
@@ -181,7 +214,7 @@ async function main() {
   }
   console.log(`  ✓ ${CELEBRATIONS.length} celebration stats seeded\n`);
 
-  // ── 6. Seed Daily Challenges ──
+  // ── 7. Seed Daily Challenges ──
   console.log('⚡ Seeding daily challenges...');
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -209,6 +242,7 @@ async function main() {
   console.log(`  ${LESSONS.length} lessons`);
   console.log(`  ${WORDS.length} words with introductions`);
   console.log(`  ${ACTIVITIES.length} activities`);
+  console.log(`  ${INSIGHTS.length} Arabic insights`);
   console.log(`  ${MID_MESSAGES.length} mid-lesson messages`);
   console.log(`  ${CELEBRATIONS.length} celebration stats`);
   console.log(`  ${CHALLENGES.length} daily challenges`);

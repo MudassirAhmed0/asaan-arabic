@@ -33,6 +33,7 @@ model User {
   challengeAttempts ChallengeAttempt[]
   weeklyReviews     WeeklyReview[]
   fcmTokens         FcmToken[]
+  subscription      UserSubscription?
 
   @@map("users")
 }
@@ -69,6 +70,7 @@ model Lesson {
   lessonAttempts   LessonAttempt[]
   midLessonMessage MidLessonMessage?
   celebrationStat  CelebrationStat?
+  arabicInsight    ArabicInsight?
 
   @@map("lessons")
 }
@@ -163,6 +165,27 @@ model CelebrationStat {
   lesson   Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
 
   @@map("celebration_stats")
+}
+
+enum InsightType {
+  ROOT_PATTERN
+  GRAMMAR_TIP
+  CULTURAL_NOTE
+  PATTERN_RECOGNITION
+  WORD_FAMILY
+}
+
+model ArabicInsight {
+  id       String      @id @default(uuid()) @db.Uuid
+  type     InsightType
+  title    String      @db.VarChar(255)
+  body     String      @db.Text
+  examples Json
+
+  lessonId String @unique @map("lesson_id") @db.Uuid
+  lesson   Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+  @@map("arabic_insights")
 }
 
 model AyahHighlight {
@@ -384,4 +407,37 @@ model FcmToken {
 
   @@index([userId])
   @@map("fcm_tokens")
+}
+
+// ──────────────────────────────────────────────
+// SUBSCRIPTIONS
+// ──────────────────────────────────────────────
+
+enum SubscriptionStatus {
+  ACTIVE
+  EXPIRED
+  CANCELLED
+  BILLING_RETRY
+}
+
+enum SubscriptionPlatform {
+  IOS
+  ANDROID
+}
+
+model UserSubscription {
+  id           String             @id @default(uuid()) @db.Uuid
+  revenuecatId String             @unique @map("revenuecat_id") @db.VarChar(255)
+  status       SubscriptionStatus @default(ACTIVE)
+  platform     SubscriptionPlatform
+  productId    String             @map("product_id") @db.VarChar(255)
+  purchasedAt  DateTime           @map("purchased_at")
+  expiresAt    DateTime?          @map("expires_at")
+  createdAt    DateTime           @default(now()) @map("created_at")
+  updatedAt    DateTime           @updatedAt @map("updated_at")
+
+  userId String @unique @map("user_id") @db.Uuid
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_subscriptions")
 }

@@ -117,4 +117,115 @@ All major decisions are recorded here with full context: who proposed, who weigh
 **Rationale:** Free vocabulary removes recommendation friction. Premium becomes a "want" not a "need." Monetize depth and entertainment, not basic learning. Spotify model — free is genuinely great, premium is for people who want more.
 **Supersedes:** Previous Module 1 free / Module 2 premium split
 **CEO Verdict:** Approved
+**Status:** Superseded by DECISION-013
+
+---
+
+### [DECISION-012] Grammar Integration — "Arabic Insights" in Lessons
+**Date:** 2026-02-14
+**Raised by:** CEO
+**Consulted:** Full team (Curriculum Designer, Behavioral Psychologist, Islamic Content Director, Product Strategist, UX Designer)
+**Decision:** Every lesson now includes **words + 1 grammar concept ("Arabic Insight")**. Words alone don't create Quranic comprehension — users need grammar patterns to parse sentences. The Arabic Insight is a new screen type in the lesson flow, positioned after word introductions, before activities.
+**Rationale:**
+- Competitive research confirmed: every successful competitor (Al Midrar, Bayyinah, Understand Quran Academy, Kalaam) teaches grammar alongside vocabulary
+- 300 words without grammar = vocabulary recognition, not comprehension
+- The "Arabic Insight" approach is vocabulary-driven learning with grammar woven naturally — not a grammar course
+- Curriculum Designer: grammar concepts sequenced across 60 lessons (possessives, verb patterns, plurals, prepositions, etc.)
+- Islamic Content Director: all grammar examples must use Quranic text, simplification OK but distortion not
+**Key grammar concepts across 60 lessons:** Root system, past tense verb pattern, "al-" definite article, possessive endings, common prepositions, present tense, plural patterns, Quranic phrase units, noun of doer pattern, negation
+**CEO Verdict:** Approved
+**Status:** Active
+
+---
+
+### [DECISION-013] Freemium Model — Words Free Forever, Premium Unlocks Depth
+**Date:** 2026-02-14
+**Raised by:** CEO
+**Consulted:** Full team
+**Decision:** No time limits. Words are **free forever** — all 300 words across all 60 lessons, always accessible. Premium unlocks the **depth layer**: Arabic Insights (grammar), Practice mode, Weekly Review, advanced activities.
+
+**Free forever (no time limit):**
+- All word introductions in every lesson (word count always grows)
+- Word bank (browse all learned words)
+- Basic lesson activities (Match + Fill Meaning)
+- Daily Challenge
+- Mid-lesson encouragement + lesson completion celebration
+- Share cards + word count (always working)
+
+**Premium:**
+- Arabic Insights (grammar nuggets) — visible but blurred in lesson flow for free users
+- Practice mode (quiz/review from word bank)
+- Weekly Review
+- Advanced activities (Pattern Match, Decode the Ayah)
+- Pattern count ("12 Arabic patterns unlocked") as second progress metric
+
+**Pricing (Pakistan-optimized):**
+- Monthly: PKR 799
+- Annual: PKR 4,999 (save 48%)
+- Lifetime: PKR 7,999 (expected top seller in Pakistan)
+
+**Referral:** Non-payers earn 7 days premium free per friend who downloads.
+
+**Rationale:**
+- Free users never stop being useful — word count sharing, referrals, community
+- No Ramadan backlash — "Quranic words are free, always"
+- Premium sells itself through visible locked value in every single lesson
+- The product creates its own conversion pressure: more words learned = more need for practice mode
+- Religiously defensible: "Quran's words are free. Our teaching methodology is the product."
+**Supersedes:** DECISION-011, previous 30-day trial model
+**CEO Verdict:** Approved
+**Status:** Active
+
+---
+
+### [DECISION-014] Premium Introduction Timing — Taste Then Lock
+**Date:** 2026-02-14
+**Raised by:** CEO
+**Consulted:** Full team (Behavioral Psychologist, Monetization Strategist, Curriculum Designer, UX Designer)
+**Decision:** Premium features are introduced gradually using lesson-based gating (not day-based):
+
+| Phase | Lessons | Premium Features |
+|---|---|---|
+| **Trust Phase** | 1-3 | No premium features. Pure vocabulary. Build habit + confidence. |
+| **Taste Phase** | 4-7 | Premium features UNLOCKED with gold "Premium — free for you!" badge. 4 free Arabic Insights, first Pattern Match, first Weekly Review. |
+| **Lock Phase** | 8+ | Premium features BLURRED/LOCKED. Headline visible through frosted glass overlay. Lock icon + "Unlock with Premium" button. |
+
+**Additional surfaces:**
+- Practice mode: free until 25 words learned (Lesson 5), then locks
+- Weekly Review: first one free (with badge), all subsequent locked
+- Advanced activities: first appearance free in Lessons 4-5, locked after Lesson 7
+
+**Free preview counter:** "Free preview 2 of 4" shown during Taste Phase.
+
+**Badge design:**
+- During Taste Phase: gold badge "Premium — free for you!" on Arabic Insight cards
+- During Lock Phase: frosted glass overlay, headline visible, content blurred, lock icon, "Unlock with Premium" button
+
+**Rationale:**
+- Lessons 1-3 pure free builds trust before showing premium
+- Taste phase creates experienced value — users KNOW what premium feels like
+- Lock phase creates gentle FOMO — every lesson shows what they're missing
+- Lesson-based (not day-based) ensures fast users convert fastest (they're most engaged)
+- The 4 free Arabic Insights must be the BEST ones (root system, Quranic pairs, verb patterns, plural patterns)
+- No additional free trial after lock — the taste phase IS the trial
+**CEO Verdict:** Approved
+**Status:** Active
+
+---
+
+### [DECISION-015] Content Scope — 300 Words Production-Ready
+**Date:** 2026-02-14
+**Raised by:** CEO
+**Consulted:** Curriculum Designer, Islamic Content Director
+**Decision:** Build production-ready content for **300 words across 60 lessons** today. This includes:
+- 300 words with introductions (each unique headline + body)
+- 60 Arabic Insights (grammar nuggets, 1 per lesson)
+- ~180 activities (3 per lesson: 2 free + 1 premium)
+- 60 mid-lesson messages
+- 60 celebration stats
+- 60+ daily challenges
+- AyahHighlights for every word
+- Existing 50 words are fair game for revision
+**Rationale:** "300 words = ~70% of Quran" is the core product claim. Ship the full word set at launch. Users do ~1 lesson/day, so 60 lessons = 2 months of content — well beyond initial retention window.
+**CEO Verdict:** Approved
 **Status:** Active

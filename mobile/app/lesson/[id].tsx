@@ -2,7 +2,9 @@ import { View, Animated, StyleSheet, Alert, ActivityIndicator } from 'react-nati
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useCallback, useRef, useState } from 'react';
+import RevenueCatUI from 'react-native-purchases-ui';
 import { colors } from '../../src/constants/theme';
+import { usePremiumStore } from '../../src/stores/premium';
 import { useLessonContent, useStartLesson, useCompleteLesson } from '../../src/hooks/useLessons';
 import { useLessonFlowStore } from '../../src/stores/lesson';
 import { useProgressStore } from '../../src/stores/progress';
@@ -10,6 +12,7 @@ import { ProgressBar } from '../../src/components/lesson/ProgressBar';
 import { LessonEntryCard } from '../../src/components/lesson/LessonEntryCard';
 import { WordIntroduction } from '../../src/components/lesson/WordIntroduction';
 import { MidLessonEncouragement } from '../../src/components/lesson/MidLessonEncouragement';
+import { ArabicInsight } from '../../src/components/lesson/ArabicInsight';
 import { ActivityMatch } from '../../src/components/lesson/ActivityMatch';
 import { ActivityQuickFire } from '../../src/components/lesson/ActivityQuickFire';
 import { ActivityFillMeaning } from '../../src/components/lesson/ActivityFillMeaning';
@@ -136,6 +139,14 @@ export default function LessonFlowScreen() {
     );
   }, [currentStep, reset, router]);
 
+  // Determine whether to show insight step based on tier:
+  // Lessons 1-3 (free): no insight
+  // Lessons 4-7 (taste): insight shown free
+  // Lessons 8+ (premium): insight shown (blurred if not premium user)
+  const shouldShowInsight = content
+    ? content.premiumTier !== 'free' && !!content.arabicInsight
+    : false;
+
   const handleStart = useCallback(async () => {
     if (!content || !id) return;
 
@@ -146,12 +157,13 @@ export default function LessonFlowScreen() {
         attemptId: result.attemptId,
         wordCount: content.words.length,
         activityCount: content.activities.length,
+        hasInsight: shouldShowInsight,
       });
       nextStep();
     } catch {
       Alert.alert('Error', 'Failed to start lesson. Please try again.');
     }
-  }, [content, id, startLessonMutation, initFlow, nextStep]);
+  }, [content, id, shouldShowInsight, startLessonMutation, initFlow, nextStep]);
 
   const handleContinueAfterComplete = useCallback(() => {
     reset();
@@ -183,6 +195,21 @@ export default function LessonFlowScreen() {
     },
     [addScore, nextStep],
   );
+
+  const handleUpgrade = useCallback(async () => {
+    const { checkPremiumStatus, syncPurchaseToBackend } = usePremiumStore.getState();
+    try {
+      const result = await RevenueCatUI.presentPaywall();
+      if (result === 'PURCHASED' || result === 'RESTORED') {
+        await checkPremiumStatus();
+        if (result === 'PURCHASED') {
+          await syncPurchaseToBackend('premium');
+        }
+      }
+    } catch {
+      // User cancelled — do nothing
+    }
+  }, []);
 
   if (isLoading) {
     return (
@@ -238,6 +265,16 @@ export default function LessonFlowScreen() {
         <WordIntroduction
           word={content.words[currentStep.wordIndex]}
           onContinue={nextStep}
+        />
+      )}
+
+      {currentStep?.type === 'insight' && content.arabicInsight && (
+        <ArabicInsight
+          insight={content.arabicInsight}
+          premiumTier={content.premiumTier}
+          isPremiumUser={content.isPremiumUser}
+          onContinue={nextStep}
+          onUpgrade={handleUpgrade}
         />
       )}
 

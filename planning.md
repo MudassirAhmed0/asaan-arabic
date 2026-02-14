@@ -57,7 +57,7 @@ Even if someone skips the lesson, the challenge keeps them coming back. Once the
 ## Lesson Design (Screen-by-Screen)
 
 ### Lesson Structure Overview
-Each lesson: ~5 words, 5-10 minutes, 11 screens roughly. Three phases: Introduce → Reinforce → Celebrate.
+Each lesson: ~5 words + 1 grammar concept, 5-10 minutes, ~12 screens. Four phases: Introduce → Insight → Reinforce → Celebrate.
 
 ### Screen 1 — Lesson Card (Entry)
 - Lesson number
@@ -82,20 +82,37 @@ Each word screen includes:
 - Audio pronunciation
 - The unique presentation element (fact, ayah, cognate note, etc.)
 
-### Screen 7 — Mid-Lesson Encouragement
+### Screen 7 — Arabic Insight (PREMIUM — DECISION-012)
+- **NEW SCREEN TYPE** — teaches ONE micro-grammar concept tied to the 5 words just learned
+- Format: Headline → Pattern explanation → Qur'anic example → "Try it" moment
+- Lessons 1-3: NOT PRESENT (trust phase)
+- Lessons 4-7: Fully unlocked with gold "Premium — free for you!" badge (taste phase)
+- Lesson 8+: Headline visible, content blurred behind frosted glass, lock icon (lock phase)
+- Examples:
+  - Lesson 4: "The fa'ala pattern — every past tense verb follows this shape"
+  - Lesson 5: "Jannah & Nar — the Qur'an always teaches in pairs"
+  - Lesson 6: "آمَنَ → إيمان → مُؤْمِن — one root, three words"
+  - Lesson 7: "When you see -ين at the end, it means 'those who'"
+
+### Screen 8 — Mid-Lesson Encouragement
 - "5 words down."
 - Reframe: "You already knew most of these from Urdu. Qur'anic Arabic is closer to you than you think."
 - Transitions into reinforcement activities.
 
-### Screens 8-10 — Reinforcement Activities (2-3 rounds)
-**Activity types (mix and rotate across lessons):**
+### Screens 9-11 — Reinforcement Activities (3 rounds: 2 free + 1 premium)
+**Free activity types:**
 - **Match:** Arabic word → tap correct English meaning (all 5 words)
-- **Spot it in Qur'an:** Show an ayah, user taps the word they recognize
 - **Quick-fire:** Flash Arabic → pick from 2 choices. Speed round.
 - **Fill the meaning:** "رَبّ means ___" with options
+
+**Premium activity types (locked for free users after Lesson 7):**
+- **Pattern Match:** Tests grammar concept from Arabic Insight — "رَبُّهُمْ means 'their Lord.' What does رَبُّنَا mean?"
+- **Spot it in Qur'an:** Show an ayah, user taps the word they recognize
+- **Decode the Ayah** (post-launch): Break down a real ayah using learned words + grammar patterns
+
 - Tone is "let's make these stick" — not "test time"
 
-### Screen 11 — Lesson Complete
+### Screen 12 — Lesson Complete
 - "+5 words" with animation/emphasis
 - Updated total word count: "You now know X words"
 - Qur'anic coverage stat: "These words appear in X,000+ ayahs"
@@ -120,11 +137,11 @@ Each word screen includes:
 
 ### Word List
 Full word list lives in **words.md** (separate file).
-- 50 words across 10 lessons ready for MVP launch
-- Sourced from corpus.quran.com
-- ~40/50 are Urdu cognates
+- 300 words across 60 lessons (DECISION-015)
+- Sourced from corpus.quran.com by frequency
+- ~40/50 first words are Urdu cognates; cognate density decreases in later lessons
 - Thematically grouped, nouns first, verbs from Lesson 4
-- Lessons 11-30 (remaining 100 words) still TODO
+- All 300 words complete — seed data generated in 12 files (~9,300 lines)
 
 ---
 
@@ -143,8 +160,9 @@ Full word list lives in **words.md** (separate file).
 - JWT-based auth (email/password to start, Google sign-in later)
 
 ### Infrastructure
-- **Hosting:** Railway or Render (fast setup) or AWS for full control
-- **Push notifications:** Firebase Cloud Messaging (FCM) — free, both platforms
+- **Hosting:** Railway (backend), Vercel (website)
+- **Push notifications:** Firebase Cloud Messaging (FCM) — free, both platforms, code complete
+- **OTA Updates:** expo-updates configured with channels (preview, production)
 - **Content delivery:** Lessons as JSON data, fetchable from API for OTA additions
 
 ### Why Not Supabase
@@ -158,50 +176,80 @@ Full word list lives in **words.md** (separate file).
 ## Ramadan Launch Scope (Full Feature Set)
 
 ### The Reality
-- ~20 days to Ramadan
-- Launch 5-10 days before Ramadan
+- Launch before Ramadan (target: late Feb / early March 2026)
 - With Mudassir + Claude as dev team, build speed is 10x traditional
 - No artificial feature cuts — build the full engaging experience
+- **300 words across 60 lessons** — seed data COMPLETE, ready for production seeding
+- Beta APK live with preview channel, OTA updates active
 
 ### Launch Features: Build ALL of This
-- **Learn tab**: First 10 lessons ready at launch (50 words)
-  - Remaining lessons added via OTA during Ramadan
-- **My Words tab**: Word bank with count, browse, self-test, "needs revision" marking
+- **Learn tab**: All 60 lessons ready at launch (300 words + 60 Arabic Insights)
+- **My Words tab**: Word bank with count, browse, "needs revision" marking
+- **Practice tab**: Quiz/review on learned words (PREMIUM)
 - **Daily Challenge**: Memory tests, fun facts, quick quizzes + push notifications
 - **Word count display**: Prominent, beautiful, screenshot-worthy
+- **Pattern count display**: Second progress metric (PREMIUM)
 - **Shareable progress card**: Instagram story optimized
 - **Streak system**: Islamic framing ("Day 12 of your journey to understand Allah's words")
-- **Library tab**: Surah translations, Salah meanings, common duas
-- **Weekly review quiz**: End-of-week reinforcement
+- **Weekly review quiz**: End-of-week reinforcement (PREMIUM)
 - **Onboarding flow**: Simple, fast, gets user into Lesson 1 quickly
+- **Freemium system**: Taste then lock (DECISION-014)
+- **Premium purchase flow**: Monthly/Annual/Lifetime pricing
 
-### Deferred (Business Decisions, Not Dev Speed)
-- Module 2 content (doesn't exist yet)
-- Premium / payments (need users first)
+### Deferred (Post-Launch)
+- Library tab (Surah translations, Salah meanings, common duas — needs Quranic text verification)
+- Decode the Ayah activity type (needs new frontend component)
+- Build the Phrase activity type (needs new frontend component)
 - Leaderboard / social features (need user base first)
-- Family plans, lifetime access
-
-### Content Strategy During Ramadan
-- Launch with 10 lessons (50 words)
-- Add 2-3 lessons per week via OTA updates during Ramadan
-- Users do ~1 lesson per day, so we stay ahead of them
-- Adjust based on early user feedback
+- Family plans
+- JazzCash/EasyPaisa integration (App Store/Play Store payments first)
 
 ---
 
-## Module 1 (Free) — "Understand Your First 150 Words"
-- 30 days total, ~5 words per lesson
-- Words chosen by frequency in the Qur'an (most common first)
-- By Day 30: user has a word bank of ~150 words
-- Library tab available for reference browsing
-- This module must be genuinely excellent — it IS the marketing
+## Content Scope — 300 Words, 60 Lessons (DECISION-015)
+- 60 lessons total, 5 words per lesson, 1 Arabic Insight per lesson
+- 300 words = ~70% of the Qur'an — the core product claim
+- Words chosen by frequency from corpus.quran.com (most common first)
+- Grammar concepts escalate alongside vocabulary complexity
+- Users do ~1 lesson/day = ~2 months of content
 
-## Module 2 (Premium) — "Go Deeper"
-- Continues vocabulary beyond 150 words (toward 500, then 1000)
-- Introduces basic Qur'anic grammar (sentence patterns)
-- Enhanced spaced repetition / smart review
-- Surah-by-surah guided reading
-- Goal: "Understand 70%+ of the Qur'an's words"
+## Freemium Model (DECISION-013)
+
+### Free Forever (no time limit)
+- All 300 words across all 60 lessons (word count always grows)
+- All word introductions (5 styles per lesson)
+- Word bank (browse all learned words)
+- Basic activities per lesson (Match + Fill Meaning)
+- Daily Challenge
+- Share cards + word count
+- Mid-lesson encouragement + lesson completion
+
+### Premium (Asaan Arabic Premium)
+- Arabic Insights (grammar nuggets) — blurred in lesson flow for free users
+- Practice mode (quiz/review on learned words)
+- Weekly Review
+- Advanced activities (Pattern Match, Decode the Ayah)
+- Pattern count as second progress metric
+
+### Premium Introduction (DECISION-014)
+- Lessons 1-3: No premium features (trust phase)
+- Lessons 4-7: Premium features FREE with gold "Premium — free for you!" badge (taste phase)
+- Lesson 8+: Premium features BLURRED/LOCKED (lock phase)
+- Practice mode: free until 25 words, then locks
+- Weekly Review: first one free, then locks
+- Lesson-based gating, NOT day-based
+
+### Pricing
+| Plan | Price |
+|---|---|
+| Monthly | PKR 799 |
+| Annual | PKR 4,999 (save 48%) |
+| Lifetime | PKR 7,999 |
+
+### Referral Program
+- Refer friend who downloads → +7 days premium free
+- Friend completes Lesson 1 → +7 more days
+- Share progress card → +1 day
 
 ---
 
@@ -266,32 +314,27 @@ Full word list lives in **words.md** (separate file).
 
 ---
 
-## Monetization Plan (Post-Launch)
+## Monetization Plan (DECISION-013)
 
 ### Principle
-Never paywall basic Qur'anic understanding. Earn trust first. Monetize depth.
+Words are free. Grammar and practice are premium. The Quran's words belong to everyone. Our teaching methodology is the product.
 
-### Free (Forever)
-- Full Module 1 (30 days, ~150 words)
-- Word bank with full functionality
-- Library (reference content)
-- Basic daily challenge
-- Basic review/self-test
+### Pricing
+| Plan | Price | Notes |
+|---|---|---|
+| Monthly | PKR 799/month | Entry point |
+| Annual | PKR 4,999/year | Best value badge (save 48%) |
+| Lifetime | PKR 7,999 one-time | Expected top seller — Pakistanis prefer one-time payments |
 
-### Premium Subscription
-- PKR 600-800/month (~$2-3) or PKR 4,000-5,000/year (~$15-18)
-- Module 2+ content
-- Advanced review system
-- Surah-by-surah guided reading
-- Offline access
-- Family plan option
+### Referral Program
+- Refer friend → +7 days premium free
+- Friend completes Lesson 1 → +7 more days
+- Share progress card → +1 day
 
-### Lifetime Access
-- PKR 8,000-10,000 (~$30-35) one-time
-- Many Pakistani users prefer this over subscriptions
-
-### Ramadan Pricing
-- Discounted annual plan during Ramadan
+### Payment Gateways
+- Google Play / Apple Pay (standard)
+- JazzCash / EasyPaisa (essential for Pakistan)
+- Lifetime deal will outsell monthly 3:1
 
 ### No Ads — Ever
 - Religious content + ads = broken trust
@@ -332,9 +375,15 @@ Never paywall basic Qur'anic understanding. Earn trust first. Monetize depth.
 - QuranWBW.com open-source word-by-word audio available as supplementary resource for ayah-context audio
 - Mudassir has access to Qaris in Pakistan
 
-## Open Questions
-- App name?
-- Ayah examples for each of the 50 launch words
-- Fun facts / context tips for each word introduction screen
-- What's the right mix of challenge types? (Memory vs facts vs quiz)
-- Hosting choice: Railway vs Render vs AWS?
+## Open Questions (Resolved)
+- ~~App name?~~ → **Asaan Arabic** — "Samajh ke Parho"
+- ~~Ayah examples for each of the 50 launch words~~ → AyahHighlights still needed for all 300 words
+- ~~Fun facts / context tips for each word introduction screen~~ → All 300 introductions generated (5 styles)
+- ~~What's the right mix of challenge types?~~ → 90 challenges generated (quiz + fact types)
+- ~~Hosting choice?~~ → Railway (backend) + Vercel (website)
+
+## Open Questions (Remaining)
+- Payment gateway integration (App Store/Play Store + JazzCash/EasyPaisa)
+- Audio file hosting/CDN (S3 + CloudFront vs Cloudflare R2)
+- Admin panel deployment and auth
+- Analytics pipeline design

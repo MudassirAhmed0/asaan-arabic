@@ -60,6 +60,30 @@ export interface CelebrationStat {
   cumulativeWords: number;
 }
 
+// ── Arabic Insight ──
+
+export type InsightType =
+  | 'ROOT_PATTERN'
+  | 'GRAMMAR_TIP'
+  | 'CULTURAL_NOTE'
+  | 'PATTERN_RECOGNITION'
+  | 'WORD_FAMILY';
+
+export interface InsightExample {
+  arabic: string;
+  transliteration: string;
+  meaning: string;
+  note?: string;
+}
+
+export interface ArabicInsight {
+  id: string;
+  type: InsightType;
+  title: string;
+  body: string;
+  examples: InsightExample[];
+}
+
 // ── Full lesson content (from GET /lessons/:id) ──
 
 export interface LessonContent {
@@ -67,7 +91,10 @@ export interface LessonContent {
   words: Word[];
   activities: LessonActivity[];
   midLessonMessage: MidLessonMessage;
+  arabicInsight: ArabicInsight | null;
   celebrationStat: CelebrationStat;
+  premiumTier: 'free' | 'taste' | 'premium';
+  isPremiumUser: boolean;
 }
 
 // ── User Progress ──
@@ -127,6 +154,8 @@ export interface WordWithDetails extends Word {
 export interface LessonListItem extends Lesson {
   isCompleted: boolean;
   isLocked: boolean;
+  premiumTier: 'free' | 'taste' | 'premium';
+  isPremiumUser: boolean;
 }
 
 // ── Full lesson content response ──
@@ -136,7 +165,10 @@ export interface LessonContentResponse {
   words: WordWithDetails[];
   activities: LessonActivity[];
   midLessonMessage: MidLessonMessage;
+  arabicInsight: ArabicInsight | null;
   celebrationStat: CelebrationStat;
+  premiumTier: 'free' | 'taste' | 'premium';
+  isPremiumUser: boolean;
 }
 
 // ── Lesson start response ──

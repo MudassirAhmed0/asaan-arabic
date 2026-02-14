@@ -3,6 +3,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Text } from '../ui/Text';
 import { colors, spacing, borderRadius } from '../../constants/theme';
 import type { LessonListItem } from '../../types';
+
 interface LessonCardProps {
   lesson: LessonListItem;
   onPress: () => void;
@@ -59,12 +60,32 @@ export function LessonCard({ lesson, onPress }: LessonCardProps) {
         </View>
       </View>
       <View style={styles.footer}>
-        <Text
-          variant="caption"
-          color={lesson.isLocked ? colors.textTertiary : colors.textSecondary}
-        >
-          {lesson.wordCount} words
-        </Text>
+        <View style={styles.footerLeft}>
+          <Text
+            variant="caption"
+            color={lesson.isLocked ? colors.textTertiary : colors.textSecondary}
+          >
+            {lesson.wordCount} words
+          </Text>
+          {/* Lessons 4-7: "Premium — free for you!" badge */}
+          {lesson.premiumTier === 'taste' && !lesson.isLocked && (
+            <View style={styles.tasteBadge}>
+              <Ionicons name="star" size={11} color={colors.accent} />
+              <Text variant="small" color={colors.accent} style={styles.badgeText}>
+                Premium — free for you!
+              </Text>
+            </View>
+          )}
+          {/* Lessons 8+: "Premium" badge */}
+          {lesson.premiumTier === 'premium' && !lesson.isLocked && (
+            <View style={styles.premiumBadge}>
+              <Ionicons name="star" size={11} color={colors.accent} />
+              <Text variant="small" color={colors.accent} style={styles.badgeText}>
+                Premium
+              </Text>
+            </View>
+          )}
+        </View>
         {lesson.isCompleted && (
           <View style={styles.statusBadge}>
             <Ionicons name="checkmark-circle" size={16} color={colors.success} />
@@ -151,6 +172,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingLeft: 40 + spacing.md,
   },
+  footerLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+    flex: 1,
+  },
   startBadge: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -164,5 +191,26 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: spacing.xs,
+  },
+  tasteBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 3,
+    backgroundColor: '#FDF6E3',
+    paddingHorizontal: spacing.sm,
+    paddingVertical: 2,
+    borderRadius: borderRadius.full,
+  },
+  premiumBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 3,
+    backgroundColor: '#FDF6E3',
+    paddingHorizontal: spacing.sm,
+    paddingVertical: 2,
+    borderRadius: borderRadius.full,
+  },
+  badgeText: {
+    fontWeight: '600',
   },
 });

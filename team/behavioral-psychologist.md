@@ -50,8 +50,27 @@ Designs the psychological architecture of the app. Owns habit formation, motivat
 - Streak framing as "journey" not "streak" is correct for religious context
 - Concern: what happens when a user misses a day? The re-entry experience matters more than the streak
 
+## Premium Psychology (DECISION-013, DECISION-014)
+
+### The "Taste Then Lock" Model
+- Lessons 1-3: No premium features (trust phase — build habit with pure vocabulary)
+- Lessons 4-7: Premium features FREE with gold badge (taste phase — create experienced value)
+- Lesson 8+: Premium features BLURRED (lock phase — gentle FOMO drives conversion)
+
+### Why This Works
+- **Zeigarnik Effect**: Blurred Arabic Insight in every lesson creates mental tension — "I need to know what that says"
+- **Experienced loss > Never had**: Users who TASTED grammar insights feel the absence more than users who never had them
+- **Sunk cost escalation**: More words learned = more need for practice mode = more conversion pressure
+- **No cliff**: Word count keeps growing. Users never feel punished. They feel incomplete.
+- **Gratitude → Payment**: "Premium — free for you!" creates gratitude that converts to willingness to pay
+
+### Key Principle
+The blurred Arabic Insight must show ENOUGH to create desire. Show the headline clearly ("Arabic Insight: Why -هُمْ means 'their'"), blur only the content. Users need to know WHAT they're missing, not just THAT they're missing something.
+
 ## Recommendations Queue
 - Add "Endowed Progress" to onboarding — show common words they already know before Lesson 1
 - Design a "welcome back" flow for users who've been gone 3+ days
 - Notification copy should reference the user's progress, not generic reminders
 - Consider "learning moments" tied to prayer times (post-Fajr = peak motivation window)
+- Pattern count as second progress metric — "12 Arabic patterns unlocked" is a shareable identity marker
+- The "Decode the Ayah" activity (post-launch) is the peak emotional moment — the user READS the Quran with understanding

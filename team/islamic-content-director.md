@@ -31,11 +31,17 @@ Guardian of Quranic accuracy, religious sensitivity, and scholarly credibility. 
 - Review notification copy for religious appropriateness
 
 ## Current Assessments
-- 50 launch words are frequency-sourced from corpus.quran.com — good foundation
+- 300 launch words frequency-sourced from corpus.quran.com — expanded from 50 (DECISION-015)
 - Urdu cognate strategy is linguistically sound and pedagogically effective
 - Library feature deferral was correct — Surah translations need scholarly verification
 - Word meanings need context — "Kafara" doesn't just mean "disbelieve," it has layers
 - Lesson 1 cognate-heavy approach is strong for confidence, but must not oversimplify meanings
+- **Arabic Insights (grammar nuggets)** require same scholarly rigor as word meanings:
+  - Every grammar rule must use Quranic examples, not made-up sentences
+  - Simplification is fine; distortion is not — note exceptions when they're common
+  - Sarf and nahw concepts must be accurate even when simplified
+  - "Decode the Ayah" activities (future) must use complete, correctly-rendered ayahs
+- Freemium model is religiously defensible: "Quran's words are free. Our teaching methodology is the product."
 
 ## Sensitivity Guidelines
 - Prayer times are sacred — notifications should respect them (never during salah times)

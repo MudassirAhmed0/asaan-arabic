@@ -70,6 +70,17 @@ Owns metrics, analytics, and data-driven decision-making. Responsible for defini
 - The most important launch metric is Lesson 1 completion rate — everything else follows from there
 - Need to track time-of-day patterns to optimize notification timing
 
+## Premium Metrics (DECISION-013, 014)
+| Metric | Why It Matters |
+|--------|----------------|
+| Free → Premium conversion rate | Core business metric |
+| Conversion by lesson number | Which lesson triggers most conversions? |
+| Blurred insight tap rate | Are users trying to access locked content? |
+| Practice mode lock tap rate | How many free users try to practice? |
+| Referral completion rate | Is the referral program working? |
+| Revenue by plan type | Monthly vs annual vs lifetime split |
+| Churn rate (premium) | Are premium users staying? |
+
 ## Analytics Events (Minimum for Launch)
 - `app_open` — with timestamp, user_id
 - `lesson_started` — lesson_id, user_id
@@ -80,3 +91,9 @@ Owns metrics, analytics, and data-driven decision-making. Responsible for defini
 - `share_initiated` — share_type, user_id
 - `notification_opened` — notification_type, user_id
 - `streak_milestone` — streak_count, user_id
+- `premium_prompt_shown` — lesson_id, feature_type (insight/practice/review)
+- `premium_prompt_tapped` — lesson_id, feature_type
+- `premium_purchase_started` — plan_type
+- `premium_purchase_completed` — plan_type, price
+- `referral_sent` — user_id
+- `referral_completed` — referrer_id, referee_id

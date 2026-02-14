@@ -19,6 +19,7 @@ interface PracticeResponse {
   rounds: PracticeRound[];
   totalLearned: number;
   revisionCount: number;
+  isPremiumLocked: boolean;
 }
 
 interface QuizResultsResponse {

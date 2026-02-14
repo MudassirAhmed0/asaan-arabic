@@ -3,6 +3,7 @@ import { create } from 'zustand';
 export type LessonStep =
   | { type: 'entry' }
   | { type: 'word'; wordIndex: number }
+  | { type: 'insight' }
   | { type: 'mid-message' }
   | { type: 'activity'; activityIndex: number }
   | { type: 'complete' };
@@ -20,6 +21,7 @@ interface LessonFlowState {
     attemptId: string;
     wordCount: number;
     activityCount: number;
+    hasInsight: boolean;
   }) => void;
   nextStep: () => void;
   prevStep: () => void;
@@ -33,11 +35,19 @@ interface LessonFlowState {
   canGoBack: () => boolean;
 }
 
-function buildSteps(wordCount: number, activityCount: number): LessonStep[] {
+function buildSteps(
+  wordCount: number,
+  activityCount: number,
+  hasInsight: boolean,
+): LessonStep[] {
   const steps: LessonStep[] = [{ type: 'entry' }];
 
   for (let i = 0; i < wordCount; i++) {
     steps.push({ type: 'word', wordIndex: i });
+  }
+
+  if (hasInsight) {
+    steps.push({ type: 'insight' });
   }
 
   steps.push({ type: 'mid-message' });
@@ -59,11 +69,11 @@ export const useLessonFlowStore = create<LessonFlowState>((set, get) => ({
   score: 0,
   totalQuestions: 0,
 
-  initFlow: ({ lessonId, attemptId, wordCount, activityCount }) => {
+  initFlow: ({ lessonId, attemptId, wordCount, activityCount, hasInsight }) => {
     set({
       lessonId,
       attemptId,
-      steps: buildSteps(wordCount, activityCount),
+      steps: buildSteps(wordCount, activityCount, hasInsight),
       currentStepIndex: 0,
       score: 0,
       totalQuestions: 0,
@@ -130,6 +140,7 @@ export const useLessonFlowStore = create<LessonFlowState>((set, get) => ({
     if (!current) return false;
     return (
       (current.type === 'word' && current.wordIndex > 0) ||
+      current.type === 'insight' ||
       current.type === 'mid-message'
     );
   },

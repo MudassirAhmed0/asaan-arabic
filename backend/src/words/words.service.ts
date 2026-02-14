@@ -1,12 +1,14 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma';
 import { StreaksService } from '../streaks/streaks.service';
+import { SubscriptionsService } from '../subscriptions/subscriptions.service';
 
 @Injectable()
 export class WordsService {
   constructor(
     private prisma: PrismaService,
     private streaksService: StreaksService,
+    private subscriptionsService: SubscriptionsService,
   ) {}
 
   async getLearnedWords(
@@ -118,7 +120,15 @@ export class WordsService {
     ).length;
 
     if (totalLearned < 4) {
-      return { rounds: [], totalLearned, revisionCount };
+      return { rounds: [], totalLearned, revisionCount, isPremiumLocked: false };
+    }
+
+    // Practice is free until 25 words, then requires premium
+    if (totalLearned > 25) {
+      const isPremium = await this.subscriptionsService.isPremium(userId);
+      if (!isPremium) {
+        return { rounds: [], totalLearned, revisionCount, isPremiumLocked: true };
+      }
     }
 
     // Apply status filter for word selection
@@ -176,7 +186,7 @@ export class WordsService {
       };
     });
 
-    return { rounds, totalLearned, revisionCount };
+    return { rounds, totalLearned, revisionCount, isPremiumLocked: false };
   }
 
   async recordQuizResults(

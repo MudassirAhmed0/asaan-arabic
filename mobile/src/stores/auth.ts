@@ -4,6 +4,8 @@ import { usersApi } from '../api/users';
 import { useProgressStore } from './progress';
 import { usePreferencesStore } from './preferences';
 import { registerForPushNotifications, unregisterPushNotifications } from '../services/notifications';
+import { initRevenueCat, resetRevenueCat } from '../services/purchases';
+import { usePremiumStore } from './premium';
 import { setOnSessionExpired } from '../api/client';
 
 interface User {
@@ -110,6 +112,11 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 
     // Register for push notifications after profile load
     registerForPushNotifications();
+
+    // Init RevenueCat and check premium status
+    initRevenueCat(profile.id).then(() => {
+      usePremiumStore.getState().checkPremiumStatus();
+    });
   },
 
   setOnboardingCompleted: (value) => {
@@ -123,6 +130,8 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 
   logout: async () => {
     await unregisterPushNotifications();
+    resetRevenueCat();
+    usePremiumStore.getState().setPremium(false);
     await SecureStore.deleteItemAsync('accessToken');
     await SecureStore.deleteItemAsync('refreshToken');
     await SecureStore.deleteItemAsync('onboardingCompleted');

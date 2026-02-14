@@ -19,6 +19,7 @@ import { useRouter } from 'expo-router';
 import { useAuthStore } from '../../../src/stores/auth';
 import { useProgressStore } from '../../../src/stores/progress';
 import { usePreferencesStore } from '../../../src/stores/preferences';
+import { usePremiumStore } from '../../../src/stores/premium';
 import { useQueryClient } from '@tanstack/react-query';
 import { usersApi } from '../../../src/api/users';
 import {
@@ -34,6 +35,8 @@ export default function ProfileScreen() {
   const { totalWordsLearned, currentStreak, longestStreak, currentLessonIndex } =
     useProgressStore();
   const { soundEnabled, hapticsEnabled, setPreferences } = usePreferencesStore();
+  const isPremium = usePremiumStore((s) => s.isPremium);
+  const restore = usePremiumStore((s) => s.restore);
 
   const [nameModalVisible, setNameModalVisible] = useState(false);
   const [editName, setEditName] = useState(user?.name ?? '');
@@ -292,6 +295,48 @@ export default function ProfileScreen() {
               thumbColor={colors.surface}
             />
           </View>
+        </Card>
+
+        {/* Subscription */}
+        <View style={styles.sectionHeader}>
+          <Text variant="caption" color={colors.textTertiary} style={styles.sectionLabel}>
+            SUBSCRIPTION
+          </Text>
+        </View>
+        <Card style={styles.settingsCard} padded={false}>
+          {isPremium ? (
+            <View style={styles.settingRow}>
+              <View style={styles.settingValue}>
+                <Ionicons name="star" size={18} color={colors.accent} />
+                <Text variant="bodyBold">Premium Active</Text>
+              </View>
+              <Ionicons name="checkmark-circle" size={20} color={colors.primary} />
+            </View>
+          ) : (
+            <Pressable style={styles.settingRow} onPress={() => router.push('/paywall')}>
+              <View style={styles.settingValue}>
+                <Ionicons name="star-outline" size={18} color={colors.accent} />
+                <Text variant="body">Upgrade to Premium</Text>
+              </View>
+              <Ionicons name="chevron-forward" size={16} color={colors.textTertiary} />
+            </Pressable>
+          )}
+          <View style={styles.settingDivider} />
+          <Pressable
+            style={styles.settingRow}
+            onPress={async () => {
+              const restored = await restore();
+              Alert.alert(
+                restored ? 'Restored' : 'No Purchases Found',
+                restored
+                  ? 'Your premium access has been restored.'
+                  : 'No previous purchases were found for this account.',
+              );
+            }}
+          >
+            <Text variant="body">Restore Purchases</Text>
+            <Ionicons name="chevron-forward" size={16} color={colors.textTertiary} />
+          </Pressable>
         </Card>
 
         {/* Account */}

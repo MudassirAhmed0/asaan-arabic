@@ -37,16 +37,46 @@ Owns the user experience end-to-end. Responsible for screen flows, interaction p
 - Ensure accessibility (color contrast, text size, screen reader support)
 
 ## Current Assessments
-- Tab structure (Learn, Words, Challenge, Profile) is clean and standard
-- Lesson flow (11 screens) is well-structured with clear phases
+- Tab structure (Learn, Words, Practice, Challenge) is clean and standard
+- Lesson flow (~12 screens with Arabic Insight) is well-structured with clear phases
 - Word bank with search and status toggling is functional
 - Concern: onboarding might be too long — every extra screen loses users
 - The celebration/completion screen needs to be the most polished screen in the app
 - Arabic text display needs generous line-height and proper font selection
 - Share card design is a growth lever — must look beautiful on Instagram
 
+## Premium UI Design (DECISION-014)
+
+### Arabic Insight — Taste Phase (Lessons 4-7)
+- Full-width card, fully interactive
+- Gold badge: small, elegant, "Premium — free for you!"
+- Subtle gold border around the card
+- Counter: "Free preview 2 of 4"
+
+### Arabic Insight — Lock Phase (Lesson 8+)
+- Same card layout, frosted glass overlay (semi-transparent gold/teal)
+- Headline VISIBLE through the frost: "Arabic Insight: Why -هُمْ means 'their'"
+- Body text blurred behind frosted glass
+- Lock icon centered
+- Button: "Unlock with Premium" — gold, prominent but not aggressive
+- Takes 2 seconds to scroll past — doesn't break lesson flow
+
+### Premium Badge System
+- Gold accent color = premium indicator everywhere
+- Practice button in word bank: visible, normal styling, small lock icon on right
+- Tap locked feature → bottom sheet with value pitch + pricing
+- Weekly Review banner: visible on Learn tab with lock icon
+- Never blocks content. Never aggressive. Always visible.
+
+### Conversion Screen (when tapping locked feature)
+- Value pitch: what this feature does
+- Social proof: "Join X,XXX learners who've unlocked Premium"
+- Pricing options (monthly/annual/lifetime)
+- Clean, non-aggressive design
+
 ## Design System Notes
 - Primary palette should evoke trust, calm, and spirituality (greens, deep blues, gold accents)
+- **Gold = premium indicator** throughout the app
 - Typography: clean sans-serif for English, proper Arabic font (not system default)
 - Cards as primary content container pattern
 - Bottom tab navigation (standard mobile pattern)

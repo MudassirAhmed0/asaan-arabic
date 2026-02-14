@@ -59,11 +59,27 @@ Too casual ←——————————————→ Too formal
 | Notification | Progress reference | "You know 25 words now. Ready for 5 more?" |
 | Re-engagement | Welcome back, no guilt | "Welcome back. Your words are still here." |
 
+## Premium Copy Patterns (DECISION-013, 014)
+| Context | Pattern | Example |
+|---------|---------|---------|
+| Taste phase badge | Gift framing | "Premium — free for you!" |
+| Free preview counter | Scarcity without pressure | "Free preview 2 of 4" |
+| Last free preview | Gentle farewell | "Last free Arabic Insight!" |
+| Locked insight | Headline visible, value clear | "Arabic Insight: Why -هُمْ means 'their'" |
+| Lock CTA | Inviting, not pushy | "Unlock with Premium" |
+| Practice lock | Benefit-forward | "Practice helps you remember. Unlock with Premium." |
+| Weekly Review lock | Simple | "Review your week's words — Premium" |
+| Paywall pitch | Never guilt-based | "Your words are yours forever. Subscribe to unlock grammar insights and practice." |
+| Never say | — | "Pay to learn the Quran" / "Don't miss out!" / "Limited time!" |
+
+**Key principle:** Paying is for the **teaching experience**, not for the Quran itself. The Quran is free. Our structured approach is the product.
+
 ## Current Assessments
 - Copy decisions file exists and is well-maintained — good foundation
 - "Play quick games" framing for activities is correct — tested and approved
 - "Words I know" identity language is strong — users feel ownership
-- Celebration screen copy needs more variety as lessons increase
+- Celebration screen copy needs more variety as lessons increase (60 lessons now)
 - Notification copy needs personalization (reference user's actual word count)
 - App store listing copy not yet written — needs to be compelling and keyword-rich
 - Website copy needed — hero section, features, social proof, download CTA
+- Premium copy must never feel like selling Quran access — it's selling a learning experience

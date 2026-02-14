@@ -18,6 +18,33 @@ export function WeeklyReviewBanner() {
   // Already completed this week — minimal display
   if (data.completed) return null;
 
+  // Premium locked — show gold banner with lock
+  if (data.isPremiumLocked) {
+    return (
+      <View style={styles.wrapper}>
+        <Pressable onPress={() => router.push('/review' as any)}>
+          <Card style={styles.bannerPremium}>
+            <View style={styles.row}>
+              <Ionicons name="calendar" size={20} color={colors.accent} />
+              <View style={styles.textGroup}>
+                <Text variant="bodyBold" color={colors.accent}>
+                  Weekly Review
+                </Text>
+                <View style={styles.premiumRow}>
+                  <Ionicons name="star" size={11} color={colors.accent} />
+                  <Text variant="small" color={colors.accent}>
+                    Premium
+                  </Text>
+                </View>
+              </View>
+              <Ionicons name="lock-closed" size={16} color={colors.accent} />
+            </View>
+          </Card>
+        </Pressable>
+      </View>
+    );
+  }
+
   // Available — tap to start
   return (
     <View style={styles.wrapper}>
@@ -62,6 +89,13 @@ const styles = StyleSheet.create({
     borderColor: colors.primary,
     borderWidth: 1,
   },
+  bannerPremium: {
+    paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.md,
+    borderColor: colors.accent,
+    borderWidth: 1,
+    backgroundColor: '#FDF6E3',
+  },
   row: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -70,5 +104,10 @@ const styles = StyleSheet.create({
   textGroup: {
     flex: 1,
     gap: 1,
+  },
+  premiumRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 3,
   },
 });

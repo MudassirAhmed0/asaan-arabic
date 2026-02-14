@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../prisma';
 import { StreaksService } from '../streaks/streaks.service';
+import { SubscriptionsService } from '../subscriptions/subscriptions.service';
 import { LessonCompleteDto } from './dto/lesson-complete.dto';
 
 @Injectable()
@@ -12,6 +13,7 @@ export class LessonsService {
   constructor(
     private prisma: PrismaService,
     private streaksService: StreaksService,
+    private subscriptionsService: SubscriptionsService,
   ) {}
 
   async listLessons(userId: string) {
@@ -33,11 +35,23 @@ export class LessonsService {
       completedAttempts.map((a) => a.lessonId),
     );
 
+    const isPremium = await this.subscriptionsService.isPremium(userId);
+
     return lessons.map((lesson) => ({
       ...lesson,
       isCompleted: completedLessonIds.has(lesson.id),
       isLocked: lesson.orderIndex > currentLessonIndex,
+      premiumTier: this.getLessonTier(lesson.orderIndex),
+      isPremiumUser: isPremium,
     }));
+  }
+
+  private getLessonTier(
+    orderIndex: number,
+  ): 'free' | 'taste' | 'premium' {
+    if (orderIndex <= 3) return 'free';
+    if (orderIndex <= 7) return 'taste';
+    return 'premium';
   }
 
   async getLessonContent(userId: string, lessonId: string) {
@@ -55,6 +69,7 @@ export class LessonsService {
           orderBy: { orderIndex: 'asc' },
         },
         midLessonMessage: true,
+        arabicInsight: true,
         celebrationStat: true,
       },
     });
@@ -67,7 +82,7 @@ export class LessonsService {
       throw new NotFoundException('Lesson not found');
     }
 
-    // Check if locked
+    // Check if sequence-locked
     const progress = await this.prisma.userProgress.findUnique({
       where: { userId },
     });
@@ -76,6 +91,8 @@ export class LessonsService {
     if (lesson.orderIndex > currentLessonIndex) {
       throw new ForbiddenException('Lesson is locked');
     }
+
+    const isPremium = await this.subscriptionsService.isPremium(userId);
 
     return {
       lesson: {
@@ -89,7 +106,10 @@ export class LessonsService {
       words: lesson.words,
       activities: lesson.activities,
       midLessonMessage: lesson.midLessonMessage,
+      arabicInsight: lesson.arabicInsight,
       celebrationStat: lesson.celebrationStat,
+      premiumTier: this.getLessonTier(lesson.orderIndex),
+      isPremiumUser: isPremium,
     };
   }
 
@@ -102,7 +122,7 @@ export class LessonsService {
       throw new NotFoundException('Lesson not found');
     }
 
-    // Check if locked
+    // Check if sequence-locked
     const progress = await this.prisma.userProgress.findUnique({
       where: { userId },
     });

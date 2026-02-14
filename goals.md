@@ -18,20 +18,22 @@ Help Pakistani Muslims finally understand the Arabic they already recite — by 
 - Secondary audience: Pakistani diaspora (UK, Middle East, North America)
 
 ## What Winning Looks Like
-- Users build a growing word bank and can feel real progress (word count)
-- Word count becomes social currency — people flex it on Instagram and in real-life gatherings
+- Users build a growing word bank AND grammar pattern knowledge — real comprehension, not just recognition
+- Word count + pattern count become social currency — people flex on Instagram and in real-life gatherings
 - Founder-led content drives awareness and trust pre-Ramadan
-- 40%+ Day-30 retention (the word-by-word payoff supports this)
-- 10-15% free-to-premium conversion
+- 40%+ Day-30 retention (words + grammar payoff supports this)
+- 5-10% free-to-premium conversion (grammar insights + practice mode drive this)
 - Recognized as the go-to Qur'anic Arabic app in Pakistan within 12 months
 - Revenue-sustainable through premium subscriptions without compromising the spiritual mission
+- Users open the Qur'an and actually parse basic sentences — the emotional payoff that no competitor delivers
 
 ## What We Will NOT Do
 - Will NOT teach Modern Standard Arabic (MSA) or conversational Arabic
 - Will NOT build a purely Urdu interface — English flow, Urdu as a learning aid only
-- Will NOT make the learning path surah-based — learning is word-centric
+- Will NOT make the learning path surah-based — learning is word-centric with grammar woven in
 - Will NOT run ads inside the app — religious content stays ad-free
-- Will NOT put basic learning behind a paywall (Module 1 is free, genuinely valuable)
+- Will NOT paywall Qur'anic vocabulary — words are free forever, premium unlocks grammar/practice/review
 - Will NOT build for the global market first — Pakistan is the focus
 - Will NOT over-gamify — this is spiritual learning, not a game
-- Will NOT launch with more than Module 1 — validate first, expand later
+- Will NOT use guilt-based upselling — "don't you want to learn the Quran?" is never acceptable
+- Will NOT teach grammar as a separate course — grammar is woven into word lessons as "Arabic Insights"

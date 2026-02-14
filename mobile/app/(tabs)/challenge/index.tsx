@@ -15,12 +15,14 @@ import { Ionicons } from '@expo/vector-icons';
 import * as Haptics from 'expo-haptics';
 import { captureRef } from 'react-native-view-shot';
 import * as Sharing from 'expo-sharing';
+import RevenueCatUI from 'react-native-purchases-ui';
 import { Text } from '../../../src/components/ui/Text';
 import { Card } from '../../../src/components/ui/Card';
 import { ActivityQuickFire } from '../../../src/components/lesson/ActivityQuickFire';
 import { colors, spacing, borderRadius } from '../../../src/constants/theme';
 import { usePractice, useSubmitQuizResults } from '../../../src/hooks/useWords';
 import { useProgressStore } from '../../../src/stores/progress';
+import { usePremiumStore } from '../../../src/stores/premium';
 import { wordsApi } from '../../../src/api/words';
 import type { PracticeRound } from '../../../src/api/words';
 
@@ -342,6 +344,22 @@ export default function PracticeScreen() {
     );
   }
 
+  const handleUpgrade = useCallback(async () => {
+    const { checkPremiumStatus, syncPurchaseToBackend } = usePremiumStore.getState();
+    try {
+      const result = await RevenueCatUI.presentPaywall();
+      if (result === 'PURCHASED' || result === 'RESTORED') {
+        await checkPremiumStatus();
+        if (result === 'PURCHASED') {
+          await syncPurchaseToBackend('premium');
+        }
+        refetch();
+      }
+    } catch {
+      // User cancelled
+    }
+  }, [refetch]);
+
   // Idle — simple action buttons
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
@@ -366,70 +384,120 @@ export default function PracticeScreen() {
           )}
         </Card>
 
-        {/* Action buttons */}
-        <View style={styles.actions}>
-          {/* Quick Practice — primary */}
-          <Pressable
-            style={({ pressed }) => [
-              styles.actionButton,
-              styles.actionPrimary,
-              pressed && styles.buttonPressed,
-            ]}
-            onPress={() => handleStart('quick')}
-          >
-            <Ionicons name="flash" size={20} color={colors.textOnPrimary} />
-            <View style={styles.actionTextGroup}>
-              <Text variant="bodyBold" color={colors.textOnPrimary}>
-                Quick Practice
-              </Text>
-              <Text variant="caption" color="rgba(255,255,255,0.7)">
-                5 words, revision first
-              </Text>
+        {data.isPremiumLocked ? (
+          // Premium gate — show what they're missing
+          <Card style={styles.premiumGateCard}>
+            <View style={styles.premiumGateIcon}>
+              <Ionicons name="lock-closed" size={24} color={colors.accent} />
             </View>
-          </Pressable>
+            <Text variant="h3" align="center">
+              Unlimited Practice
+            </Text>
+            <Text variant="body" color={colors.textSecondary} align="center">
+              You've enjoyed 25 free practice words. Upgrade to keep
+              sharpening your recall with all {data.totalLearned} words.
+            </Text>
 
-          {/* Practice Revision — amber, only if revision words exist */}
-          {data.revisionCount > 0 && (
+            <View style={styles.premiumGateFeatures}>
+              <View style={styles.premiumGateFeature}>
+                <Ionicons name="flash" size={16} color={colors.primary} />
+                <Text variant="caption" color={colors.textSecondary}>
+                  Quick Practice — 5 words, revision first
+                </Text>
+              </View>
+              <View style={styles.premiumGateFeature}>
+                <Ionicons name="flag" size={16} color={colors.warning} />
+                <Text variant="caption" color={colors.textSecondary}>
+                  Revision mode — focus on flagged words
+                </Text>
+              </View>
+              <View style={styles.premiumGateFeature}>
+                <Ionicons name="library-outline" size={16} color={colors.primary} />
+                <Text variant="caption" color={colors.textSecondary}>
+                  Practice All — every word you've learned
+                </Text>
+              </View>
+            </View>
+
+            <Pressable
+              style={({ pressed }) => [
+                styles.upgradeButton,
+                pressed && styles.buttonPressed,
+              ]}
+              onPress={handleUpgrade}
+            >
+              <Ionicons name="star" size={16} color={colors.textOnPrimary} />
+              <Text variant="bodyBold" color={colors.textOnPrimary}>
+                Unlock Premium
+              </Text>
+            </Pressable>
+          </Card>
+        ) : (
+          // Action buttons — normal state
+          <View style={styles.actions}>
+            {/* Quick Practice — primary */}
             <Pressable
               style={({ pressed }) => [
                 styles.actionButton,
-                styles.actionRevision,
+                styles.actionPrimary,
                 pressed && styles.buttonPressed,
               ]}
-              onPress={() => handleStart('revision')}
+              onPress={() => handleStart('quick')}
             >
-              <Ionicons name="flag" size={20} color={colors.textOnPrimary} />
+              <Ionicons name="flash" size={20} color={colors.textOnPrimary} />
               <View style={styles.actionTextGroup}>
                 <Text variant="bodyBold" color={colors.textOnPrimary}>
-                  Practice Revision ({data.revisionCount})
+                  Quick Practice
                 </Text>
                 <Text variant="caption" color="rgba(255,255,255,0.7)">
-                  Focus on flagged words
+                  5 words, revision first
                 </Text>
               </View>
             </Pressable>
-          )}
 
-          {/* Practice All — outlined */}
-          <Pressable
-            style={({ pressed }) => [
-              styles.actionButton,
-              styles.actionOutline,
-              pressed && styles.buttonPressed,
-            ]}
-            onPress={() => handleStart('all')}
-          >
-            <Ionicons name="library-outline" size={20} color={colors.primary} />
-            <View style={styles.actionTextGroup}>
-              <Text variant="bodyBold" color={colors.primary}>
-                Practice All ({data.totalLearned})
-              </Text>
-              <Text variant="caption" color={colors.textSecondary}>
-                Every word you've learned
-              </Text>
-            </View>
-          </Pressable>
-        </View>
+            {/* Practice Revision — amber, only if revision words exist */}
+            {data.revisionCount > 0 && (
+              <Pressable
+                style={({ pressed }) => [
+                  styles.actionButton,
+                  styles.actionRevision,
+                  pressed && styles.buttonPressed,
+                ]}
+                onPress={() => handleStart('revision')}
+              >
+                <Ionicons name="flag" size={20} color={colors.textOnPrimary} />
+                <View style={styles.actionTextGroup}>
+                  <Text variant="bodyBold" color={colors.textOnPrimary}>
+                    Practice Revision ({data.revisionCount})
+                  </Text>
+                  <Text variant="caption" color="rgba(255,255,255,0.7)">
+                    Focus on flagged words
+                  </Text>
+                </View>
+              </Pressable>
+            )}
+
+            {/* Practice All — outlined */}
+            <Pressable
+              style={({ pressed }) => [
+                styles.actionButton,
+                styles.actionOutline,
+                pressed && styles.buttonPressed,
+              ]}
+              onPress={() => handleStart('all')}
+            >
+              <Ionicons name="library-outline" size={20} color={colors.primary} />
+              <View style={styles.actionTextGroup}>
+                <Text variant="bodyBold" color={colors.primary}>
+                  Practice All ({data.totalLearned})
+                </Text>
+                <Text variant="caption" color={colors.textSecondary}>
+                  Every word you've learned
+                </Text>
+              </View>
+            </Pressable>
+          </View>
+        )}
       </View>
     </SafeAreaView>
   );
@@ -500,6 +568,44 @@ const styles = StyleSheet.create({
     flex: 1,
     gap: 2,
   },
+
+  // Premium gate
+  premiumGateCard: {
+    alignItems: 'center',
+    paddingVertical: spacing.lg,
+    paddingHorizontal: spacing.lg,
+    gap: spacing.sm,
+  },
+  premiumGateIcon: {
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    backgroundColor: '#FDF6E3',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: spacing.xs,
+  },
+  premiumGateFeatures: {
+    width: '100%',
+    gap: spacing.sm,
+    marginTop: spacing.sm,
+  },
+  premiumGateFeature: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+  },
+  upgradeButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+    backgroundColor: colors.accent,
+    paddingHorizontal: spacing.xl,
+    paddingVertical: spacing.md,
+    borderRadius: borderRadius.md,
+    marginTop: spacing.sm,
+  },
+
   footer: {
     paddingHorizontal: spacing.lg,
     paddingBottom: spacing.xl,

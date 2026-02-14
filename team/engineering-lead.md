@@ -57,14 +57,27 @@ Owns technical architecture, infrastructure decisions, scalability planning, and
 - Prisma ORM is correct for this stage — migration management and type safety
 - Monorepo structure is correct — shared types, single CI/CD
 - Firebase for push is standard and free — no reason to use anything else
-- Hosting decision still open — Railway or Render for launch (both auto-scale)
+- Hosting: **Railway** (DECISION-007)
 - Missing: error monitoring (Sentry), analytics events pipeline, health checks
 - CMS and admin panel should be React web apps in the monorepo, sharing backend API
 - Audio file hosting needs a CDN — Qari recordings shouldn't be served from the API server
 
+### Schema Changes Needed (DECISION-012, 013, 014)
+- **New model: `ArabicInsight`** — 1 per lesson, stores grammar concept data (headline, body, pattern, Quranic example, "try it" question)
+- **New model: `UserSubscription`** — tracks premium status, plan type, expiry, referral credits
+- **New field on `LessonActivity`: `isPremium`** — flags which activities are premium-only
+- **New field on `UserProgress`: `patternsUnlocked`** — second progress counter
+- **AyahHighlight seed data** — still needs populating for all 300 words
+- Seed data scaling: 50 words → 300 words, 10 lessons → 60 lessons, all related content
+
+### Content Scale
+- 300 words + introductions + 60 Arabic Insights + ~180 activities + 60 mid-messages + 60 celebrations + 60+ challenges
+- Seed script already handles upserts — can re-run safely
+- Production seed needs to be separate from dev seed (or configurable)
+
 ## Technical Decisions Pending
-- Hosting provider (Railway vs Render vs AWS)
 - Audio file storage and CDN (S3 + CloudFront vs Cloudflare R2)
 - Analytics pipeline (Firebase Analytics vs custom events table)
 - Admin panel framework (Next.js vs plain React + Vite)
 - CMS data model (how lessons/words are structured for editing)
+- Payment gateway integration (App Store/Play Store + JazzCash/EasyPaisa)

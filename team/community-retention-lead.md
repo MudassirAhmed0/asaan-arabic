@@ -62,7 +62,14 @@ Owns the relationship between the product and its users after acquisition. Respo
 - User feedback loop needs to be designed — in-app feedback form or link to WhatsApp
 - Re-engagement push notifications need to be respectful of prayer times and frequency
 
+## Premium Community Strategy (DECISION-013)
+- Free users remain in community (WhatsApp, Instagram) — they're still learners, still valuable
+- Free users see premium users celebrating grammar milestones → social proof for conversion
+- Community content can include grammar teases: "Today's Arabic pattern: -هُمْ means 'their'" → drives premium interest
+- Referral program creates organic advocacy: non-payers recommend to earn premium days
+- Premium conversion conversations happen naturally in community ("Is premium worth it?" → "Yes, the grammar insights changed everything")
+
 ## Community Milestones (Collective)
 - "Together, we've learned 10,000 Quranic words" — shared on all channels
-- "100 users completed Module 1" — celebration post
+- "100 users unlocked all 60 Arabic patterns" — premium celebration
 - "Our community has read 1,000 ayahs with understanding" — Ramadan milestone
