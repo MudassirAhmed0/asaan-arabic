@@ -1,16 +1,31 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { Cron } from '@nestjs/schedule';
 import { PrismaService } from '../prisma';
 import { FirebaseService } from '../firebase/firebase.service';
+import {
+  Coordinates,
+  CalculationMethod,
+  PrayerTimes,
+} from 'adhan';
+
+// Lahore — central Pakistan, covers most of the population
+const PAKISTAN_COORDS = new Coordinates(31.5204, 74.3587);
+const FAJR_DELAY_MS = 15 * 60 * 1000; // 15 minutes after Fajr
 
 @Injectable()
-export class NotificationsService {
+export class NotificationsService implements OnModuleInit {
   private readonly logger = new Logger(NotificationsService.name);
+  private fajrTimeout: ReturnType<typeof setTimeout> | null = null;
 
   constructor(
     private prisma: PrismaService,
     private firebase: FirebaseService,
   ) {}
+
+  onModuleInit() {
+    // Schedule today's Fajr notification on startup
+    this.scheduleFajrNotification();
+  }
 
   async registerToken(userId: string, token: string, platform: string) {
     await this.prisma.fcmToken.upsert({
@@ -44,10 +59,45 @@ export class NotificationsService {
     );
   }
 
-  // 0:30 UTC = 5:30 AM PKT (~10-15 min after Fajr)
-  @Cron('30 0 * * *')
+  // Runs at midnight PKT (19:00 UTC) to schedule next Fajr notification
+  @Cron('0 19 * * *')
+  scheduleFajrNotification() {
+    // Calculate tomorrow's Fajr (since this runs at midnight PKT)
+    const now = new Date();
+    const tomorrow = new Date(now);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
+    const prayerTimes = new PrayerTimes(
+      PAKISTAN_COORDS,
+      tomorrow,
+      CalculationMethod.Karachi(),
+    );
+
+    const fajrTime = prayerTimes.fajr;
+    const sendAt = new Date(fajrTime.getTime() + FAJR_DELAY_MS);
+    const delayMs = sendAt.getTime() - now.getTime();
+
+    if (delayMs <= 0) {
+      this.logger.warn(`Fajr send time already passed: ${sendAt.toISOString()}`);
+      return;
+    }
+
+    // Clear any existing timeout
+    if (this.fajrTimeout) {
+      clearTimeout(this.fajrTimeout);
+    }
+
+    this.fajrTimeout = setTimeout(() => {
+      this.sendFajrReminder();
+    }, delayMs);
+
+    const fajrLocal = fajrTime.toLocaleString('en-PK', { timeZone: 'Asia/Karachi' });
+    const sendLocal = sendAt.toLocaleString('en-PK', { timeZone: 'Asia/Karachi' });
+    this.logger.log(`Fajr: ${fajrLocal} — notification scheduled for: ${sendLocal}`);
+  }
+
   async sendFajrReminder() {
-    this.logger.log('Running post-Fajr reminder cron...');
+    this.logger.log('Sending post-Fajr reminder...');
     return this.sendToAll(
       'Start your day with the Quran',
       'Learn 5 new words before the world wakes up.',
