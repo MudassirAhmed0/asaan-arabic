@@ -57,7 +57,9 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         return;
       }
 
-      set({ isAuthenticated: true });
+      // Restore onboarding status from local storage immediately
+      const savedOnboarding = await SecureStore.getItemAsync('onboardingCompleted');
+      set({ isAuthenticated: true, onboardingCompleted: savedOnboarding === 'true' });
 
       // Try to fetch profile to get onboarding status
       try {
@@ -89,6 +91,10 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       },
       onboardingCompleted: profile.progress.onboardingCompleted,
     });
+    // Persist onboarding status locally so it survives app restarts
+    if (profile.progress.onboardingCompleted) {
+      SecureStore.setItemAsync('onboardingCompleted', 'true');
+    }
     useProgressStore.getState().setProgress({
       totalWordsLearned: profile.progress.totalWordsLearned,
       currentLessonIndex: profile.progress.currentLessonIndex,
@@ -106,7 +112,10 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     registerForPushNotifications();
   },
 
-  setOnboardingCompleted: (value) => set({ onboardingCompleted: value }),
+  setOnboardingCompleted: (value) => {
+    set({ onboardingCompleted: value });
+    SecureStore.setItemAsync('onboardingCompleted', value ? 'true' : 'false');
+  },
 
   clearSession: () => {
     set({ user: null, isAuthenticated: false, onboardingCompleted: false });
@@ -116,6 +125,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     await unregisterPushNotifications();
     await SecureStore.deleteItemAsync('accessToken');
     await SecureStore.deleteItemAsync('refreshToken');
+    await SecureStore.deleteItemAsync('onboardingCompleted');
     set({ user: null, isAuthenticated: false, onboardingCompleted: false });
   },
 }));
