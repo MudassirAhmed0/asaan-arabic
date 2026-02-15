@@ -2,7 +2,10 @@ import { useEffect } from 'react';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import * as SplashScreen from 'expo-splash-screen';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient } from '@tanstack/react-query';
+import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
+import { createAsyncStoragePersister } from '@tanstack/query-async-storage-persister';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useAuthStore } from '../src/stores/auth';
 import { setupNotificationListeners } from '../src/services/notifications';
 
@@ -13,9 +16,15 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       retry: 2,
-      staleTime: 1000 * 60 * 5,
+      staleTime: 1000 * 60 * 5, // 5 min — data is fresh
+      gcTime: 1000 * 60 * 60 * 24, // 24h — keep in cache for persistence
     },
   },
+});
+
+const asyncPersister = createAsyncStoragePersister({
+  storage: AsyncStorage,
+  key: 'asaan-query-cache',
 });
 
 export default function RootLayout() {
@@ -34,7 +43,10 @@ export default function RootLayout() {
   if (isLoading) return null;
 
   return (
-    <QueryClientProvider client={queryClient}>
+    <PersistQueryClientProvider
+      client={queryClient}
+      persistOptions={{ persister: asyncPersister, maxAge: 1000 * 60 * 60 * 24 }}
+    >
       <StatusBar style="dark" />
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="index" />
@@ -73,6 +85,6 @@ export default function RootLayout() {
           }}
         />
       </Stack>
-    </QueryClientProvider>
+    </PersistQueryClientProvider>
   );
 }
