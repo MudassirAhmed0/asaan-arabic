@@ -115,7 +115,45 @@ A 12-role AI virtual team operates from `/team/`. Each role has its own MD file 
 ## Action Items for Mudassir
 - **Test premium/freemium system** — complete lessons 1-8+, verify insight gating, practice lock after 25 words, review lock after first completion
 - **Set Firebase env vars on Railway** — `FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, `FIREBASE_PRIVATE_KEY`
-- **Set up RevenueCat project** — create apps (iOS/Android), configure "AsaanArabic Pro" entitlement, add products (monthly/annual/lifetime), set webhook URL
+- **Set up RevenueCat + pricing** — see checklist below
 - Schedule Qari recording session for **300 words** (parallel with dev)
 - Prepare app store developer accounts (Apple + Google)
 - Review 300-word seed data for accuracy
+
+## RevenueCat + Pricing Setup Checklist
+
+Pricing (DECISION-013): PKR 799/mo, PKR 4,999/yr, PKR 7,999 lifetime.
+Our code uses entitlement `AsaanArabic Pro` and API key `test_cJNvcdRYrAUKGiDTLsuvhFiJwZr`.
+
+### Step 1: Google Play Console (Android)
+- [ ] Create app listing for Asaan Arabic
+- [ ] Go to Monetize → Products → Subscriptions
+- [ ] Create subscription: `asaan_arabic_monthly` — PKR 799/month
+- [ ] Create subscription: `asaan_arabic_annual` — PKR 4,999/year (badge: "Save 48%")
+- [ ] Go to Monetize → Products → In-app products
+- [ ] Create one-time product: `asaan_arabic_lifetime` — PKR 7,999 (non-consumable)
+
+### Step 2: RevenueCat Dashboard
+- [ ] Create project at app.revenuecat.com
+- [ ] Add Android app (paste Google Play package name + service account JSON)
+- [ ] Create Entitlement: `AsaanArabic Pro`
+- [ ] Add Products: link `asaan_arabic_monthly`, `asaan_arabic_annual`, `asaan_arabic_lifetime` from Play Store
+- [ ] Attach all 3 products to the `AsaanArabic Pro` entitlement
+- [ ] Create Offering: `default` — add all 3 products as packages (Monthly, Annual, Lifetime)
+- [ ] Copy **Public API Key** (Android) — update in `mobile/src/services/purchases.ts` if different from test key
+- [ ] Set up Webhook: URL = `https://asaan-arabic-production.up.railway.app/subscriptions/webhook`
+- [ ] Set webhook auth header secret → add as `REVENUECAT_WEBHOOK_SECRET` env var on Railway
+
+### Step 3: Apple App Store Connect (iOS — when ready)
+- [ ] Create app listing
+- [ ] Create auto-renewable subscriptions: monthly + annual (same pricing in PKR or USD equivalent)
+- [ ] Create non-consumable IAP: lifetime
+- [ ] Add iOS app in RevenueCat, link products
+- [ ] Copy **Public API Key** (iOS) — update in `mobile/src/services/purchases.ts`
+
+### Step 4: Verify
+- [ ] Build APK with `eas build --profile preview --platform android`
+- [ ] Tap "Unlock Premium" anywhere → RevenueCat native paywall shows 3 options
+- [ ] Complete sandbox purchase → premium unlocks immediately
+- [ ] Kill app, reopen → premium status persists
+- [ ] Check Railway logs → webhook received from RevenueCat
