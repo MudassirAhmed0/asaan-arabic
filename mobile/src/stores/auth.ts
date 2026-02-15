@@ -113,10 +113,11 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     // Register for push notifications after profile load
     registerForPushNotifications();
 
-    // Init RevenueCat and check premium status
-    initRevenueCat(profile.id).then(() => {
-      usePremiumStore.getState().checkPremiumStatus();
-    });
+    // TODO: Re-enable RevenueCat after payment setup
+    // initRevenueCat(profile.id).then(() => {
+    //   usePremiumStore.getState().checkPremiumStatus();
+    // });
+    usePremiumStore.getState().setPremium(true);
   },
 
   setOnboardingCompleted: (value) => {

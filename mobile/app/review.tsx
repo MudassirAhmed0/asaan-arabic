@@ -5,16 +5,12 @@ import {
   StyleSheet,
   ActivityIndicator,
   Alert,
-  Platform,
-  Linking,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useState, useCallback, useRef } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import * as Haptics from 'expo-haptics';
-import { captureRef } from 'react-native-view-shot';
-import * as Sharing from 'expo-sharing';
 import RevenueCatUI from 'react-native-purchases-ui';
 import { Text } from '../src/components/ui/Text';
 import { Card } from '../src/components/ui/Card';
@@ -23,6 +19,8 @@ import { colors, spacing, borderRadius } from '../src/constants/theme';
 import { useCurrentReview, useSubmitReview } from '../src/hooks/useReviews';
 import { useProgressStore } from '../src/stores/progress';
 import { usePremiumStore } from '../src/stores/premium';
+import { ShareCard } from '../src/components/share/ShareCard';
+import { captureAndShare } from '../src/components/share/shareUtils';
 
 type Phase = 'loading' | 'locked' | 'quiz' | 'done';
 
@@ -112,35 +110,8 @@ export default function WeeklyReviewScreen() {
     [data, submitReview, setProgress],
   );
 
-  const handleShare = useCallback(async () => {
-    try {
-      const uri = await captureRef(shareCardRef, {
-        format: 'png',
-        quality: 1,
-      });
-      const instagramUrl = Platform.select({
-        ios: `instagram-stories://share?source_application=quran-words&backgroundImage=${encodeURIComponent(uri)}`,
-        android: `instagram-stories://share?source_application=quran-words&backgroundImage=${encodeURIComponent(uri)}`,
-      });
-      const canOpen = instagramUrl
-        ? await Linking.canOpenURL(instagramUrl)
-        : false;
-      if (canOpen && instagramUrl) {
-        await Linking.openURL(instagramUrl);
-      } else {
-        await Sharing.shareAsync(uri, { mimeType: 'image/png' });
-      }
-    } catch {
-      try {
-        const uri = await captureRef(shareCardRef, {
-          format: 'png',
-          quality: 1,
-        });
-        await Sharing.shareAsync(uri, { mimeType: 'image/png' });
-      } catch {
-        // User cancelled
-      }
-    }
+  const handleShare = useCallback(() => {
+    captureAndShare(shareCardRef);
   }, []);
 
   // Loading
@@ -251,26 +222,14 @@ export default function WeeklyReviewScreen() {
       <SafeAreaView style={styles.container} edges={['top']}>
         {/* Hidden share card */}
         <View style={styles.shareCardWrapper} pointerEvents="none">
-          <View
+          <ShareCard
             ref={shareCardRef}
-            style={styles.shareCard}
-            collapsable={false}
-          >
-            <View style={styles.shareCardTop}>
-              <Text style={styles.shareCardStar}>✦</Text>
-              <Text style={styles.shareCardNumber}>
-                {score.score}/{score.total}
-              </Text>
-              <Text style={styles.shareCardLabel}>Weekly Review</Text>
-            </View>
-            <View style={styles.shareCardDivider} />
-            <Text style={styles.shareCardStat}>
-              Week {data?.weekNumber} — {percent}% recall
-            </Text>
-            <Text style={styles.shareCardBranding}>
-              Learn Qur'anic Arabic
-            </Text>
-          </View>
+            variant="review"
+            score={score.score}
+            total={score.total}
+            weekNumber={data?.weekNumber ?? 0}
+            recallPercent={percent}
+          />
         </View>
 
         <ScrollView
@@ -496,62 +455,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: -9999,
     left: 0,
-    right: 0,
     zIndex: -1,
-    alignItems: 'center',
-    overflow: 'hidden',
-  },
-  shareCard: {
-    width: 360,
-    height: 640,
-    backgroundColor: colors.primaryDark,
-    padding: spacing.xl,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  shareCardTop: {
-    alignItems: 'center',
-    gap: 6,
-  },
-  shareCardStar: {
-    fontSize: 28,
-    color: colors.accent,
-    marginBottom: 12,
-  },
-  shareCardNumber: {
-    fontSize: 72,
-    fontWeight: '800',
-    color: colors.accent,
-    lineHeight: 80,
-  },
-  shareCardLabel: {
-    fontSize: 20,
-    fontWeight: '500',
-    color: 'rgba(255,255,255,0.9)',
-    textAlign: 'center',
-    marginTop: 4,
-  },
-  shareCardDivider: {
-    width: 48,
-    height: 2,
-    backgroundColor: 'rgba(255,255,255,0.25)',
-    marginVertical: spacing.xl,
-  },
-  shareCardStat: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: 'rgba(255,255,255,0.7)',
-    textAlign: 'center',
-    paddingHorizontal: spacing.xl,
-    lineHeight: 24,
-  },
-  shareCardBranding: {
-    fontSize: 13,
-    fontWeight: '600',
-    color: 'rgba(255,255,255,0.35)',
-    letterSpacing: 1.5,
-    textTransform: 'uppercase',
-    position: 'absolute',
-    bottom: spacing.xl,
   },
 });

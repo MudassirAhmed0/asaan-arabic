@@ -1,4 +1,4 @@
-import { View, FlatList, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, FlatList, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
@@ -10,6 +10,7 @@ import { WeeklyReviewBanner } from '../../../src/components/review/WeeklyReviewB
 import { colors, spacing, borderRadius } from '../../../src/constants/theme';
 import { useLessonList } from '../../../src/hooks/useLessons';
 import { useProgressStore } from '../../../src/stores/progress';
+import { LearnScreenSkeleton } from '../../../src/components/ui/Skeleton';
 import type { LessonListItem } from '../../../src/types';
 
 export default function LearnScreen() {
@@ -88,9 +89,7 @@ export default function LearnScreen() {
         )}
         ListEmptyComponent={
           isLoading ? (
-            <View style={styles.center}>
-              <ActivityIndicator color={colors.primary} size="large" />
-            </View>
+            <LearnScreenSkeleton />
           ) : error ? (
             <View style={styles.center}>
               <Text variant="body" color={colors.error}>

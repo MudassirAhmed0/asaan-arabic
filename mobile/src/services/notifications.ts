@@ -1,6 +1,7 @@
 import { Platform } from 'react-native';
 import * as Notifications from 'expo-notifications';
 import * as Device from 'expo-device';
+import { router } from 'expo-router';
 import { notificationsApi } from '../api/notifications';
 
 // Show notifications when app is in foreground
@@ -15,6 +16,7 @@ Notifications.setNotificationHandler({
 });
 
 let currentToken: string | null = null;
+let responseListenerSetup = false;
 
 export async function registerForPushNotifications(): Promise<string | null> {
   if (!Device.isDevice) {
@@ -69,4 +71,41 @@ export async function unregisterPushNotifications(): Promise<void> {
 
 export function getCurrentToken(): string | null {
   return currentToken;
+}
+
+const SCREEN_ROUTES: Record<string, string> = {
+  learn: '/(tabs)/learn',
+  words: '/(tabs)/words',
+  challenge: '/(tabs)/challenge',
+  practice: '/(tabs)/challenge',
+  review: '/review',
+  profile: '/(tabs)/profile',
+};
+
+function handleNotificationNavigation(data: Record<string, unknown>) {
+  const screen = data?.screen as string | undefined;
+  if (screen && SCREEN_ROUTES[screen]) {
+    setTimeout(() => {
+      router.push(SCREEN_ROUTES[screen] as any);
+    }, 500);
+  }
+}
+
+export function setupNotificationListeners() {
+  if (responseListenerSetup) return;
+  responseListenerSetup = true;
+
+  // User tapped a notification
+  Notifications.addNotificationResponseReceivedListener((response) => {
+    const data = response.notification.request.content.data;
+    handleNotificationNavigation(data);
+  });
+
+  // Check if app was opened from a notification (cold start)
+  Notifications.getLastNotificationResponseAsync().then((response) => {
+    if (response) {
+      const data = response.notification.request.content.data;
+      handleNotificationNavigation(data);
+    }
+  });
 }

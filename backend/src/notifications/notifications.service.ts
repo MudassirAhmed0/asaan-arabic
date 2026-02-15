@@ -1,31 +1,83 @@
-import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Cron } from '@nestjs/schedule';
 import { PrismaService } from '../prisma';
 import { FirebaseService } from '../firebase/firebase.service';
-import {
-  Coordinates,
-  CalculationMethod,
-  PrayerTimes,
-} from 'adhan';
 
-// Karachi — largest city, safe default
-const PAKISTAN_COORDS = new Coordinates(24.8607, 67.0011);
-const FAJR_DELAY_MS = 15 * 60 * 1000; // 15 minutes after Fajr
+// ── Copy Templates (variables: {streak}, {words}, {days}) ──
+
+const STREAK_AT_RISK = [
+  {
+    title: '{streak} days with the Quran.',
+    body: "Don't let tonight be the day it stops.",
+  },
+  {
+    title: '{streak} days straight.',
+    body: 'It either continues tonight… or it doesn\'t.',
+  },
+  {
+    title: '{streak} days.',
+    body: 'You know what to do.',
+  },
+  {
+    title: '{streak} days with the Quran.',
+    body: "That's not a streak — that's a habit. Keep it.",
+  },
+];
+
+const WEEKLY_REVIEW_MISSED = [
+  {
+    title: 'Do you still remember?',
+    body: 'You learned {words} words this week. How many stayed?',
+  },
+  {
+    title: 'You learned it.',
+    body: 'But did it stay? Find out in 2 minutes.',
+  },
+  {
+    title: '{words} words this week.',
+    body: "How many can you still get right?",
+  },
+];
+
+const WIN_BACK = [
+  {
+    title: 'You learned {words} words.',
+    body: "They're still yours.",
+  },
+  {
+    title: '{words} words of the Quran.',
+    body: 'Pick up where you left off. No need to start over.',
+  },
+  {
+    title: 'Next time you pray…',
+    body: "listen closely. You'll understand more than you think.",
+  },
+];
+
+function pickTemplate(templates: typeof STREAK_AT_RISK): (typeof STREAK_AT_RISK)[0] {
+  // Rotate by day of year so same user doesn't get same copy twice in a row
+  const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86400000);
+  return templates[dayOfYear % templates.length];
+}
+
+function fillVars(text: string, vars: Record<string, string | number>): string {
+  let result = text;
+  for (const [key, value] of Object.entries(vars)) {
+    result = result.replace(new RegExp(`\\{${key}\\}`, 'g'), String(value));
+  }
+  return result;
+}
 
 @Injectable()
-export class NotificationsService implements OnModuleInit {
+export class NotificationsService {
   private readonly logger = new Logger(NotificationsService.name);
-  private fajrTimeout: ReturnType<typeof setTimeout> | null = null;
 
   constructor(
     private prisma: PrismaService,
     private firebase: FirebaseService,
   ) {}
 
-  onModuleInit() {
-    // Schedule today's Fajr notification on startup
-    this.scheduleFajrNotification();
-  }
+  // ── Token Management ──
 
   async registerToken(userId: string, token: string, platform: string) {
     await this.prisma.fcmToken.upsert({
@@ -50,87 +102,217 @@ export class NotificationsService implements OnModuleInit {
     });
   }
 
+  // ── Test ──
+
   async sendTestNotification() {
     this.logger.log('Sending test notification...');
-    return this.sendToAll(
-      'Time to learn!',
-      "Your daily Qur'anic words are waiting. Just 5 minutes today.",
-      { type: 'test' },
-    );
-  }
-
-  // Runs at midnight PKT (19:00 UTC) to schedule next Fajr notification
-  @Cron('0 19 * * *')
-  scheduleFajrNotification() {
-    // Calculate tomorrow's Fajr (since this runs at midnight PKT)
-    const now = new Date();
-    const tomorrow = new Date(now);
-    tomorrow.setDate(tomorrow.getDate() + 1);
-
-    const prayerTimes = new PrayerTimes(
-      PAKISTAN_COORDS,
-      tomorrow,
-      CalculationMethod.Karachi(),
-    );
-
-    const fajrTime = prayerTimes.fajr;
-    const sendAt = new Date(fajrTime.getTime() + FAJR_DELAY_MS);
-    const delayMs = sendAt.getTime() - now.getTime();
-
-    if (delayMs <= 0) {
-      this.logger.warn(`Fajr send time already passed: ${sendAt.toISOString()}`);
-      return;
-    }
-
-    // Clear any existing timeout
-    if (this.fajrTimeout) {
-      clearTimeout(this.fajrTimeout);
-    }
-
-    this.fajrTimeout = setTimeout(() => {
-      this.sendFajrReminder();
-    }, delayMs);
-
-    const fajrLocal = fajrTime.toLocaleString('en-PK', { timeZone: 'Asia/Karachi' });
-    const sendLocal = sendAt.toLocaleString('en-PK', { timeZone: 'Asia/Karachi' });
-    this.logger.log(`Fajr: ${fajrLocal} — notification scheduled for: ${sendLocal}`);
-  }
-
-  async sendFajrReminder() {
-    this.logger.log('Sending post-Fajr reminder...');
-    return this.sendToAll(
-      'Start your day with the Quran',
-      'Learn 5 new words before the world wakes up.',
-      { type: 'fajr_reminder' },
-    );
-  }
-
-  // 18:00 UTC = 11:00 PM PKT
-  @Cron('0 18 * * *')
-  async sendNightReminder() {
-    this.logger.log('Running night reminder cron...');
-    return this.sendToAll(
-      "Don't break your streak",
-      'A quick lesson before bed — just 5 minutes.',
-      { type: 'night_reminder' },
-    );
-  }
-
-  private async sendToAll(title: string, body: string, data: Record<string, string>) {
     const tokens = await this.prisma.fcmToken.findMany({
       where: { active: true },
       select: { token: true },
     });
+    if (tokens.length === 0) return;
 
-    if (tokens.length === 0) {
-      this.logger.log('No active tokens — skipping');
+    const failedTokens = await this.firebase.sendToTokens(
+      tokens.map((t) => t.token),
+      'Test',
+      'If you see this, notifications work.',
+      { type: 'test', screen: 'learn' },
+    );
+    await this.deactivateTokens(failedTokens);
+  }
+
+  // ── 1. STREAK AT RISK — 7 PM PKT (14:00 UTC) ──
+  // Only users with streak >= 2 AND no activity today
+  @Cron('0 14 * * *')
+  async streakAtRisk() {
+    this.logger.log('Running streak-at-risk check (7 PM PKT)...');
+
+    const today = new Date();
+    const todayDate = today.toISOString().split('T')[0]; // YYYY-MM-DD
+
+    // Find users with active streak who haven't done anything today
+    const atRiskUsers = await this.prisma.streakRecord.findMany({
+      where: {
+        currentStreak: { gte: 2 },
+        // lastActiveDate is yesterday or earlier (not today)
+        NOT: { lastActiveDate: new Date(todayDate) },
+      },
+      select: {
+        userId: true,
+        currentStreak: true,
+      },
+    });
+
+    if (atRiskUsers.length === 0) {
+      this.logger.log('No at-risk streaks — skipping');
       return;
     }
 
-    const tokenStrings = tokens.map((t) => t.token);
-    const failedTokens = await this.firebase.sendToTokens(tokenStrings, title, body, data);
-    await this.deactivateTokens(failedTokens);
+    const userIds = atRiskUsers.map((u) => u.userId);
+    const streakMap = new Map(atRiskUsers.map((u) => [u.userId, u.currentStreak]));
 
-    this.logger.log(`${data.type} sent to ${tokenStrings.length} devices`);
+    const tokens = await this.prisma.fcmToken.findMany({
+      where: { active: true, userId: { in: userIds } },
+      select: { token: true, userId: true },
+    });
+
+    if (tokens.length === 0) return;
+
+    const template = pickTemplate(STREAK_AT_RISK);
+    let totalSent = 0;
+
+    // Send personalized per user (grouped by streak for efficiency, but each gets their number)
+    for (const { token, userId } of tokens) {
+      const streak = streakMap.get(userId) ?? 0;
+      const title = fillVars(template.title, { streak });
+      const body = fillVars(template.body, { streak });
+
+      const failed = await this.firebase.sendToTokens(
+        [token], title, body,
+        { type: 'streak_risk', screen: 'learn' },
+      );
+      await this.deactivateTokens(failed);
+      totalSent++;
+    }
+
+    this.logger.log(`streak_risk sent to ${totalSent} at-risk users`);
+  }
+
+  // ── 2. WEEKLY REVIEW MISSED — Saturday 7 PM PKT (14:00 UTC) ──
+  // Only users with 5+ words who haven't completed this week's review
+  @Cron('0 14 * * 6')
+  async weeklyReviewMissed() {
+    this.logger.log('Running weekly review missed check (Saturday 7 PM PKT)...');
+
+    // Calculate current ISO week
+    const now = new Date();
+    const startOfYear = new Date(now.getFullYear(), 0, 1);
+    const dayOfYear = Math.floor((now.getTime() - startOfYear.getTime()) / 86400000);
+    const weekNumber = Math.ceil((dayOfYear + startOfYear.getDay() + 1) / 7);
+    const year = now.getFullYear();
+
+    // Users who have enough words to review
+    const eligibleUsers = await this.prisma.userProgress.findMany({
+      where: { totalWordsLearned: { gte: 5 } },
+      select: { userId: true, totalWordsLearned: true },
+    });
+
+    if (eligibleUsers.length === 0) {
+      this.logger.log('No eligible users for weekly review — skipping');
+      return;
+    }
+
+    // Find who already completed this week's review
+    const completedReviews = await this.prisma.weeklyReview.findMany({
+      where: { weekNumber, year },
+      select: { userId: true },
+    });
+    const completedUserIds = new Set(completedReviews.map((r) => r.userId));
+
+    // Filter to users who missed it
+    const missedUsers = eligibleUsers.filter((u) => !completedUserIds.has(u.userId));
+
+    if (missedUsers.length === 0) {
+      this.logger.log('All eligible users completed their review — skipping');
+      return;
+    }
+
+    const userIds = missedUsers.map((u) => u.userId);
+    const wordsMap = new Map(missedUsers.map((u) => [u.userId, u.totalWordsLearned]));
+
+    const tokens = await this.prisma.fcmToken.findMany({
+      where: { active: true, userId: { in: userIds } },
+      select: { token: true, userId: true },
+    });
+
+    if (tokens.length === 0) return;
+
+    const template = pickTemplate(WEEKLY_REVIEW_MISSED);
+    let totalSent = 0;
+
+    for (const { token, userId } of tokens) {
+      const words = wordsMap.get(userId) ?? 0;
+      const title = fillVars(template.title, { words });
+      const body = fillVars(template.body, { words });
+
+      const failed = await this.firebase.sendToTokens(
+        [token], title, body,
+        { type: 'weekly_review', screen: 'review' },
+      );
+      await this.deactivateTokens(failed);
+      totalSent++;
+    }
+
+    this.logger.log(`weekly_review_missed sent to ${totalSent} users`);
+  }
+
+  // ── 3. WIN-BACK — runs daily at 3 PM PKT (10:00 UTC) ──
+  // Only users inactive 3-7 days AND had meaningful progress (10+ words)
+  // Only sends ONCE (won't nag after 7 days)
+  @Cron('0 10 * * *')
+  async winBack() {
+    this.logger.log('Running win-back check (3 PM PKT)...');
+
+    const now = new Date();
+    const threeDaysAgo = new Date(now.getTime() - 3 * 86400000);
+    const sevenDaysAgo = new Date(now.getTime() - 7 * 86400000);
+
+    // Users who were active 3-7 days ago with meaningful progress
+    const lapsedUsers = await this.prisma.userProgress.findMany({
+      where: {
+        totalWordsLearned: { gte: 10 },
+        lastActivityAt: {
+          gte: sevenDaysAgo,
+          lte: threeDaysAgo,
+        },
+      },
+      select: { userId: true, totalWordsLearned: true, lastActivityAt: true },
+    });
+
+    if (lapsedUsers.length === 0) {
+      this.logger.log('No lapsed users in win-back window — skipping');
+      return;
+    }
+
+    // Only send to users whose lastActivityAt is exactly 3 days ago (±12 hours)
+    // This ensures we send ONCE, not every day for 4 days
+    const targetUsers = lapsedUsers.filter((u) => {
+      if (!u.lastActivityAt) return false;
+      const daysSince = Math.floor((now.getTime() - u.lastActivityAt.getTime()) / 86400000);
+      return daysSince === 3;
+    });
+
+    if (targetUsers.length === 0) {
+      this.logger.log('No users at exactly 3-day mark — skipping');
+      return;
+    }
+
+    const userIds = targetUsers.map((u) => u.userId);
+    const wordsMap = new Map(targetUsers.map((u) => [u.userId, u.totalWordsLearned]));
+
+    const tokens = await this.prisma.fcmToken.findMany({
+      where: { active: true, userId: { in: userIds } },
+      select: { token: true, userId: true },
+    });
+
+    if (tokens.length === 0) return;
+
+    const template = pickTemplate(WIN_BACK);
+    let totalSent = 0;
+
+    for (const { token, userId } of tokens) {
+      const words = wordsMap.get(userId) ?? 0;
+      const title = fillVars(template.title, { words });
+      const body = fillVars(template.body, { words });
+
+      const failed = await this.firebase.sendToTokens(
+        [token], title, body,
+        { type: 'win_back', screen: 'learn' },
+      );
+      await this.deactivateTokens(failed);
+      totalSent++;
+    }
+
+    this.logger.log(`win_back sent to ${totalSent} lapsed users`);
   }
 }

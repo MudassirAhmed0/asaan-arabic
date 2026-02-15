@@ -4,17 +4,19 @@ import {
   TextInput,
   Pressable,
   StyleSheet,
-  ActivityIndicator,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, useRef } from 'react';
 import { useRouter, useFocusEffect } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Text } from '../../../src/components/ui/Text';
 import { Card } from '../../../src/components/ui/Card';
 import { WordListItem } from '../../../src/components/words/WordListItem';
+import { ShareCard } from '../../../src/components/share/ShareCard';
+import { captureAndShare } from '../../../src/components/share/shareUtils';
 import { colors, spacing, borderRadius } from '../../../src/constants/theme';
 import { useLearnedWords } from '../../../src/hooks/useWords';
+import { WordListSkeleton } from '../../../src/components/ui/Skeleton';
 
 type Filter = 'ALL' | 'NEEDS_REVISION';
 
@@ -27,6 +29,9 @@ export default function WordsScreen() {
   const searchParam = search.length >= 2 ? search : undefined;
 
   const { data, isLoading, refetch } = useLearnedWords(searchParam, statusParam);
+  const shareCardRef = useRef<View>(null);
+
+  const handleShare = useCallback(() => captureAndShare(shareCardRef), []);
 
   useFocusEffect(
     useCallback(() => {
@@ -87,6 +92,15 @@ export default function WordsScreen() {
 
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
+      {/* Hidden share card for capture */}
+      <View style={styles.shareCardWrapper} pointerEvents="none">
+        <ShareCard
+          ref={shareCardRef}
+          variant="words"
+          wordCount={totalCount}
+        />
+      </View>
+
       <View style={styles.header}>
         <Text variant="h1">My Words</Text>
       </View>
@@ -97,6 +111,15 @@ export default function WordsScreen() {
         <Text variant="body" color={colors.textSecondary} align="center">
           Quranic words I know
         </Text>
+        {totalCount > 0 && (
+          <Pressable
+            style={({ pressed }) => [styles.shareBadge, pressed && { opacity: 0.7 }]}
+            onPress={handleShare}
+          >
+            <Ionicons name="share-outline" size={14} color={colors.primary} />
+            <Text variant="caption" color={colors.primary}>Share</Text>
+          </Pressable>
+        )}
       </Card>
 
       {/* Action Row */}
@@ -166,9 +189,7 @@ export default function WordsScreen() {
 
       {/* Word List */}
       {isLoading ? (
-        <View style={styles.loadingContainer}>
-          <ActivityIndicator color={colors.primary} size="large" />
-        </View>
+        <WordListSkeleton />
       ) : (
         <FlatList
           data={data?.words ?? []}
@@ -317,5 +338,22 @@ const styles = StyleSheet.create({
   },
   buttonPressed: {
     opacity: 0.8,
+  },
+  shareBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    marginTop: spacing.sm,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.xs,
+    borderRadius: borderRadius.full,
+    borderWidth: 1,
+    borderColor: colors.primary,
+  },
+  shareCardWrapper: {
+    position: 'absolute',
+    top: -9999,
+    left: 0,
+    zIndex: -1,
   },
 });

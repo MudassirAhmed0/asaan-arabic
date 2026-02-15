@@ -8,12 +8,13 @@ export class SubscriptionsService {
   constructor(private prisma: PrismaService) {}
 
   async isPremium(userId: string): Promise<boolean> {
-    const sub = await this.prisma.userSubscription.findUnique({
-      where: { userId },
-    });
-    if (!sub) return false;
-    if (sub.status !== 'ACTIVE') return false;
-    if (sub.expiresAt && sub.expiresAt < new Date()) return false;
+    // TODO: Re-enable after first 1000 users / payment setup
+    // const sub = await this.prisma.userSubscription.findUnique({
+    //   where: { userId },
+    // });
+    // if (!sub) return false;
+    // if (sub.status !== 'ACTIVE') return false;
+    // if (sub.expiresAt && sub.expiresAt < new Date()) return false;
     return true;
   }
 
