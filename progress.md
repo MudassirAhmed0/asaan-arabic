@@ -1,6 +1,6 @@
 # Progress Tracker
 
-Last updated: 2026-02-15
+Last updated: 2026-02-16
 
 ---
 
@@ -95,9 +95,9 @@ Last updated: 2026-02-15
 - [x] CLAUDE.md updated with tone decisions
 
 ### Audit Issues Found
-- [ ] **#5** longestStreak never updates on reset path (streaks.service.ts:70-77)
-- [ ] **#6** Lesson can be completed multiple times (no idempotency check)
-- [ ] **#7** Multiple lesson attempts created without cleanup (stale attempts never invalidated)
+- [x] **#5** longestStreak preserved on streak reset — DONE
+- [x] **#6** Lesson double-complete protection (BadRequestException) — DONE
+- [x] **#7** Stale lesson attempt cleanup on new start — DONE
 
 ### Still Needed
 - [ ] Unit tests (backend)
@@ -179,7 +179,7 @@ Last updated: 2026-02-15
 - [ ] E2E tests
 
 ### Audit Issues Found
-- [ ] **#13** Challenge double-submit returns 201 instead of 400 (DB upserts so no data corruption, but misleading API response)
+- [x] **#13** Challenge double-submit now returns 200 (not 201) — DONE
 
 ### Frontend
 - [x] Compact banner on Learn tab (tappable, opens modal)
@@ -236,7 +236,7 @@ Decided to skip Library for launch. Quranic text accuracy is critical and needs 
 - [x] `POST /notifications/test` — manual test endpoint (temporary)
 - [x] Cron: streak-at-risk (14:00 UTC / 7:00 PM PKT) — users with streak who haven't been active today
 - [x] Cron: weekly-review-missed (Saturdays 14:00 UTC) — users who haven't done their weekly review
-- [x] Cron: win-back (10:00 UTC / 3:00 PM PKT) — users inactive for 7+ days
+- [x] Cron: win-back (10:00 UTC / 3:00 PM PKT) — users inactive for 3+ days
 - [ ] Unit tests
 
 ### Frontend
@@ -247,8 +247,8 @@ Decided to skip Library for launch. Quranic text accuracy is critical and needs 
 - [ ] Deep link on tap
 
 ### Audit Issues Found
-- [ ] **#14** Week number calculation in notifications service differs from reviews service (naive vs ISO week). Streak-at-risk notification checks wrong week.
-- [ ] **#15** Streak-at-risk notification sends individually per token. Should batch for scalability.
+- [x] **#14** ISO week calculation fixed in notifications service — DONE
+- [x] **#15** FCM batching: parallel per-user, groups of 50 — DONE
 
 ### Pending
 - [ ] **Mudassir: Set Firebase env vars on Railway** (`FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, `FIREBASE_PRIVATE_KEY`)
@@ -274,13 +274,13 @@ Decided to skip Library for launch. Quranic text accuracy is critical and needs 
 - [x] Lesson metadata (titles, descriptions, difficulty) — `lessons.ts`
 
 ### Still Needed
-- [ ] AyahHighlights for all 300 words (audit #9 — zero highlights in production)
+- [x] 22 ayah highlights seeded for L1-L10 SPOT_IN_QURAN words (partial — remaining L11-L60 needed)
 - [x] Arabic Insights (grammar nuggets, 1 per lesson) — DECISION-012 — 60 insights seeded
 - [ ] Verify all ayah texts against mushaf
 - [ ] Verify all word frequencies against corpus data
 - [x] Run seed against production database — 60 lessons, 300 words, 120 activities, 60 insights, 60 mid-messages, 60 celebrations, 102 challenges (Feb 2 - May 14)
 - [ ] Review celebration stat ayah coverage numbers
-- [ ] Fix 8 duplicate "Quick check!" headlines (audit #16 — violates DECISION unique headline rule)
+- [x] Fix 8 duplicate "Quick check!" headlines (audit #16) — replaced with unique headlines — DONE
 
 ---
 
@@ -322,6 +322,7 @@ Decided to skip Library for launch. Quranic text accuracy is critical and needs 
 - [x] Weekly Review screen — premium gate when locked (shows features + upgrade CTA)
 - [x] Weekly Review banner — gold premium badge with lock when locked
 - [x] Profile screen — Subscription section with upgrade CTA / active status + restore purchases
+- [x] RevenueCatUI removed from all screens (SDK still installed but UI stripped, paywall stubbed for launch)
 - [ ] "Free preview X of 4" counter on taste-phase insights
 - [ ] Pattern count display alongside word count
 - [ ] Advanced activity types (Pattern Match, Decode the Ayah)
@@ -364,12 +365,24 @@ Decided to skip Library for launch. Quranic text accuracy is critical and needs 
 - [ ] Offline mode
 - [ ] Full E2E walkthrough
 
+### Mobile Audit Fixes (DONE)
+- [x] **#1** Stale closure in welcome.tsx fixed
+- [x] **#2** Double token refresh mutex added
+- [x] **#4** clearSession deletes tokens from SecureStore
+- [x] **#6** Pull-to-refresh on Learn screen
+- [x] **#8** Back navigation from insight step
+- [x] **#9** Match scoring fixed (allCorrect not always true)
+- [x] **#12** Dead PremiumPaywall.tsx deleted
+- [x] **#16** "Not quite" → "Not quite!" copy fix
+- [x] **#17** "try again" → "try again!" copy fix
+- [x] totalLessons fixed 10→60 on profile screen
+
 ### Audit Issues Found (Foundation)
 - [ ] **#1** No health endpoint (/ returns 404 — Railway, uptime monitors need /health)
-- [ ] **#2** Rate limiting not enforced (ThrottlerModule configured but ThrottlerGuard never applied as APP_GUARD)
+- [x] **#2** ThrottlerGuard applied as APP_GUARD (rate limiting enforced) — DONE
 - [ ] **#3** Webhook DTO has no validators (forbidNonWhitelisted rejects all webhook calls)
 - [ ] **#4** Webhook auth bypassable (if env var not set, webhook is open)
-- [ ] **#17** XSS stored in user name (no input sanitization on PATCH /users/me)
+- [x] **#17** XSS sanitization on user name (HTML tag stripping) — DONE
 
 ---
 

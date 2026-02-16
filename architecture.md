@@ -172,12 +172,11 @@ to-be-decided/
 
 **AyahHighlight** (`ayah_highlights`)
 - `id` UUID PK
-- `wordId` UUID FK→Word
+- `wordId` UUID FK→Word UNIQUE
 - `surahName` VARCHAR(100)
 - `surahNum` INT
 - `ayahNum` INT
 - `arabicText` TEXT
-- `translation` TEXT
 - `highlightStartIndex` INT
 - `highlightEndIndex` INT
 

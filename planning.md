@@ -377,7 +377,7 @@ Words are free. Grammar and practice are premium. The Quran's words belong to ev
 
 ## Open Questions (Resolved)
 - ~~App name?~~ → **Asaan Arabic** — "Samajh ke Parho"
-- ~~Ayah examples for each of the 50 launch words~~ → AyahHighlights still needed for all 300 words (audit #9 confirmed zero in production)
+- ~~Ayah examples for each of the 50 launch words~~ → 22 ayah highlights seeded for L1-L10 SPOT_IN_QURAN words; remaining L11-L60 still needed
 - ~~Fun facts / context tips for each word introduction screen~~ → All 300 introductions generated (5 styles)
 - ~~What's the right mix of challenge types?~~ → 90 challenges generated (quiz + fact types)
 - ~~Hosting choice?~~ → Railway (backend) + Vercel (website)
