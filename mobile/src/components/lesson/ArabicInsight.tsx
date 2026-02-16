@@ -17,7 +17,7 @@ interface ArabicInsightProps {
   premiumTier: 'free' | 'taste' | 'premium';
   isPremiumUser: boolean;
   onContinue: () => void;
-  onUpgrade: () => void;
+  onUpgrade?: () => void;
 }
 
 export function ArabicInsight({

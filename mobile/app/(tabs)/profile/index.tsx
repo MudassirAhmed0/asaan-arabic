@@ -141,7 +141,7 @@ export default function ProfileScreen() {
   };
 
   const lessonsCompleted = Math.max(0, currentLessonIndex - 1);
-  const totalLessons = 10;
+  const totalLessons = 60;
   const progressPercent = lessonsCompleted / totalLessons;
 
   const memberSince = user?.createdAt

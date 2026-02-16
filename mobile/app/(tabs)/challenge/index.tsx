@@ -10,14 +10,12 @@ import { useState, useCallback, useRef } from 'react';
 import { useFocusEffect } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import * as Haptics from 'expo-haptics';
-import RevenueCatUI from 'react-native-purchases-ui';
 import { Text } from '../../../src/components/ui/Text';
 import { Card } from '../../../src/components/ui/Card';
 import { ActivityQuickFire } from '../../../src/components/lesson/ActivityQuickFire';
 import { colors, spacing, borderRadius } from '../../../src/constants/theme';
 import { usePractice, useSubmitQuizResults } from '../../../src/hooks/useWords';
 import { useProgressStore } from '../../../src/stores/progress';
-import { usePremiumStore } from '../../../src/stores/premium';
 import { wordsApi } from '../../../src/api/words';
 import type { PracticeRound } from '../../../src/api/words';
 import { PracticeSkeleton } from '../../../src/components/ui/Skeleton';
@@ -304,22 +302,6 @@ export default function PracticeScreen() {
     );
   }
 
-  const handleUpgrade = useCallback(async () => {
-    const { checkPremiumStatus, syncPurchaseToBackend } = usePremiumStore.getState();
-    try {
-      const result = await RevenueCatUI.presentPaywall();
-      if (result === 'PURCHASED' || result === 'RESTORED') {
-        await checkPremiumStatus();
-        if (result === 'PURCHASED') {
-          await syncPurchaseToBackend('premium');
-        }
-        refetch();
-      }
-    } catch {
-      // User cancelled
-    }
-  }, [refetch]);
-
   // Idle — simple action buttons
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
@@ -344,57 +326,7 @@ export default function PracticeScreen() {
           )}
         </Card>
 
-        {data.isPremiumLocked ? (
-          // Premium gate — show what they're missing
-          <Card style={styles.premiumGateCard}>
-            <View style={styles.premiumGateIcon}>
-              <Ionicons name="lock-closed" size={24} color={colors.accent} />
-            </View>
-            <Text variant="h3" align="center">
-              Unlimited Practice
-            </Text>
-            <Text variant="body" color={colors.textSecondary} align="center">
-              You've enjoyed 25 free practice words. Upgrade to keep
-              sharpening your recall with all {data.totalLearned} words.
-            </Text>
-
-            <View style={styles.premiumGateFeatures}>
-              <View style={styles.premiumGateFeature}>
-                <Ionicons name="flash" size={16} color={colors.primary} />
-                <Text variant="caption" color={colors.textSecondary}>
-                  Quick Practice — 5 words, revision first
-                </Text>
-              </View>
-              <View style={styles.premiumGateFeature}>
-                <Ionicons name="flag" size={16} color={colors.warning} />
-                <Text variant="caption" color={colors.textSecondary}>
-                  Revision mode — focus on flagged words
-                </Text>
-              </View>
-              <View style={styles.premiumGateFeature}>
-                <Ionicons name="library-outline" size={16} color={colors.primary} />
-                <Text variant="caption" color={colors.textSecondary}>
-                  Practice All — every word you've learned
-                </Text>
-              </View>
-            </View>
-
-            <Pressable
-              style={({ pressed }) => [
-                styles.upgradeButton,
-                pressed && styles.buttonPressed,
-              ]}
-              onPress={handleUpgrade}
-            >
-              <Ionicons name="star" size={16} color={colors.textOnPrimary} />
-              <Text variant="bodyBold" color={colors.textOnPrimary}>
-                Unlock Premium
-              </Text>
-            </Pressable>
-          </Card>
-        ) : (
-          // Action buttons — normal state
-          <View style={styles.actions}>
+        <View style={styles.actions}>
             {/* Quick Practice — primary */}
             <Pressable
               style={({ pressed }) => [
@@ -456,8 +388,7 @@ export default function PracticeScreen() {
                 </Text>
               </View>
             </Pressable>
-          </View>
-        )}
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -527,43 +458,6 @@ const styles = StyleSheet.create({
   actionTextGroup: {
     flex: 1,
     gap: 2,
-  },
-
-  // Premium gate
-  premiumGateCard: {
-    alignItems: 'center',
-    paddingVertical: spacing.lg,
-    paddingHorizontal: spacing.lg,
-    gap: spacing.sm,
-  },
-  premiumGateIcon: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    backgroundColor: '#FDF6E3',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: spacing.xs,
-  },
-  premiumGateFeatures: {
-    width: '100%',
-    gap: spacing.sm,
-    marginTop: spacing.sm,
-  },
-  premiumGateFeature: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.sm,
-  },
-  upgradeButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.sm,
-    backgroundColor: colors.accent,
-    paddingHorizontal: spacing.xl,
-    paddingVertical: spacing.md,
-    borderRadius: borderRadius.md,
-    marginTop: spacing.sm,
   },
 
   footer: {

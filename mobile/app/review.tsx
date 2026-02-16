@@ -11,18 +11,16 @@ import { useRouter } from 'expo-router';
 import { useState, useCallback, useRef } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import * as Haptics from 'expo-haptics';
-import RevenueCatUI from 'react-native-purchases-ui';
 import { Text } from '../src/components/ui/Text';
 import { Card } from '../src/components/ui/Card';
 import { ActivityQuickFire } from '../src/components/lesson/ActivityQuickFire';
 import { colors, spacing, borderRadius } from '../src/constants/theme';
 import { useCurrentReview, useSubmitReview } from '../src/hooks/useReviews';
 import { useProgressStore } from '../src/stores/progress';
-import { usePremiumStore } from '../src/stores/premium';
 import { ShareCard } from '../src/components/share/ShareCard';
 import { captureAndShare } from '../src/components/share/shareUtils';
 
-type Phase = 'loading' | 'locked' | 'quiz' | 'done';
+type Phase = 'loading' | 'quiz' | 'done';
 
 export default function WeeklyReviewScreen() {
   const router = useRouter();
@@ -46,11 +44,7 @@ export default function WeeklyReviewScreen() {
       router.back();
       return null;
     }
-    if (data.isPremiumLocked) {
-      setPhase('locked');
-    } else {
-      setPhase('quiz');
-    }
+    setPhase('quiz');
   }
 
   const handleClose = useCallback(() => {
@@ -120,82 +114,6 @@ export default function WeeklyReviewScreen() {
       <SafeAreaView style={styles.container}>
         <View style={styles.centered}>
           <ActivityIndicator color={colors.primary} size="large" />
-        </View>
-      </SafeAreaView>
-    );
-  }
-
-  // Premium locked — show gate
-  if (phase === 'locked') {
-    const handleUpgrade = async () => {
-      const { checkPremiumStatus, syncPurchaseToBackend } = usePremiumStore.getState();
-      try {
-        const result = await RevenueCatUI.presentPaywall();
-        if (result === 'PURCHASED' || result === 'RESTORED') {
-          await checkPremiumStatus();
-          if (result === 'PURCHASED') {
-            await syncPurchaseToBackend('premium');
-          }
-          refetch();
-          setPhase('loading');
-        }
-      } catch {
-        // User cancelled
-      }
-    };
-
-    return (
-      <SafeAreaView style={styles.container} edges={['top']}>
-        <View style={styles.lockedHeader}>
-          <Pressable onPress={() => router.back()} hitSlop={12}>
-            <Ionicons name="close" size={24} color={colors.textTertiary} />
-          </Pressable>
-        </View>
-        <View style={styles.lockedContent}>
-          <View style={styles.lockCircle}>
-            <Ionicons name="calendar" size={28} color={colors.accent} />
-          </View>
-          <Text variant="h2" align="center">
-            Weekly Review
-          </Text>
-          <Text variant="body" color={colors.textSecondary} align="center">
-            You've completed your free weekly review. Upgrade to keep testing
-            your recall every week.
-          </Text>
-
-          <Card style={styles.lockedFeatureCard}>
-            <View style={styles.lockedFeature}>
-              <Ionicons name="checkmark-circle" size={18} color={colors.success} />
-              <Text variant="body" color={colors.textSecondary}>
-                Up to 20 words per review
-              </Text>
-            </View>
-            <View style={styles.lockedFeature}>
-              <Ionicons name="checkmark-circle" size={18} color={colors.success} />
-              <Text variant="body" color={colors.textSecondary}>
-                Prioritizes words you struggle with
-              </Text>
-            </View>
-            <View style={styles.lockedFeature}>
-              <Ionicons name="checkmark-circle" size={18} color={colors.success} />
-              <Text variant="body" color={colors.textSecondary}>
-                Shareable score card
-              </Text>
-            </View>
-          </Card>
-
-          <Pressable
-            style={({ pressed }) => [
-              styles.upgradeButton,
-              pressed && styles.buttonPressed,
-            ]}
-            onPress={handleUpgrade}
-          >
-            <Ionicons name="star" size={16} color={colors.textOnPrimary} />
-            <Text variant="bodyBold" color={colors.textOnPrimary}>
-              Unlock Premium
-            </Text>
-          </Pressable>
         </View>
       </SafeAreaView>
     );
@@ -404,50 +322,6 @@ const styles = StyleSheet.create({
   },
   buttonPressed: {
     opacity: 0.8,
-  },
-
-  // Locked state
-  lockedHeader: {
-    alignItems: 'flex-end',
-    paddingHorizontal: spacing.lg,
-    paddingVertical: spacing.sm,
-  },
-  lockedContent: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: spacing.xl,
-    gap: spacing.sm,
-  },
-  lockCircle: {
-    width: 64,
-    height: 64,
-    borderRadius: 32,
-    backgroundColor: '#FDF6E3',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: spacing.sm,
-  },
-  lockedFeatureCard: {
-    width: '100%',
-    padding: spacing.lg,
-    gap: spacing.sm,
-    marginTop: spacing.md,
-  },
-  lockedFeature: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.sm,
-  },
-  upgradeButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.sm,
-    backgroundColor: colors.accent,
-    paddingHorizontal: spacing.xl,
-    paddingVertical: spacing.md,
-    borderRadius: borderRadius.md,
-    marginTop: spacing.md,
   },
 
   // Share card (hidden, for capture)
