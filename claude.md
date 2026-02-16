@@ -17,7 +17,7 @@ No feature moves forward until the previous one is tested and committed.
 - Technical stack: React Native + Expo (frontend), NestJS + PostgreSQL (backend)
 - App name: **Asaan Arabic** — Tagline: **"Samajh ke Parho"**
 - Hosting: **Railway** (backend), **Vercel** (website)
-- Phase: **Features 0-10 built, Feature 10 awaiting testing, Beta APK live, OTA updates active**
+- Phase: **Features 0-10 built, production audit complete (17 issues), Beta APK live, frontend testing next**
 - **300-word seed data COMPLETE** — 12 seed files, ~9,300 lines (60 lessons, 300 words, 180 activities, 90 challenges, 60 mid-messages, 60 celebrations)
 - **60 Arabic Insights seeded** — 1 per lesson (ROOT_PATTERN, GRAMMAR_TIP, CULTURAL_NOTE, PATTERN_RECOGNITION, WORD_FAMILY)
 - **Premium/Freemium system BUILT** — RevenueCat SDK, subscriptions backend, taste-then-lock gating on Arabic Insights, Practice, Weekly Review
@@ -31,15 +31,15 @@ No feature moves forward until the previous one is tested and committed.
 - Pre-Ramadan Instagram campaign: 20 posts done (Feb 2-11), campaign live
 
 ## What To Do Next
-1. **Test premium/freemium system** — Mudassir manual test: Arabic Insights in lesson flow, practice gating, review gating, upgrade flow
-2. **Run production seed** — execute 300-word seed + 60 insights against Railway PostgreSQL
-3. **Run Prisma migration on Railway** — ArabicInsight + UserSubscription tables
-4. **Set Firebase env vars on Railway** — `FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, `FIREBASE_PRIVATE_KEY` → test push notifications
-5. **Build new APK** — splash screen fix (Android 12+) + RevenueCat SDK requires native rebuild
-6. **Add AyahHighlights** — Qur'anic ayah examples for all 300 words
+1. **Frontend testing** — comprehensive UI/UX, functional, hierarchy, retention testing (same rigor as backend audit)
+2. **Fix backend audit issues** — 7 High + 7 Medium bugs in `backend/AUDIT.md`
+3. **Set Firebase env vars on Railway** — `FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, `FIREBASE_PRIVATE_KEY` → test push notifications
+4. **Build new APK** — splash screen fix (Android 12+) + RevenueCat SDK requires native rebuild
+5. **Add AyahHighlights** — Qur'anic ayah examples for all 300 words (audit #9)
+6. **Fix duplicate headlines** — 8 words share "Quick check!" headline (audit #16)
 7. **App Store submissions** — Apple + Google developer accounts, store listings
 8. Feature 6 (Library) deferred to post-launch
-9. See `progress.md` for full checklist
+9. See `progress.md` for full checklist and `backend/AUDIT.md` for all 17 issues
 
 ## Where We Want to Go
 - Launch full-featured app (300 words, 60 lessons, freemium model) before Ramadan
@@ -63,13 +63,15 @@ No feature moves forward until the previous one is tested and committed.
 11. **DONE** — Fix beta bugs (auth persistence, splash screen, session expiry)
 12. **DONE** — Build push notification system (backend + mobile, pending Firebase config)
 13. **DONE** — Build premium system (RevenueCat, subscriptions, Arabic Insights, gating on Practice + Review)
-14. **IN PROGRESS** — Test premium system end-to-end
-15. **IN PROGRESS** — Firebase setup + test push notifications
-16. **NEXT** — Run production seed + migration against Railway DB
-17. **NEXT** — Build new APK (RevenueCat SDK needs native rebuild)
-18. **NEXT** — App Store submissions (Apple + Google)
-17. Mudassir pre-Ramadan campaign LIVE (started Feb 2, 20 posts done)
-18. Launch on both Android + iOS
+14. **DONE** — Run production seed + migration against Railway DB
+15. **DONE** — Production backend audit (17 issues found in 8 phases — `backend/AUDIT.md`)
+16. **IN PROGRESS** — Frontend testing (functional, UI, retention)
+17. **IN PROGRESS** — Firebase setup + test push notifications
+18. **NEXT** — Fix audit issues (7 High priority)
+19. **NEXT** — Build new APK (RevenueCat SDK needs native rebuild)
+20. **NEXT** — App Store submissions (Apple + Google)
+21. Mudassir pre-Ramadan campaign LIVE (started Feb 2, 20 posts done)
+22. Launch on both Android + iOS
 
 ## Decisions Made
 
@@ -113,12 +115,11 @@ No feature moves forward until the previous one is tested and committed.
 A 12-role AI virtual team operates from `/team/`. Each role has its own MD file with principles, biases, and red lines. Run standups, consult specialists, and log decisions. See `/team/README.md` for usage.
 
 ## Action Items for Mudassir
-- **Test premium/freemium system** — complete lessons 1-8+, verify insight gating, practice lock after 25 words, review lock after first completion
 - **Set Firebase env vars on Railway** — `FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, `FIREBASE_PRIVATE_KEY`
 - **Set up RevenueCat + pricing** — see checklist below
 - Schedule Qari recording session for **300 words** (parallel with dev)
 - Prepare app store developer accounts (Apple + Google)
-- Review 300-word seed data for accuracy
+- Review `backend/AUDIT.md` — 17 issues found in production audit, decide fix priority
 
 ## RevenueCat + Pricing Setup Checklist
 

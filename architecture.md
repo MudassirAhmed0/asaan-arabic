@@ -7,10 +7,10 @@
 | Frontend | React Native + Expo (TypeScript) | Cross-platform, OTA updates, one codebase |
 | Backend | NestJS (TypeScript) | Structured, scalable, full ownership |
 | Database | PostgreSQL + Prisma ORM | Reliable, free, type-safe queries |
-| Auth | JWT (access + refresh tokens) | Built into NestJS, simple, stateless |
-| SMS | Twilio | OTP delivery for Pakistani phone numbers |
+| Auth | JWT (access + refresh tokens) + Google OAuth | Built into NestJS, stateless |
 | Push | Firebase Cloud Messaging (FCM) | Free, both platforms |
-| Image Gen | satori + sharp | Server-side share card PNG generation |
+| Payments | RevenueCat | In-app subscriptions (iOS + Android) |
+| Cache | AsyncStorage + react-query-persist-client | Offline-first query persistence |
 
 ---
 
@@ -21,50 +21,55 @@ to-be-decided/
 ├── claude.md              # Project status + decisions
 ├── goals.md               # Product vision + persona
 ├── planning.md            # Product plan + lesson design
-├── words.md               # Content: 50 words, 10 lessons
+├── words.md               # Content: 300 words, 60 lessons
 ├── architecture.md        # THIS FILE: technical reference
 ├── progress.md            # Feature tracker: DONE / IN PROGRESS / NEXT
 ├── backend/               # NestJS API
 │   ├── src/
 │   │   ├── app.module.ts
 │   │   ├── main.ts
-│   │   ├── auth/          # DONE: OTP + Google + JWT
+│   │   ├── auth/          # Google OAuth + JWT (access + refresh)
 │   │   ├── users/         # User profile + progress
-│   │   ├── prisma/        # DONE: Database service
-│   │   ├── sms/           # DONE: Twilio OTP
-│   │   ├── lessons/       # Lesson content + completion
-│   │   ├── words/         # Word bank + review
+│   │   ├── prisma/        # Database service (Prisma v7 + PrismaPg adapter)
+│   │   ├── lessons/       # Lesson content + completion + premium gating
+│   │   ├── words/         # Word bank + practice quiz
 │   │   ├── streaks/       # Streak tracking
 │   │   ├── challenges/    # Daily challenge
 │   │   ├── reviews/       # Weekly review
-│   │   ├── library/       # Surahs, Salah, Duas
-│   │   ├── notifications/ # FCM push
-│   │   ├── firebase/      # Firebase Admin SDK
-│   │   └── share/         # Share card generation
+│   │   ├── subscriptions/ # RevenueCat integration + premium status
+│   │   ├── library/       # Surahs, Salah, Duas (deferred)
+│   │   ├── notifications/ # FCM push + 3 cron jobs
+│   │   └── firebase/      # Firebase Admin SDK
 │   ├── prisma/
 │   │   ├── schema.prisma
 │   │   ├── migrations/
-│   │   └── seed/          # Seed data scripts
+│   │   └── seed/          # Seed data (12 files, ~9,300 lines)
 │   └── test/
-└── mobile/                # Expo React Native app
-    ├── app/               # Expo Router (file-based routing)
-    │   ├── _layout.tsx
-    │   ├── (auth)/
-    │   ├── (onboarding)/
-    │   └── (tabs)/
-    │       ├── learn/
-    │       ├── words/
-    │       ├── library/
-    │       └── challenge/
-    └── src/
-        ├── api/           # Axios client + API modules
-        ├── hooks/         # Custom React hooks
-        ├── stores/        # Zustand state stores
-        ├── components/    # UI components
-        ├── constants/     # Theme, milestones
-        ├── types/         # TypeScript types
-        ├── utils/         # Helpers
-        └── assets/        # Fonts, images
+├── mobile/                # Expo React Native app
+│   ├── app/               # Expo Router (file-based routing)
+│   │   ├── _layout.tsx
+│   │   ├── (auth)/
+│   │   ├── (onboarding)/
+│   │   ├── lesson/[id].tsx
+│   │   ├── paywall.tsx
+│   │   └── (tabs)/
+│   │       ├── learn/
+│   │       ├── words/
+│   │       ├── practice/
+│   │       └── library/   # Hidden — "Coming Soon"
+│   └── src/
+│       ├── api/           # Axios client + API modules
+│       ├── hooks/         # Custom React hooks
+│       ├── stores/        # Zustand stores (auth, lesson, premium)
+│       ├── services/      # RevenueCat purchases service
+│       ├── components/    # UI components
+│       ├── constants/     # Theme, milestones
+│       ├── types/         # TypeScript types
+│       ├── utils/         # Helpers
+│       └── assets/        # Fonts, images
+├── cms/                   # Content Management System
+├── web/                   # Landing page (Vercel)
+└── content/               # Instagram campaign assets
 ```
 
 ---
@@ -104,7 +109,7 @@ to-be-decided/
 
 **Lesson** (`lessons`)
 - `id` UUID PK
-- `orderIndex` INT UNIQUE (1-10)
+- `orderIndex` INT UNIQUE (1-60)
 - `title` VARCHAR(255)
 - `subtitle` VARCHAR(500)
 - `wordCount` INT
@@ -113,7 +118,7 @@ to-be-decided/
 
 **Word** (`words`)
 - `id` UUID PK
-- `orderIndex` INT UNIQUE (1-50)
+- `orderIndex` INT UNIQUE (1-300)
 - `arabic` VARCHAR(100)
 - `transliteration` VARCHAR(100)
 - `meaning` VARCHAR(255)
@@ -156,6 +161,14 @@ to-be-decided/
 - `lessonId` UUID FK→Lesson UNIQUE
 - `ayahCoverage` VARCHAR(255)
 - `cumulativeWords` INT
+
+**ArabicInsight** (`arabic_insights`)
+- `id` UUID PK
+- `lessonId` UUID FK→Lesson UNIQUE
+- `type` ENUM(ROOT_PATTERN, GRAMMAR_TIP, CULTURAL_NOTE, PATTERN_RECOGNITION, WORD_FAMILY)
+- `title` VARCHAR(255)
+- `body` TEXT
+- `examples` JSON — [{ arabic, transliteration, meaning, note? }]
 
 **AyahHighlight** (`ayah_highlights`)
 - `id` UUID PK
@@ -287,6 +300,20 @@ to-be-decided/
 - `updatedAt` TIMESTAMP
 - INDEX(userId)
 
+### Subscription Model
+
+**UserSubscription** (`user_subscriptions`)
+- `id` UUID PK
+- `userId` UUID FK→User UNIQUE
+- `revenuecatId` VARCHAR(255) UNIQUE
+- `status` ENUM(ACTIVE, EXPIRED, CANCELLED, BILLING_RETRY)
+- `platform` ENUM(IOS, ANDROID)
+- `productId` VARCHAR(255)
+- `purchasedAt` TIMESTAMP
+- `expiresAt` TIMESTAMP NULL
+- `createdAt` TIMESTAMP
+- `updatedAt` TIMESTAMP
+
 ---
 
 ## API Endpoints
@@ -320,11 +347,11 @@ to-be-decided/
 ### Words
 | Method | Path | Auth | Description |
 |--------|------|------|-------------|
-| GET | `/words` | JWT | All learned words + stats |
+| GET | `/words` | JWT | Learned words with search + status filter |
+| GET | `/words/practice` | JWT | Generate quiz (count, status filter) |
 | GET | `/words/:id` | JWT | Single word detail |
-| PATCH | `/words/:id/status` | JWT | Toggle revision status |
-| POST | `/words/review` | JWT | Record review result |
-| GET | `/words/self-test` | JWT | Generate quiz |
+| PATCH | `/words/:id/status` | JWT | Toggle LEARNED/NEEDS_REVISION |
+| POST | `/words/quiz-results` | JWT | Record quiz results, auto-flag wrong words |
 
 ### Streaks
 | Method | Path | Auth | Description |
@@ -359,6 +386,13 @@ to-be-decided/
 | POST | `/notifications/register` | JWT | Register FCM token |
 | DELETE | `/notifications/unregister` | JWT | Deactivate token |
 
+### Subscriptions
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| GET | `/subscriptions/status` | JWT | Premium status + subscription details |
+| POST | `/subscriptions/verify` | JWT | Verify RevenueCat purchase |
+| POST | `/subscriptions/webhook` | Webhook secret | RevenueCat event handler |
+
 ### Share
 | Method | Path | Auth | Description |
 |--------|------|------|-------------|
@@ -371,14 +405,14 @@ to-be-decided/
 ## Frontend Architecture
 
 ### State Management
-- **Zustand**: `authStore` (tokens, user), `progressStore` (word count, streak), `lessonFlowStore` (ephemeral)
-- **TanStack Query**: Server state (lessons, words, challenges, library)
+- **Zustand**: `authStore` (tokens, user), `lessonStore` (ephemeral flow), `premiumStore` (RevenueCat state)
+- **TanStack Query**: Server state (lessons, words, challenges, reviews) + AsyncStorage persistence
 - **SecureStore**: JWT tokens (encrypted)
-- **AsyncStorage**: User cache, onboarding flag
+- **AsyncStorage**: Query cache persistence, onboarding flag
 
 ### Design System
 - Arabic font: Amiri (via expo-font)
-- Palette: Deep teal `#0D4F4F`, gold accent `#C9A84C`, cream background `#FDF8F0`
+- Palette: Deep teal `#0D7377`, gold accent `#D4A843`, cream background `#F5F0EB`, deep `#042f2e`, dark `#1A1A2E`
 - Arabic text: RTL, right-aligned, large Amiri font
 - Animations: react-native-reanimated
 - Haptics: expo-haptics on correct answers
@@ -397,3 +431,6 @@ to-be-decided/
 - expo-file-system (temp files)
 - expo-haptics (haptic feedback)
 - react-native-reanimated (animations)
+- react-native-purchases (RevenueCat)
+- @tanstack/react-query-persist-client (query cache persistence)
+- react-native-view-shot (share card capture)

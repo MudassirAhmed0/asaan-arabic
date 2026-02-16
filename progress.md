@@ -94,6 +94,11 @@ Last updated: 2026-02-15
 - [x] Copy decisions documented in `copy-decisions.md`
 - [x] CLAUDE.md updated with tone decisions
 
+### Audit Issues Found
+- [ ] **#5** longestStreak never updates on reset path (streaks.service.ts:70-77)
+- [ ] **#6** Lesson can be completed multiple times (no idempotency check)
+- [ ] **#7** Multiple lesson attempts created without cleanup (stale attempts never invalidated)
+
 ### Still Needed
 - [ ] Unit tests (backend)
 - [ ] E2E tests (backend)
@@ -114,7 +119,7 @@ Last updated: 2026-02-15
 ---
 
 ## Feature 4: My Words (Word Bank) + Smart Practice
-**Status: BUILT — awaiting Mudassir's manual testing**
+**Status: DONE — tested in production audit**
 
 ### Backend
 - [x] `GET /words` — learned words with search + status filter
@@ -150,8 +155,11 @@ Last updated: 2026-02-15
 - [x] Deleted redundant self-test screen
 - [x] Tab renamed "Practice" with flash icon
 
+### Audit Issues Found
+- [ ] **#11** Backend accepts single-char search (frontend enforces min 2, backend doesn't)
+- [ ] **#12** Quiz auto-flags words as NEEDS_REVISION — conflicts with Behavioral Psychologist red line
+
 ### Still Needed
-- [ ] **Mudassir manual test** — word bank, practice, revision flow
 - [ ] Unit tests (backend)
 - [ ] E2E tests (backend)
 
@@ -165,10 +173,13 @@ Last updated: 2026-02-15
 - [x] `GET /challenges/today`
 - [x] `POST /challenges/today/answer`
 - [x] `GET /challenges/history`
-- [x] Seed 30 days of challenges (quiz + fact types)
+- [x] Seed 102 challenges (quiz + fact types, Feb 2 - May 14, covers full Ramadan)
 - [x] Edge cases + error handling (already answered, no challenge today)
 - [ ] Unit tests
 - [ ] E2E tests
+
+### Audit Issues Found
+- [ ] **#13** Challenge double-submit returns 201 instead of 400 (DB upserts so no data corruption, but misleading API response)
 
 ### Frontend
 - [x] Compact banner on Learn tab (tappable, opens modal)
@@ -214,7 +225,7 @@ Decided to skip Library for launch. Quranic text accuracy is critical and needs 
 ---
 
 ## Feature 8: Push Notifications
-**Status: CODE COMPLETE — pending Firebase config**
+**Status: CODE COMPLETE — pending Firebase config on Railway**
 **Commit:** `9ea40b8` on `main`
 
 ### Backend
@@ -223,10 +234,9 @@ Decided to skip Library for launch. Quranic text accuracy is critical and needs 
 - [x] `POST /notifications/register` — register FCM token
 - [x] `DELETE /notifications/unregister` — deactivate token
 - [x] `POST /notifications/test` — manual test endpoint (temporary)
-- [x] Cron: daily reminder at 4:00 UTC / 9:00 AM PKT
-- [x] Cron: test reminder at 17:00 UTC / 10:00 PM PKT (TEMPORARY — remove after testing)
-- [ ] Cron: streak reminder (8 PM PKT) — not yet
-- [ ] Cron: weekly review (Fri 6 PM PKT) — not yet
+- [x] Cron: streak-at-risk (14:00 UTC / 7:00 PM PKT) — users with streak who haven't been active today
+- [x] Cron: weekly-review-missed (Saturdays 14:00 UTC) — users who haven't done their weekly review
+- [x] Cron: win-back (10:00 UTC / 3:00 PM PKT) — users inactive for 7+ days
 - [ ] Unit tests
 
 ### Frontend
@@ -236,10 +246,13 @@ Decided to skip Library for launch. Quranic text accuracy is critical and needs 
 - [ ] Foreground notification handling
 - [ ] Deep link on tap
 
+### Audit Issues Found
+- [ ] **#14** Week number calculation in notifications service differs from reviews service (naive vs ISO week). Streak-at-risk notification checks wrong week.
+- [ ] **#15** Streak-at-risk notification sends individually per token. Should batch for scalability.
+
 ### Pending
 - [ ] **Mudassir: Set Firebase env vars on Railway** (`FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, `FIREBASE_PRIVATE_KEY`)
 - [ ] Test end-to-end push notification
-- [ ] Remove temporary 10 PM test cron after verification
 
 ---
 
@@ -261,17 +274,18 @@ Decided to skip Library for launch. Quranic text accuracy is critical and needs 
 - [x] Lesson metadata (titles, descriptions, difficulty) — `lessons.ts`
 
 ### Still Needed
-- [ ] AyahHighlights for all 300 words
+- [ ] AyahHighlights for all 300 words (audit #9 — zero highlights in production)
 - [x] Arabic Insights (grammar nuggets, 1 per lesson) — DECISION-012 — 60 insights seeded
 - [ ] Verify all ayah texts against mushaf
 - [ ] Verify all word frequencies against corpus data
-- [ ] Run seed against production database
+- [x] Run seed against production database — 60 lessons, 300 words, 120 activities, 60 insights, 60 mid-messages, 60 celebrations, 102 challenges (Feb 2 - May 14)
 - [ ] Review celebration stat ayah coverage numbers
+- [ ] Fix 8 duplicate "Quick check!" headlines (audit #16 — violates DECISION unique headline rule)
 
 ---
 
 ## Feature 10: Premium / Freemium System (DECISION-013, 014)
-**Status: BUILT — awaiting Mudassir's manual testing**
+**Status: DONE — tested in production audit**
 **Commit:** `ef9d4ec` on `main`
 
 ### Backend
@@ -342,12 +356,20 @@ Decided to skip Library for launch. Quranic text accuracy is critical and needs 
 - [x] Auth persistence — `onboardingCompleted` persisted in SecureStore (pushed via OTA)
 - [x] Session expiry handling — interceptor ↔ Zustand bridged via `setOnSessionExpired` callback
 - [x] OTA updates configured — `expo-updates` with channels (preview/production), first OTA pushed
+- [x] Loading skeletons (lesson list, word list, challenge, practice, weekly review)
+- [x] Milestone modals (10/25/50/100/150/200/250/300 word milestones)
+- [x] Query cache persistence (AsyncStorage + @tanstack/react-query-persist-client)
 - [ ] Haptic feedback (partially implemented in word status toggle)
 - [ ] Smooth animations
-- [ ] Loading skeletons everywhere
 - [ ] Offline mode
-- [ ] Performance audit
 - [ ] Full E2E walkthrough
+
+### Audit Issues Found (Foundation)
+- [ ] **#1** No health endpoint (/ returns 404 — Railway, uptime monitors need /health)
+- [ ] **#2** Rate limiting not enforced (ThrottlerModule configured but ThrottlerGuard never applied as APP_GUARD)
+- [ ] **#3** Webhook DTO has no validators (forbidNonWhitelisted rejects all webhook calls)
+- [ ] **#4** Webhook auth bypassable (if env var not set, webhook is open)
+- [ ] **#17** XSS stored in user name (no input sanitization on PATCH /users/me)
 
 ---
 
@@ -361,7 +383,8 @@ Decided to skip Library for launch. Quranic text accuracy is critical and needs 
 - [x] OTA updates infrastructure (`expo-updates`, `eas update --channel preview`)
 - [x] First preview APK built and distributed
 - [x] First OTA update pushed (auth persistence fix)
-- [ ] Production seed (run 300-word seed data against Railway PostgreSQL)
+- [x] Production seed complete (60 lessons, 300 words, 120 activities, 60 insights, 102 challenges)
+- [x] Production backend audit complete (17 issues found — see `backend/AUDIT.md`)
 - [ ] Set Firebase env vars on Railway
 - [ ] App Store submissions (Apple + Google)
 - [ ] Sentry crash reporting

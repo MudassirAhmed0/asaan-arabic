@@ -53,7 +53,7 @@ All major decisions are recorded here with full context: who proposed, who weigh
 **Decision:** Launch beta with 10 lessons (50 words). Expand to 30 lessons after beta feedback.
 **Rationale:** 10 lessons is enough to validate the learning experience. Content expansion happens in parallel with beta testing.
 **CEO Verdict:** Approved
-**Status:** Active
+**Status:** Superseded by DECISION-015 (300 words, 60 lessons, all seed data complete)
 
 ### [DECISION-005] Analytics Infrastructure
 **Date:** 2026-02-01

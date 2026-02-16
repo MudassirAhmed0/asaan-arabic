@@ -8,14 +8,14 @@
 ## App Structure (Three Surfaces + Daily Challenge)
 
 ### 1. Learn (Daily Lessons)
-- Each lesson teaches ~5 high-frequency Qur'anic words
+- Each lesson teaches 5 high-frequency Qur'anic words + 1 Arabic Insight (grammar nugget)
 - Lessons include tips, activities, and context
 - Activities are varied to prevent monotony:
   - Some linked to Qur'an ayahs ("You just learned 'raheem' — here's where it appears")
   - Some linked to hadith
   - Some are simple Arabic practice/quizzes
 - Easy, beginner-friendly — no prior Arabic knowledge needed
-- 30-day structure for full Module 1
+- 60 lessons total (5 words each = 300 words = ~70% of Quran)
 
 ### 2. My Words (Word Bank)
 - This is the user's real progress home
@@ -57,7 +57,7 @@ Even if someone skips the lesson, the challenge keeps them coming back. Once the
 ## Lesson Design (Screen-by-Screen)
 
 ### Lesson Structure Overview
-Each lesson: ~5 words + 1 grammar concept, 5-10 minutes, ~12 screens. Four phases: Introduce → Insight → Reinforce → Celebrate.
+Each lesson: 5 words + 1 Arabic Insight (grammar), 5-10 minutes, ~12 screens. Four phases: Introduce → Insight → Reinforce → Celebrate.
 
 ### Screen 1 — Lesson Card (Entry)
 - Lesson number
@@ -369,7 +369,7 @@ Words are free. Grammar and practice are premium. The Quran's words belong to ev
 ---
 
 ## Audio Strategy
-- Professional Qari recordings for all 50 launch words (standalone base-form pronunciation)
+- Professional Qari recordings for all 300 words (standalone base-form pronunciation)
 - Recorded in parallel with development — ready before production
 - No AI TTS — Qur'anic Arabic requires tajweed, audience will notice, trust-killer
 - QuranWBW.com open-source word-by-word audio available as supplementary resource for ayah-context audio
@@ -377,7 +377,7 @@ Words are free. Grammar and practice are premium. The Quran's words belong to ev
 
 ## Open Questions (Resolved)
 - ~~App name?~~ → **Asaan Arabic** — "Samajh ke Parho"
-- ~~Ayah examples for each of the 50 launch words~~ → AyahHighlights still needed for all 300 words
+- ~~Ayah examples for each of the 50 launch words~~ → AyahHighlights still needed for all 300 words (audit #9 confirmed zero in production)
 - ~~Fun facts / context tips for each word introduction screen~~ → All 300 introductions generated (5 styles)
 - ~~What's the right mix of challenge types?~~ → 90 challenges generated (quiz + fact types)
 - ~~Hosting choice?~~ → Railway (backend) + Vercel (website)

@@ -25,7 +25,7 @@ Introduction styles: Rabb (cognate), Rahmah (Qur'an context), Ilm (fun fact), Sa
 
 ---
 
-## Lesson 2: "The Foundations"
+## Lesson 2: "The Source"
 
 | # | Arabic | Transliteration | Meaning | Frequency | Urdu Cognate |
 |---|---|---|---|---|---|

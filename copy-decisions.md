@@ -1,6 +1,6 @@
 # Copy Decisions
 
-Last updated: 2026-01-27
+Last updated: 2026-02-15
 
 ## Tone Direction
 
@@ -156,3 +156,32 @@ Gemini flagged that "Alima" = "to know" is technically "He knew" (past tense). W
 | Learn header → "My Path" | Tab is labeled "Learn". Header saying "My Path" creates cognitive dissonance. Clarity > cleverness. |
 | Lesson Entry → "Let's do this" | Too casual for a Quran app. Spiritual motivation deserves respectful tone. |
 | Motivation headline → "Understand 70% of the Quran with just 300 words" | Less punchy than "300 words. 70% of the Quran." Original structure is more memorable as a headline. |
+
+## Premium / Freemium Copy (Feb 2026)
+
+### Arabic Insight Component
+| Element | Copy | Notes |
+|---|---|---|
+| Type pill badge (taste phase) | "Root Pattern", "Grammar Tip", etc. | Gold background, white text |
+| Badge (taste phase lessons 4-7) | "Premium — free for you!" | Gold badge on insight card |
+| Lock overlay (lock phase 8+) | "Unlock with Premium" | Frosted glass + lock icon, headline visible |
+
+### Lesson Card Badges
+| Phase | Badge | Notes |
+|---|---|---|
+| Lessons 1-3 | None | Trust phase — pure free |
+| Lessons 4-7 | "Premium — free for you!" | Gold badge, taste phase |
+| Lessons 8+ | "Premium" | Gold badge, all lessons still tappable (only sequence lock) |
+
+### Practice Screen (Premium Gate)
+| Element | Copy | Notes |
+|---|---|---|
+| Curiosity card | Shows stats + "what you're missing" | Encourages upgrade without guilt |
+
+### Weekly Review (Premium Gate)
+| Element | Copy | Notes |
+|---|---|---|
+| Lock state | Shows features + upgrade CTA | Gold premium badge with lock |
+
+### Premium Copy Principle
+Never guilt-based. "Your words are yours forever" not "Don't miss out on Quran learning." The Quran's words belong to everyone — our teaching methodology is the product.
