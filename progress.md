@@ -426,3 +426,13 @@ Decided to skip Library for launch. Quranic text accuracy is critical and needs 
 - [x] Vercel Analytics + Speed Insights
 - [x] Subscribe event tracking
 - [x] Deployed to Vercel
+
+---
+
+## Known Issues (Fix Later)
+
+1. **Lesson list doesn't auto-scroll to current lesson** — After completing 10+ lessons, user has to scroll past all completed ones every time they open the app. At 50 lessons this is painful. FlatList should auto-scroll to the current/next lesson on load.
+
+2. **Words & Practice tabs show stale data after lesson completion** — New words only appear when you navigate to those tabs. Should invalidate/refetch words and practice queries after completing a lesson so data is fresh immediately.
+
+3. **Premium badge inconsistency** — Some places show "Premium — free for you!", others show "Premium". With RevenueCat UI removed and premium gating bypassed for launch, these badges need rethinking to match current setup.
