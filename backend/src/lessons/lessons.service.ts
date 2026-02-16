@@ -2,6 +2,7 @@ import {
   Injectable,
   NotFoundException,
   ForbiddenException,
+  BadRequestException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma';
 import { StreaksService } from '../streaks/streaks.service';
@@ -132,6 +133,11 @@ export class LessonsService {
       throw new ForbiddenException('Lesson is locked');
     }
 
+    // Invalidate any stale incomplete attempts for this lesson
+    await this.prisma.lessonAttempt.deleteMany({
+      where: { userId, lessonId, completed: false },
+    });
+
     const attempt = await this.prisma.lessonAttempt.create({
       data: {
         userId,
@@ -160,6 +166,10 @@ export class LessonsService {
 
     if (!attempt || attempt.userId !== userId || attempt.lessonId !== lessonId) {
       throw new NotFoundException('Attempt not found');
+    }
+
+    if (attempt.completed) {
+      throw new BadRequestException('Lesson already completed');
     }
 
     const result = await this.prisma.$transaction(async (tx) => {

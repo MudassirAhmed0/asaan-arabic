@@ -8,6 +8,7 @@ import { MID_MESSAGES } from './mid-messages';
 import { CELEBRATIONS } from './celebrations';
 import { CHALLENGES } from './challenges';
 import { INSIGHTS } from './insights';
+import { AYAH_HIGHLIGHTS } from './ayah-highlights';
 
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
 const prisma = new PrismaClient({ adapter });
@@ -135,6 +136,38 @@ async function main() {
     where: { orderIndex: { gte: 3 } },
   });
 
+  // ── 3.7. Seed Ayah Highlights ──
+  console.log('📖 Seeding ayah highlights...');
+  for (const highlight of AYAH_HIGHLIGHTS) {
+    const wordId = wordMap.get(highlight.wordOrderIndex);
+    if (!wordId) {
+      console.warn(`  ⚠ Word ${highlight.wordOrderIndex} not found for ayah highlight — skipping`);
+      continue;
+    }
+
+    await prisma.ayahHighlight.upsert({
+      where: { wordId },
+      update: {
+        surahName: highlight.surahName,
+        surahNum: highlight.surahNum,
+        ayahNum: highlight.ayahNum,
+        arabicText: highlight.arabicText,
+        highlightStartIndex: highlight.highlightStartIndex,
+        highlightEndIndex: highlight.highlightEndIndex,
+      },
+      create: {
+        wordId,
+        surahName: highlight.surahName,
+        surahNum: highlight.surahNum,
+        ayahNum: highlight.ayahNum,
+        arabicText: highlight.arabicText,
+        highlightStartIndex: highlight.highlightStartIndex,
+        highlightEndIndex: highlight.highlightEndIndex,
+      },
+    });
+  }
+  console.log(`  ✓ ${AYAH_HIGHLIGHTS.length} ayah highlights seeded\n`);
+
   // ── 4. Seed Arabic Insights ──
   console.log('💡 Seeding Arabic insights...');
   for (const insight of INSIGHTS) {
@@ -242,6 +275,7 @@ async function main() {
   console.log(`  ${LESSONS.length} lessons`);
   console.log(`  ${WORDS.length} words with introductions`);
   console.log(`  ${ACTIVITIES.length} activities`);
+  console.log(`  ${AYAH_HIGHLIGHTS.length} ayah highlights`);
   console.log(`  ${INSIGHTS.length} Arabic insights`);
   console.log(`  ${MID_MESSAGES.length} mid-lesson messages`);
   console.log(`  ${CELEBRATIONS.length} celebration stats`);

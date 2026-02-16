@@ -113,6 +113,11 @@ export class UsersService {
       throw new NotFoundException('User not found');
     }
 
+    // Strip HTML tags from name to prevent XSS
+    if (dto.name) {
+      dto.name = dto.name.replace(/<[^>]*>/g, '').trim();
+    }
+
     const updated = await this.prisma.user.update({
       where: { id: userId },
       data: dto,

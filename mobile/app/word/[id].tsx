@@ -157,9 +157,6 @@ export default function WordDetailScreen() {
             {word.ayahHighlights.map((ayah) => (
               <View key={ayah.id} style={styles.ayahItem}>
                 <Text style={styles.ayahArabic}>{ayah.arabicText}</Text>
-                <Text variant="body" color={colors.textSecondary}>
-                  {ayah.translation}
-                </Text>
                 <Text variant="small" color={colors.textTertiary}>
                   {ayah.surahName} ({ayah.surahNum}:{ayah.ayahNum})
                 </Text>

@@ -2,9 +2,7 @@ import { View, Animated, StyleSheet, Alert, ActivityIndicator } from 'react-nati
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useCallback, useRef, useState } from 'react';
-import RevenueCatUI from 'react-native-purchases-ui';
 import { colors } from '../../src/constants/theme';
-import { usePremiumStore } from '../../src/stores/premium';
 import { useLessonContent, useStartLesson, useCompleteLesson } from '../../src/hooks/useLessons';
 import { useLessonFlowStore } from '../../src/stores/lesson';
 import { useProgressStore } from '../../src/stores/progress';
@@ -179,8 +177,8 @@ export default function LessonFlowScreen() {
   );
 
   const handleMatchComplete = useCallback(
-    (_allCorrect: boolean) => {
-      addScore(true);
+    (allCorrect: boolean) => {
+      addScore(allCorrect);
       nextStep();
     },
     [addScore, nextStep],
@@ -195,21 +193,6 @@ export default function LessonFlowScreen() {
     },
     [addScore, nextStep],
   );
-
-  const handleUpgrade = useCallback(async () => {
-    const { checkPremiumStatus, syncPurchaseToBackend } = usePremiumStore.getState();
-    try {
-      const result = await RevenueCatUI.presentPaywall();
-      if (result === 'PURCHASED' || result === 'RESTORED') {
-        await checkPremiumStatus();
-        if (result === 'PURCHASED') {
-          await syncPurchaseToBackend('premium');
-        }
-      }
-    } catch {
-      // User cancelled — do nothing
-    }
-  }, []);
 
   if (isLoading) {
     return (
@@ -274,7 +257,6 @@ export default function LessonFlowScreen() {
           premiumTier={content.premiumTier}
           isPremiumUser={content.isPremiumUser}
           onContinue={nextStep}
-          onUpgrade={handleUpgrade}
         />
       )}
 

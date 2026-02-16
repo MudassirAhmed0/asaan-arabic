@@ -39,14 +39,6 @@ export function AyahHighlight({ ayah, baseWord }: AyahHighlightProps) {
       <Text variant="small" color={colors.textSecondary} align="center">
         {ayah.surahName} ({ayah.surahNum}:{ayah.ayahNum})
       </Text>
-      <Text
-        variant="caption"
-        color={colors.textSecondary}
-        align="center"
-        style={styles.translation}
-      >
-        {ayah.translation}
-      </Text>
     </View>
   );
 }
@@ -64,8 +56,5 @@ const styles = StyleSheet.create({
   },
   helperHighlight: {
     fontWeight: '600',
-  },
-  translation: {
-    fontStyle: 'italic',
   },
 });

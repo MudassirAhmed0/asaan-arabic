@@ -1,4 +1,4 @@
-import { View, FlatList, StyleSheet } from 'react-native';
+import { View, FlatList, RefreshControl, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
@@ -15,7 +15,7 @@ import type { LessonListItem } from '../../../src/types';
 
 export default function LearnScreen() {
   const router = useRouter();
-  const { data: lessons, isLoading, error } = useLessonList();
+  const { data: lessons, isLoading, error, refetch, isRefetching } = useLessonList();
   const totalWordsLearned = useProgressStore((s) => s.totalWordsLearned);
   const currentStreak = useProgressStore((s) => s.currentStreak);
   const lastActivityAt = useProgressStore((s) => s.lastActivityAt);
@@ -100,6 +100,13 @@ export default function LearnScreen() {
         }
         contentContainerStyle={styles.list}
         showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl
+            refreshing={isRefetching}
+            onRefresh={refetch}
+            tintColor={colors.primary}
+          />
+        }
       />
     </SafeAreaView>
   );

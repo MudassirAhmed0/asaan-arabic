@@ -58,7 +58,7 @@ export const WORDS_L1_L20: WordSeedData[] = [
     lessonOrderIndex: 1,
     introduction: {
       style: IntroductionStyle.QUICK_CHECK,
-      headline: 'Quick check!',
+      headline: 'You already know this one',
       body: 'صَبْر (Sabr) — you definitely know this one from Urdu. But do you know what it means in Arabic?',
       quickCheckQuestion: 'What does صَبْر (Sabr) mean?',
       quickCheckOptions: ['Patience', 'Speed', 'Strength', 'Wisdom'],
@@ -150,7 +150,7 @@ export const WORDS_L1_L20: WordSeedData[] = [
     lessonOrderIndex: 2,
     introduction: {
       style: IntroductionStyle.QUICK_CHECK,
-      headline: 'Quick check!',
+      headline: 'One of Allah\'s names',
       body: 'حَقّ (Haqq) — you\'ve heard this many times. "Al-Haqq" is also one of Allah\'s names.',
       quickCheckQuestion: 'What does حَقّ (Haqq) mean?',
       quickCheckOptions: ['Truth', 'Peace', 'Book', 'Light'],
@@ -228,7 +228,7 @@ export const WORDS_L1_L20: WordSeedData[] = [
     lessonOrderIndex: 3,
     introduction: {
       style: IntroductionStyle.QUICK_CHECK,
-      headline: 'Quick check!',
+      headline: 'A word from everyday Urdu',
       body: 'حَيَاة (Hayat) — a beautiful word you use in Urdu too.',
       quickCheckQuestion: 'What does حَيَاة (Hayat) mean?',
       quickCheckOptions: ['Life', 'Death', 'Time', 'World'],
@@ -306,7 +306,7 @@ export const WORDS_L1_L20: WordSeedData[] = [
     lessonOrderIndex: 4,
     introduction: {
       style: IntroductionStyle.QUICK_CHECK,
-      headline: 'Quick check!',
+      headline: 'From As-Sami\' to the verb',
       body: 'سَمِعَ (Sami\'a) — As-Sami\' (The All-Hearing) is one of Allah\'s names. What does this verb mean?',
       quickCheckQuestion: 'What does سَمِعَ (Sami\'a) mean?',
       quickCheckOptions: ['to hear', 'to see', 'to speak', 'to know'],
@@ -384,7 +384,7 @@ export const WORDS_L1_L20: WordSeedData[] = [
     lessonOrderIndex: 5,
     introduction: {
       style: IntroductionStyle.QUICK_CHECK,
-      headline: 'Quick check!',
+      headline: 'Think "Astaghfirullah"',
       body: 'مَغْفِرَة (Maghfirah) — "Astaghfirullah" (I seek Allah\'s forgiveness) comes from the same root.',
       quickCheckQuestion: 'What does مَغْفِرَة (Maghfirah) mean?',
       quickCheckOptions: ['Forgiveness', 'Punishment', 'Patience', 'Mercy'],
@@ -540,7 +540,7 @@ export const WORDS_L1_L20: WordSeedData[] = [
     lessonOrderIndex: 7,
     introduction: {
       style: IntroductionStyle.QUICK_CHECK,
-      headline: 'Quick check!',
+      headline: 'Every Muslim knows this',
       body: 'نَبِيّ (Nabi) — a word every Muslim knows.',
       quickCheckQuestion: 'What does نَبِيّ (Nabi) mean?',
       quickCheckOptions: ['Prophet', 'King', 'Scholar', 'Angel'],
@@ -618,7 +618,7 @@ export const WORDS_L1_L20: WordSeedData[] = [
     lessonOrderIndex: 8,
     introduction: {
       style: IntroductionStyle.QUICK_CHECK,
-      headline: 'Quick check!',
+      headline: 'From Al-Hakeem\'s root',
       body: 'حِكْمَة (Hikmah) — Al-Hakeem (The All-Wise) is one of Allah\'s names, from this same root.',
       quickCheckQuestion: 'What does حِكْمَة (Hikmah) mean?',
       quickCheckOptions: ['Wisdom', 'Power', 'Beauty', 'Justice'],
@@ -696,7 +696,7 @@ export const WORDS_L1_L20: WordSeedData[] = [
     lessonOrderIndex: 9,
     introduction: {
       style: IntroductionStyle.QUICK_CHECK,
-      headline: 'Quick check!',
+      headline: 'Remember Zalim?',
       body: 'ظَلَمَ (Zalama) — remember ظَالِم (Zalim/oppressor) from Lesson 7? This is the verb form.',
       quickCheckQuestion: 'What does ظَلَمَ (Zalama) mean?',
       quickCheckOptions: ['to oppress / to wrong', 'to forgive', 'to create', 'to believe'],

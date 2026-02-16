@@ -91,7 +91,7 @@ export function ActivitySpotInQuran({
       )}
       {tappedWrongIndex !== null && (
         <Text variant="bodyBold" color={colors.error} align="center">
-          Not that one — try again
+          Not that one — try again!
         </Text>
       )}
 

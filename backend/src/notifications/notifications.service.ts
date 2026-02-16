@@ -159,23 +159,36 @@ export class NotificationsService {
     if (tokens.length === 0) return;
 
     const template = pickTemplate(STREAK_AT_RISK);
-    let totalSent = 0;
 
-    // Send personalized per user (grouped by streak for efficiency, but each gets their number)
+    // Group tokens by userId for batched sending
+    const tokensByUser = new Map<string, string[]>();
     for (const { token, userId } of tokens) {
-      const streak = streakMap.get(userId) ?? 0;
-      const title = fillVars(template.title, { streak });
-      const body = fillVars(template.body, { streak });
-
-      const failed = await this.firebase.sendToTokens(
-        [token], title, body,
-        { type: 'streak_risk', screen: 'learn' },
-      );
-      await this.deactivateTokens(failed);
-      totalSent++;
+      const existing = tokensByUser.get(userId) ?? [];
+      existing.push(token);
+      tokensByUser.set(userId, existing);
     }
 
-    this.logger.log(`streak_risk sent to ${totalSent} at-risk users`);
+    const allFailed: string[] = [];
+    // Send in parallel batches of 50 users
+    const entries = [...tokensByUser.entries()];
+    for (let i = 0; i < entries.length; i += 50) {
+      const batch = entries.slice(i, i + 50);
+      const results = await Promise.all(
+        batch.map(async ([userId, userTokens]) => {
+          const streak = streakMap.get(userId) ?? 0;
+          const title = fillVars(template.title, { streak });
+          const body = fillVars(template.body, { streak });
+          return this.firebase.sendToTokens(
+            userTokens, title, body,
+            { type: 'streak_risk', screen: 'learn' },
+          );
+        }),
+      );
+      allFailed.push(...results.flat());
+    }
+    await this.deactivateTokens(allFailed);
+
+    this.logger.log(`streak_risk sent to ${tokensByUser.size} at-risk users`);
   }
 
   // ── 2. WEEKLY REVIEW MISSED — Saturday 7 PM PKT (14:00 UTC) ──
@@ -184,12 +197,14 @@ export class NotificationsService {
   async weeklyReviewMissed() {
     this.logger.log('Running weekly review missed check (Saturday 7 PM PKT)...');
 
-    // Calculate current ISO week
+    // Calculate current ISO week (same algorithm as reviews service)
     const now = new Date();
-    const startOfYear = new Date(now.getFullYear(), 0, 1);
-    const dayOfYear = Math.floor((now.getTime() - startOfYear.getTime()) / 86400000);
-    const weekNumber = Math.ceil((dayOfYear + startOfYear.getDay() + 1) / 7);
-    const year = now.getFullYear();
+    const pkt = new Date(now.getTime() + 5 * 60 * 60 * 1000);
+    const d = new Date(Date.UTC(pkt.getFullYear(), pkt.getMonth(), pkt.getDate()));
+    d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
+    const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+    const weekNumber = Math.ceil(((d.getTime() - yearStart.getTime()) / 86400000 + 1) / 7);
+    const year = d.getUTCFullYear();
 
     // Users who have enough words to review
     const eligibleUsers = await this.prisma.userProgress.findMany({

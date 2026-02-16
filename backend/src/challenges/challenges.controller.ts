@@ -2,6 +2,7 @@ import {
   Controller,
   Get,
   Post,
+  HttpCode,
   Param,
   Body,
   UseGuards,
@@ -21,6 +22,7 @@ export class ChallengesController {
   }
 
   @Post(':id/attempt')
+  @HttpCode(200)
   submitAttempt(
     @Request() req: any,
     @Param('id') id: string,

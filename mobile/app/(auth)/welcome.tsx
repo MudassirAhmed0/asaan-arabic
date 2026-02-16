@@ -18,7 +18,7 @@ GoogleSignin.configure({
 });
 
 export default function WelcomeScreen() {
-  const { setTokens, fetchProfile, onboardingCompleted } = useAuthStore();
+  const { setTokens, fetchProfile } = useAuthStore();
   const [googleLoading, setGoogleLoading] = useState(false);
   const [devLoading, setDevLoading] = useState(false);
 
@@ -54,7 +54,9 @@ export default function WelcomeScreen() {
       await setTokens(result.accessToken, result.refreshToken);
       await fetchProfile();
 
-      if (result.isNewUser || !onboardingCompleted) {
+      // Read fresh state after fetchProfile updates the store
+      const { onboardingCompleted: freshOnboarding } = useAuthStore.getState();
+      if (result.isNewUser || !freshOnboarding) {
         router.replace('/(onboarding)/intro');
       } else {
         router.replace('/(tabs)/learn');
@@ -73,7 +75,9 @@ export default function WelcomeScreen() {
       await setTokens(result.accessToken, result.refreshToken);
       await fetchProfile();
 
-      if (result.isNewUser || !onboardingCompleted) {
+      // Read fresh state after fetchProfile updates the store
+      const { onboardingCompleted: freshOnboarding } = useAuthStore.getState();
+      if (result.isNewUser || !freshOnboarding) {
         router.replace('/(onboarding)/intro');
       } else {
         router.replace('/(tabs)/learn');

@@ -189,16 +189,15 @@ model ArabicInsight {
 }
 
 model AyahHighlight {
-  id                  String @id @default(uuid()) @db.Uuid
-  surahName           String @map("surah_name") @db.VarChar(100)
-  surahNum            Int    @map("surah_num")
-  ayahNum             Int    @map("ayah_num")
-  arabicText          String @map("arabic_text") @db.Text
-  translation         String @db.Text
-  highlightStartIndex Int    @map("highlight_start_index")
-  highlightEndIndex   Int    @map("highlight_end_index")
+  id                  String  @id @default(uuid()) @db.Uuid
+  surahName           String  @map("surah_name") @db.VarChar(100)
+  surahNum            Int     @map("surah_num")
+  ayahNum             Int     @map("ayah_num")
+  arabicText          String  @map("arabic_text") @db.Text
+  highlightStartIndex Int     @map("highlight_start_index")
+  highlightEndIndex   Int     @map("highlight_end_index")
 
-  wordId String @map("word_id") @db.Uuid
+  wordId String @unique @map("word_id") @db.Uuid
   word   Word   @relation(fields: [wordId], references: [id], onDelete: Cascade)
 
   @@map("ayah_highlights")

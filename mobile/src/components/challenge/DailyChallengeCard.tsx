@@ -256,7 +256,7 @@ function QuizContent({
             color={quizResult ? colors.success : colors.error}
             align="center"
           >
-            {quizResult ? 'Correct!' : 'Not quite'}
+            {quizResult ? 'Correct!' : 'Not quite!'}
           </Text>
           {!quizResult && payload.correctIndex !== undefined && (
             <Text variant="caption" color={colors.textSecondary} align="center">

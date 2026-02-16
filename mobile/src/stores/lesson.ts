@@ -89,11 +89,11 @@ export const useLessonFlowStore = create<LessonFlowState>((set, get) => ({
 
   prevStep: () => {
     const { currentStepIndex, steps } = get();
-    // Only allow going back from word (not first) or mid-message steps
     const current = steps[currentStepIndex];
     if (!current) return;
     const canBack =
       (current.type === 'word' && current.wordIndex > 0) ||
+      current.type === 'insight' ||
       current.type === 'mid-message';
     if (canBack && currentStepIndex > 0) {
       set({ currentStepIndex: currentStepIndex - 1 });

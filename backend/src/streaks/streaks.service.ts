@@ -72,6 +72,7 @@ export class StreaksService {
       where: { userId },
       data: {
         currentStreak: 1,
+        longestStreak: Math.max(1, existing.longestStreak),
         lastActiveDate: today,
       },
     });

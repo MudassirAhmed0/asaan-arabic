@@ -24,6 +24,9 @@ api.interceptors.request.use(async (config) => {
   return config;
 });
 
+// Shared refresh promise — prevents concurrent 401s from triggering multiple refreshes
+let refreshPromise: Promise<string> | null = null;
+
 // Response interceptor: handle 401 and refresh token
 api.interceptors.response.use(
   (response) => response,
@@ -34,19 +37,28 @@ api.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        const refreshToken = await SecureStore.getItemAsync('refreshToken');
-        if (!refreshToken) {
-          throw new Error('No refresh token');
+        // If a refresh is already in progress, wait for it
+        if (!refreshPromise) {
+          refreshPromise = (async () => {
+            const refreshToken = await SecureStore.getItemAsync('refreshToken');
+            if (!refreshToken) {
+              throw new Error('No refresh token');
+            }
+
+            const { data } = await axios.post(`${API_BASE_URL}/auth/refresh`, {
+              refreshToken,
+            }, { timeout: 15000 });
+
+            await SecureStore.setItemAsync('accessToken', data.accessToken);
+            await SecureStore.setItemAsync('refreshToken', data.refreshToken);
+            return data.accessToken;
+          })().finally(() => {
+            refreshPromise = null;
+          });
         }
 
-        const { data } = await axios.post(`${API_BASE_URL}/auth/refresh`, {
-          refreshToken,
-        }, { timeout: 15000 });
-
-        await SecureStore.setItemAsync('accessToken', data.accessToken);
-        await SecureStore.setItemAsync('refreshToken', data.refreshToken);
-
-        originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;
+        const newAccessToken = await refreshPromise;
+        originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
         return api(originalRequest);
       } catch {
         // Refresh failed — clear tokens and notify auth store

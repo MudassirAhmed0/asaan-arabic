@@ -138,7 +138,6 @@ export interface AyahHighlight {
   surahNum: number;
   ayahNum: number;
   arabicText: string;
-  translation: string;
   highlightStartIndex: number;
   highlightEndIndex: number;
 }
