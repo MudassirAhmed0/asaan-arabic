@@ -38,6 +38,7 @@ export function useCompleteLesson() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['lessons'] });
       queryClient.invalidateQueries({ queryKey: ['profile'] });
+      queryClient.invalidateQueries({ queryKey: ['words'] });
     },
   });
 }

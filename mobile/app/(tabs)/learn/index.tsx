@@ -2,7 +2,7 @@ import { View, FlatList, RefreshControl, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { useMemo } from 'react';
+import { useMemo, useRef, useCallback } from 'react';
 import { Text } from '../../../src/components/ui/Text';
 import { LessonCard } from '../../../src/components/lesson/LessonCard';
 import { DailyChallengeCard } from '../../../src/components/challenge/DailyChallengeCard';
@@ -37,6 +37,26 @@ export default function LearnScreen() {
     return 'Welcome back';
   }, [totalWordsLearned, currentStreak, lastActivityAt]);
 
+  const flatListRef = useRef<FlatList<LessonListItem>>(null);
+
+  const currentLessonIndex = useMemo(() => {
+    if (!lessons) return -1;
+    return lessons.findIndex((l) => !l.isCompleted && !l.isLocked);
+  }, [lessons]);
+
+  const handleLayout = useCallback(() => {
+    if (currentLessonIndex > 0 && flatListRef.current) {
+      // Small delay to ensure FlatList has rendered with header
+      setTimeout(() => {
+        flatListRef.current?.scrollToIndex({
+          index: currentLessonIndex,
+          viewOffset: 80,
+          animated: false,
+        });
+      }, 100);
+    }
+  }, [currentLessonIndex]);
+
   const handleLessonPress = (lesson: LessonListItem) => {
     if (lesson.isLocked) return;
     router.push(`/lesson/${lesson.id}`);
@@ -45,8 +65,19 @@ export default function LearnScreen() {
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
       <FlatList
+        ref={flatListRef}
         data={lessons}
         keyExtractor={(item) => item.id}
+        onLayout={handleLayout}
+        onScrollToIndexFailed={(info) => {
+          setTimeout(() => {
+            flatListRef.current?.scrollToIndex({
+              index: info.index,
+              viewOffset: 80,
+              animated: false,
+            });
+          }, 200);
+        }}
         ListHeaderComponent={
           <>
           <View style={styles.header}>
