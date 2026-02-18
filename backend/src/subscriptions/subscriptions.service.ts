@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma';
 import { VerifyReceiptDto } from './dto/verify-receipt.dto';
-import { RevenueCatWebhookDto } from './dto/webhook.dto';
+import { RevenueCatEvent } from './dto/webhook.dto';
 
 @Injectable()
 export class SubscriptionsService {
@@ -63,7 +63,7 @@ export class SubscriptionsService {
     });
   }
 
-  async handleWebhook(event: RevenueCatWebhookDto) {
+  async handleWebhook(event: RevenueCatEvent) {
     const sub = await this.prisma.userSubscription.findUnique({
       where: { revenuecatId: event.app_user_id },
     });

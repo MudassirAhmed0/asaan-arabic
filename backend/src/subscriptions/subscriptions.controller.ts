@@ -7,6 +7,8 @@ import {
   HttpCode,
   UseGuards,
   UnauthorizedException,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import type { User } from '@prisma/client';
@@ -39,6 +41,7 @@ export class SubscriptionsController {
 
   @Post('webhook')
   @HttpCode(200)
+  @UsePipes(new ValidationPipe({ whitelist: true, transform: true }))
   async webhook(
     @Body() body: RevenueCatWebhookDto,
     @Headers('authorization') authHeader: string,
@@ -46,11 +49,14 @@ export class SubscriptionsController {
     const webhookSecret = this.configService.get<string>(
       'REVENUECAT_WEBHOOK_SECRET',
     );
-    if (webhookSecret && authHeader !== `Bearer ${webhookSecret}`) {
+    if (!webhookSecret) {
+      throw new UnauthorizedException('Webhook secret not configured');
+    }
+    if (authHeader !== `Bearer ${webhookSecret}`) {
       throw new UnauthorizedException('Invalid webhook secret');
     }
 
-    await this.subscriptionsService.handleWebhook(body);
+    await this.subscriptionsService.handleWebhook(body.event);
     return { ok: true };
   }
 }
