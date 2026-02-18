@@ -17,7 +17,7 @@ export default function Hero() {
           <span className="text-primary">in salah and Taraweeh</span>
         </h1>
         <p className="text-text-secondary text-lg md:text-xl max-w-2xl mx-auto mb-10">
-          Learn 5 Quranic words a day. In 30 days, you&apos;ll understand words that
+          Learn 5 Quranic words a day. In 60 lessons, you&apos;ll understand words that
           appear in thousands of ayahs. No prior Arabic knowledge needed.
         </p>
 

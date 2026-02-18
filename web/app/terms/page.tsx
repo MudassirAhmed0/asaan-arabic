@@ -9,7 +9,7 @@ export default function TermsPage() {
     <article className="pt-32 pb-20 px-6 max-w-3xl mx-auto prose prose-neutral">
       <h1 className="text-3xl font-bold mb-8">Terms of Service</h1>
       <p className="text-text-secondary mb-4">
-        Last updated: February 1, 2026
+        Last updated: February 18, 2026
       </p>
 
       <h2 className="text-xl font-bold mt-8 mb-4">Acceptance of Terms</h2>
@@ -45,16 +45,18 @@ export default function TermsPage() {
 
       <h2 className="text-xl font-bold mt-8 mb-4">Free &amp; Premium Content</h2>
       <p className="text-text-secondary leading-relaxed mb-6">
-        All vocabulary and word learning content is free and will remain free
-        forever. We may offer optional premium features in the future (such as
-        advanced learning modes). Any paid features will be clearly communicated
-        before any purchase. Free content will never be restricted or removed.
+        All word vocabulary learning is free forever. Optional premium features
+        include Arabic Insights (grammar patterns), Practice mode, and Weekly
+        Reviews. Premium pricing: PKR 799/month, PKR 4,999/year, or PKR 7,999
+        lifetime. Free content will never be restricted or removed.
       </p>
 
-      <h2 className="text-xl font-bold mt-8 mb-4">Termination</h2>
+      <h2 className="text-xl font-bold mt-8 mb-4">Account Deletion</h2>
       <p className="text-text-secondary leading-relaxed mb-6">
-        You may delete your account at any time. We reserve the right to
-        suspend accounts that violate these terms.
+        You may delete your account at any time from the app&apos;s Profile screen
+        (Profile &gt; Account &gt; Delete Account). All data including learning
+        progress, streaks, and personal information will be permanently deleted.
+        We reserve the right to suspend accounts that violate these terms.
       </p>
 
       <h2 className="text-xl font-bold mt-8 mb-4">Contact</h2>

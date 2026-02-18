@@ -17,7 +17,7 @@
 | 2 | Medium | Concurrent 401s can trigger double token refresh | `client.ts:33` — `_retry` flag only prevents per-request infinite loops. Two simultaneous 401 responses will both attempt refresh. If backend uses single-use refresh tokens, the second refresh invalidates the first's new token. |
 | 3 | Medium | Premium hardcoded to `true` for all users | `auth.ts:120` — `usePremiumStore.getState().setPremium(true)` bypasses RevenueCat entirely. `initRevenueCat` is commented out with TODO. All premium gates are non-functional. Intentional for beta, but means premium gating cannot be tested. |
 | 4 | Low | `clearSession()` doesn't delete tokens from SecureStore | `auth.ts:128-130` — sets state to null but tokens remain in SecureStore. The response interceptor does delete them on refresh failure, but `clearSession` alone leaves stale tokens. `logout()` properly deletes them. |
-| 5 | Low | Tab file named `challenge/` but displays as "Practice" | `(tabs)/challenge/index.tsx` renders the Practice screen. File name is outdated from when this tab was "Daily Challenge." Confusing for devs. |
+| 5 | Low | Tab file named `challenge/` but displays as "Practice" | `(tabs)/challenge/index.tsx` renders the Practice screen. File name is outdated from when this tab was "Daily Challenge." Confusing for devs. **FIXED (renamed to practice/)** |
 
 ### Phase 2: Learn Screen & Lesson Cards
 
@@ -29,10 +29,10 @@
 
 | # | Severity | Issue | Detail |
 |---|----------|-------|--------|
-| 7 | High | SPOT_IN_QURAN activities silently skipped for all 300 words | `lesson/[id].tsx:387` — if a word has no `ayahHighlights`, the activity calls `onComplete(true)` and returns `null`. Backend audit confirmed 0 ayah highlights exist in production for all 300 words. Every SPOT_IN_QURAN activity is auto-completed with a passing score. Users never see this activity type. |
+| 7 | High | SPOT_IN_QURAN activities silently skipped for all 300 words | `lesson/[id].tsx:387` — if a word has no `ayahHighlights`, the activity calls `onComplete(true)` and returns `null`. Backend audit confirmed 0 ayah highlights exist in production for all 300 words. Every SPOT_IN_QURAN activity is auto-completed with a passing score. Users never see this activity type. **PARTIALLY FIXED (167/300 words now have highlights)** |
 | 8 | Medium | `canGoBack()` shows back button on insight step but `prevStep()` ignores it | `lesson.ts:143` — `canGoBack()` returns `true` for `insight` type. But `prevStep()` at line 96 only allows back from `word` (wordIndex > 0) or `mid-message`. Back button renders on insight screen but tapping it does nothing. |
 | 9 | Medium | `handleMatchComplete` always scores correct regardless of result | `lesson/[id].tsx:182` — `_allCorrect` parameter is ignored, `addScore(true)` is always called. Match activity contributes a perfect score to every lesson even if user gets pairs wrong. |
-| 10 | Low | Lesson completion API error silently swallowed | `lesson/[id].tsx:108` — `.catch(() => {})` on `completeLesson()`. Comment says "progress syncs on next app open" — acceptable, but if the sync also fails, the completed lesson isn't recorded and the user might repeat it. |
+| 10 | Low | Lesson completion API error silently swallowed | `lesson/[id].tsx:108` — `.catch(() => {})` on `completeLesson()`. Comment says "progress syncs on next app open" — acceptable, but if the sync also fails, the completed lesson isn't recorded and the user might repeat it. **FIXED (error handling improved)** |
 
 ### Phase 4: Practice Screen
 
@@ -56,20 +56,20 @@ No issues found. Premium gating works correctly (first review free, subsequent l
 
 | # | Severity | Issue | Detail |
 |---|----------|-------|--------|
-| 12 | Medium | PremiumPaywall.tsx component is unused — paywall uses RevenueCat native UI | `PremiumPaywall.tsx` (144 lines) with value props and pricing was built but `paywall.tsx` uses `RevenueCatUI.presentPaywall()` instead. Two paywall implementations exist — the custom one is dead code. |
-| 13 | Low | No cross-check between premium store and backend `isPremiumUser` | Frontend `usePremiumStore.isPremium` is set independently from backend's `isPremiumUser` field on profile. If they disagree (e.g., subscription expired server-side), frontend won't know until next `checkPremiumStatus()` call. Not urgent since #3 makes everything premium anyway. |
+| 12 | Medium | PremiumPaywall.tsx component is unused — paywall uses RevenueCat native UI | `PremiumPaywall.tsx` (144 lines) with value props and pricing was built but `paywall.tsx` uses `RevenueCatUI.presentPaywall()` instead. Two paywall implementations exist — the custom one is dead code. **SKIPPED (decided not to fix — premium gating bypassed for launch)** |
+| 13 | Low | No cross-check between premium store and backend `isPremiumUser` | Frontend `usePremiumStore.isPremium` is set independently from backend's `isPremiumUser` field on profile. If they disagree (e.g., subscription expired server-side), frontend won't know until next `checkPremiumStatus()` call. Not urgent since #3 makes everything premium anyway. **SKIPPED (deferred — premium bypassed for launch)** |
 
 ### Phase 9: Share System
 
 | # | Severity | Issue | Detail |
 |---|----------|-------|--------|
-| 14 | Low | Share cards only integrated in LessonComplete | `ShareCard.tsx` supports 4 variants (lesson, practice, review, words) but only the `lesson` variant is wired up in `LessonComplete.tsx`. Practice completion, weekly review completion, and word milestones don't have share buttons. Missed engagement opportunities. |
+| 14 | Low | Share cards only integrated in LessonComplete | `ShareCard.tsx` supports 4 variants (lesson, practice, review, words) but only the `lesson` variant is wired up in `LessonComplete.tsx`. Practice completion, weekly review completion, and word milestones don't have share buttons. Missed engagement opportunities. **SKIPPED (deferred to post-launch)** |
 
 ### Phase 10: Copy & Error Handling
 
 | # | Severity | Issue | Detail |
 |---|----------|-------|--------|
-| 15 | Low | LessonComplete header doesn't match copy-decisions.md | `LessonComplete.tsx:79` says "MashaAllah! {n} new words" but copy-decisions.md says "5 New Words Unlocked!" — undocumented deviation. "MashaAllah" is arguably better for the audience but should be recorded in copy-decisions.md. |
+| 15 | Low | LessonComplete header doesn't match copy-decisions.md | `LessonComplete.tsx:79` says "MashaAllah! {n} new words" but copy-decisions.md says "5 New Words Unlocked!" — undocumented deviation. "MashaAllah" is arguably better for the audience but should be recorded in copy-decisions.md. **SKIPPED (MashaAllah copy kept intentionally)** |
 | 16 | Low | Inconsistent "Not quite" punctuation across activities | `ActivityQuickFire` shows `It means "X"` without "Not quite!" prefix. `DailyChallengeCard` shows `Not quite` without `!`. `ActivityFillMeaning` and `WordIntroduction` both show `Not quite!` with `!`. Minor tone inconsistency. |
 | 17 | Low | ActivitySpotInQuran feedback missing exclamation | `ActivitySpotInQuran.tsx:94` says "Not that one — try again" but copy-decisions.md says "Not that one — try again!" — one character off. |
 
@@ -150,9 +150,9 @@ No issues found. Premium gating works correctly (first review free, subsequent l
 
 | Severity | Count | Issues |
 |----------|-------|--------|
-| High | 2 | #7 (SPOT_IN_QURAN dead), #11 (totalLessons=10) |
-| Medium | 5 | #1 (stale closure), #2 (double refresh), #3 (premium hardcoded), #8 (back button no-op), #9 (match always correct) |
-| Low | 10 | #4 (clearSession tokens), #5 (file naming), #6 (no refresh), #10 (completion catch), #12 (dead paywall), #13 (premium cross-check), #14 (share cards unused), #15-17 (copy) |
+| High | 2 | #7 (SPOT_IN_QURAN — PARTIALLY FIXED, 167 highlights), #11 (totalLessons — FIXED) |
+| Medium | 5 | #1 (FIXED), #2 (FIXED), #3 (intentional for launch), #8 (FIXED), #9 (FIXED), #12 (SKIPPED) |
+| Low | 10 | #4 (FIXED), #5 (FIXED), #6 (FIXED), #10 (FIXED), #13-14 (SKIPPED), #15 (SKIPPED), #16-17 (FIXED) |
 
 ### Cross-References with Backend Audit
 - Frontend #3 (premium hardcoded) ↔ Backend premium gating is correct but unreachable from frontend

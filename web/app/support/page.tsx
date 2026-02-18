@@ -43,7 +43,19 @@ export default function SupportPage() {
             <h3 className="font-bold mb-2">Is the app free?</h3>
             <p className="text-text-secondary">
               Yes. All word learning content is completely free forever with no
-              ads. We may offer optional advanced learning features in the future.
+              ads. Optional premium features are available for those who want
+              more depth.
+            </p>
+          </div>
+          <div>
+            <h3 className="font-bold mb-2">
+              What premium features are available?
+            </h3>
+            <p className="text-text-secondary">
+              Premium unlocks Arabic Insights (grammar patterns), extended
+              Practice mode, and Weekly Reviews. All word learning is free
+              forever. Premium is available at PKR 799/month, PKR 4,999/year,
+              or PKR 7,999 lifetime.
             </p>
           </div>
           <div>
@@ -58,14 +70,15 @@ export default function SupportPage() {
           <div>
             <h3 className="font-bold mb-2">How do I delete my account?</h3>
             <p className="text-text-secondary">
-              Email{' '}
-              <a
-                href="mailto:support@asaanarabic.com"
-                className="text-primary"
-              >
-                support@asaanarabic.com
-              </a>{' '}
-              with your request and we&apos;ll process it within 48 hours.
+              Go to Profile &gt; Account &gt; Delete Account in the app. This
+              permanently deletes your account and all data.
+            </p>
+          </div>
+          <div>
+            <h3 className="font-bold mb-2">What data do you collect?</h3>
+            <p className="text-text-secondary">
+              We collect your Google account email and name for authentication,
+              and your learning progress. We never sell your data or show ads.
             </p>
           </div>
         </div>

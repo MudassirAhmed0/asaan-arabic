@@ -17,7 +17,7 @@ No feature moves forward until the previous one is tested and committed.
 - Technical stack: React Native + Expo (frontend), NestJS + PostgreSQL (backend)
 - App name: **Asaan Arabic** — Tagline: **"Samajh ke Parho"**
 - Hosting: **Railway** (backend), **Vercel** (website)
-- Phase: **Features 0-10 built, audit fixes applied (backend + mobile), Beta APK live, launch prep**
+- Phase: **Features 0-10 built, audit fixes applied, production build done, Google Play closed testing submitted**
 - **300-word seed data COMPLETE** — 12 seed files, ~9,300 lines (60 lessons, 300 words, 180 activities, 90 challenges, 60 mid-messages, 60 celebrations)
 - **60 Arabic Insights seeded** — 1 per lesson (ROOT_PATTERN, GRAMMAR_TIP, CULTURAL_NOTE, PATTERN_RECOGNITION, WORD_FAMILY)
 - **Premium/Freemium system BUILT** — RevenueCat SDK installed but UI removed (paywall stubbed), premium gating bypassed for launch, subscriptions backend ready
@@ -28,13 +28,14 @@ No feature moves forward until the previous one is tested and committed.
 - Splash screen redesigned (768x768 square, needs new APK for Android 12+)
 - Push notifications: code 100% complete on both ends, pending Firebase env vars on Railway
 - CMS built (`/cms`), Website live (`/web` on Vercel)
-- Pre-Ramadan Instagram campaign: 20 posts done (Feb 2-11), campaign live
+- Delete Account feature built (backend + mobile) — Play Store requirement
+- Pre-Ramadan Instagram campaign: 22 posts done (Feb 2-12), 28 ready, campaign live
 
 ## What To Do Next
 1. **Set Firebase env vars on Railway** — `FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, `FIREBASE_PRIVATE_KEY` → test push notifications
-2. **Build new APK** — splash screen fix (Android 12+) + audit fixes require native rebuild
-3. **Add remaining AyahHighlights** — 22 done for L1-L10, remaining L11-L60 still needed
-4. **App Store submissions** — Apple + Google developer accounts, store listings
+2. **Add remaining AyahHighlights** — 167/300 done, remaining 133 words still need highlights
+3. **Apple App Store submission** — developer account + store listing
+4. **Google Play: promote from closed testing** — monitor feedback, then open/production
 5. Feature 6 (Library) deferred to post-launch
 6. See `progress.md` for full checklist
 
@@ -65,10 +66,11 @@ No feature moves forward until the previous one is tested and committed.
 16. **IN PROGRESS** — Frontend testing (functional, UI, retention)
 17. **IN PROGRESS** — Firebase setup + test push notifications
 18. **DONE** — Fix audit issues (backend + mobile)
-19. **NEXT** — Build new APK (RevenueCat SDK needs native rebuild)
-20. **NEXT** — App Store submissions (Apple + Google)
-21. Mudassir pre-Ramadan campaign LIVE (started Feb 2, 20 posts done)
-22. Launch on both Android + iOS
+19. **DONE** — Build production .aab + submit Google Play closed testing
+20. **DONE** — Delete Account feature (Play Store requirement)
+21. **IN PROGRESS** — Apple App Store submission
+22. Mudassir pre-Ramadan campaign LIVE (started Feb 2, 22 posts done, 28 ready)
+23. Launch on both Android + iOS
 
 ## Decisions Made
 
@@ -114,9 +116,9 @@ A 12-role AI virtual team operates from `/team/`. Each role has its own MD file 
 ## Action Items for Mudassir
 - **Set Firebase env vars on Railway** — `FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, `FIREBASE_PRIVATE_KEY`
 - **Set up RevenueCat + pricing** — see checklist below
+- **Monitor Google Play closed testing** — check for review feedback, promote when ready
+- **Apple App Store submission** — developer account + store listing
 - Schedule Qari recording session for **300 words** (parallel with dev)
-- Prepare app store developer accounts (Apple + Google)
-- Review `backend/AUDIT.md` — 17 issues found in production audit, decide fix priority
 
 ## RevenueCat + Pricing Setup Checklist
 

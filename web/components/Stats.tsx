@@ -1,5 +1,5 @@
 const stats = [
-  { value: '50', label: 'Quranic words at launch' },
+  { value: '300', label: 'Quranic words at launch' },
   { value: '10,000+', label: 'ayahs these words appear in' },
   { value: '5 min', label: 'per lesson' },
   { value: '40+', label: 'words you already know from Urdu' },

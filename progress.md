@@ -1,6 +1,6 @@
 # Progress Tracker
 
-Last updated: 2026-02-16
+Last updated: 2026-02-18
 
 ---
 
@@ -156,7 +156,7 @@ Last updated: 2026-02-16
 - [x] Tab renamed "Practice" with flash icon
 
 ### Audit Issues Found
-- [ ] **#11** Backend accepts single-char search (frontend enforces min 2, backend doesn't)
+- [x] **#11** Backend accepts single-char search — FIXED (min 2 chars enforced) — DONE
 - [ ] **#12** Quiz auto-flags words as NEEDS_REVISION — conflicts with Behavioral Psychologist red line
 
 ### Still Needed
@@ -274,7 +274,7 @@ Decided to skip Library for launch. Quranic text accuracy is critical and needs 
 - [x] Lesson metadata (titles, descriptions, difficulty) — `lessons.ts`
 
 ### Still Needed
-- [x] 22 ayah highlights seeded for L1-L10 SPOT_IN_QURAN words (partial — remaining L11-L60 needed)
+- [x] 167 ayah highlights seeded (expanded from 22 — covers L1-L60, 167/300 words have highlights)
 - [x] Arabic Insights (grammar nuggets, 1 per lesson) — DECISION-012 — 60 insights seeded
 - [ ] Verify all ayah texts against mushaf
 - [ ] Verify all word frequencies against corpus data
@@ -360,6 +360,12 @@ Decided to skip Library for launch. Quranic text accuracy is critical and needs 
 - [x] Loading skeletons (lesson list, word list, challenge, practice, weekly review)
 - [x] Milestone modals (10/25/50/100/150/200/250/300 word milestones)
 - [x] Query cache persistence (AsyncStorage + @tanstack/react-query-persist-client)
+- [x] Delete Account feature (backend + mobile) — Play Store requirement — DONE
+- [x] Replaced empty paywall with Coming Soon screen — DONE
+- [x] Removed dead styles from WeeklyReviewBanner — DONE
+- [x] Removed library tab (deferred post-launch) — DONE
+- [x] Tab folder renamed challenge/ → practice/ — DONE
+- [x] Lesson completion error handling improved — DONE
 - [ ] Haptic feedback (partially implemented in word status toggle)
 - [ ] Smooth animations
 - [ ] Offline mode
@@ -378,10 +384,10 @@ Decided to skip Library for launch. Quranic text accuracy is critical and needs 
 - [x] totalLessons fixed 10→60 on profile screen
 
 ### Audit Issues Found (Foundation)
-- [ ] **#1** No health endpoint (/ returns 404 — Railway, uptime monitors need /health)
+- [x] **#1** Health endpoint added (`/health` returns 200) — DONE
 - [x] **#2** ThrottlerGuard applied as APP_GUARD (rate limiting enforced) — DONE
-- [ ] **#3** Webhook DTO has no validators (forbidNonWhitelisted rejects all webhook calls)
-- [ ] **#4** Webhook auth bypassable (if env var not set, webhook is open)
+- [x] **#3** Webhook DTO validation added — DONE
+- [x] **#4** Webhook auth hardened (rejects if secret missing) — DONE
 - [x] **#17** XSS sanitization on user name (HTML tag stripping) — DONE
 
 ---
@@ -398,8 +404,11 @@ Decided to skip Library for launch. Quranic text accuracy is critical and needs 
 - [x] First OTA update pushed (auth persistence fix)
 - [x] Production seed complete (60 lessons, 300 words, 120 activities, 60 insights, 102 challenges)
 - [x] Production backend audit complete (17 issues found — see `backend/AUDIT.md`)
+- [x] Production build (.aab) completed — DONE
+- [x] Google Play closed testing submitted — DONE
+- [x] Tablet screenshots generated for Play Store — DONE
 - [ ] Set Firebase env vars on Railway
-- [ ] App Store submissions (Apple + Google)
+- [ ] Apple App Store submission
 - [ ] Sentry crash reporting
 - [ ] Analytics
 - [ ] Payment gateway integration
@@ -431,8 +440,8 @@ Decided to skip Library for launch. Quranic text accuracy is critical and needs 
 
 ## Known Issues (Fix Later)
 
-1. **Lesson list doesn't auto-scroll to current lesson** — After completing 10+ lessons, user has to scroll past all completed ones every time they open the app. At 50 lessons this is painful. FlatList should auto-scroll to the current/next lesson on load.
+1. ~~**Lesson list doesn't auto-scroll to current lesson**~~ — FIXED (Feb 18)
 
-2. **Words & Practice tabs show stale data after lesson completion** — New words only appear when you navigate to those tabs. Should invalidate/refetch words and practice queries after completing a lesson so data is fresh immediately.
+2. ~~**Words & Practice tabs show stale data after lesson completion**~~ — FIXED (Feb 18, stale word cache invalidated on lesson complete)
 
 3. **Premium badge inconsistency** — Some places show "Premium — free for you!", others show "Premium". With RevenueCat UI removed and premium gating bypassed for launch, these badges need rethinking to match current setup.

@@ -12,10 +12,10 @@
 
 | # | Severity | Issue | Detail |
 |---|----------|-------|--------|
-| 1 | Medium | No health endpoint | `/` returns 404. Railway, uptime monitors, and load balancers need a `/health` route returning 200. |
+| 1 | Medium | No health endpoint | `/` returns 404. Railway, uptime monitors, and load balancers need a `/health` route returning 200. **FIXED** |
 | 2 | High | Rate limiting not enforced | `ThrottlerModule` configured (30 req/60s) but `ThrottlerGuard` never applied as `APP_GUARD`. 35 rapid requests all went through — no 429. API is open to spam/abuse. |
-| 3 | High | Webhook DTO has no validators | `RevenueCatWebhookDto` fields have zero class-validator decorators. `forbidNonWhitelisted` rejects all webhook calls. Webhook is non-functional. |
-| 4 | Medium | Webhook auth is bypassable | Secret check does `if (webhookSecret && ...)` — if env var not set, webhook is completely open to anyone. Should throw if secret is missing. |
+| 3 | High | Webhook DTO has no validators | `RevenueCatWebhookDto` fields have zero class-validator decorators. `forbidNonWhitelisted` rejects all webhook calls. Webhook is non-functional. **FIXED** |
+| 4 | Medium | Webhook auth is bypassable | Secret check does `if (webhookSecret && ...)` — if env var not set, webhook is completely open to anyone. Should throw if secret is missing. **FIXED** |
 
 ### Phase 2: Core Learning Loop
 
@@ -25,14 +25,14 @@
 | 6 | High | Lesson can be completed multiple times | Same lesson can be completed repeatedly — both with the same attemptId AND different stale attemptIds. Words get re-counted, progress can be corrupted. No idempotency check. |
 | 7 | High | Multiple lesson attempts created without cleanup | Calling `/start` multiple times creates duplicate attempts. Stale attempts are never cleaned up or invalidated. All can be used to `/complete`. |
 | 8 | Medium | No `isPremiumLocked` field in lesson list | Frontend expects `isPremiumLocked` boolean but API only returns `isPremiumUser` and `premiumTier`. Frontend must derive lock state itself. |
-| 9 | Medium | Zero ayah highlights for all words | All 300 words across all 60 lessons have 0 ayah highlights. The `ayahHighlights` table exists but has no seeded data. Words lack Quranic context examples. Islamic Content Director: "Words without Quranic context defeats the purpose." |
+| 9 | Medium | Zero ayah highlights for all words | All 300 words across all 60 lessons have 0 ayah highlights. The `ayahHighlights` table exists but has no seeded data. Words lack Quranic context examples. Islamic Content Director: "Words without Quranic context defeats the purpose." **PARTIALLY FIXED (167/300 words now have highlights)** |
 | 10 | Low | Lesson content response nests metadata | Lesson title/subtitle/wordCount are nested under `lesson` key, not top-level. Not a bug but worth noting for frontend consistency. |
 
 ### Phase 3: Word Bank & Practice
 
 | # | Severity | Issue | Detail |
 |---|----------|-------|--------|
-| 11 | Low | Backend processes single-char search | Frontend enforces min 2 chars, but backend accepts 1-char search queries. Mismatch — `?search=R` returns 6 results. Not harmful but inconsistent. |
+| 11 | Low | Backend processes single-char search | Frontend enforces min 2 chars, but backend accepts 1-char search queries. Mismatch — `?search=R` returns 6 results. Not harmful but inconsistent. **FIXED** |
 | 12 | Medium | Quiz auto-flags words as NEEDS_REVISION | Incorrect quiz answers automatically change word status to NEEDS_REVISION. This may surprise users who haven't manually flagged words. Behavioral Psychologist: "Making users feel punished for wrong answers violates our red line." |
 
 ### Phase 4: Engagement Features
@@ -84,17 +84,17 @@ No issues. All endpoints respond in 480-800ms (acceptable for Railway cold/warm 
 6. **#14** Week number mismatch in notifications
 
 ### Should-fix before launch (Medium):
-7. **#3/#4** Webhook broken (not needed until RevenueCat is set up)
-8. **#9** Zero ayah highlights (content gap)
+7. ~~**#3/#4** Webhook broken~~ — **FIXED** (DTO validation + auth hardening)
+8. **#9** ~~Zero~~ ayah highlights — **PARTIALLY FIXED** (167/300 words have highlights)
 9. **#12** Quiz auto-flagging NEEDS_REVISION
-10. **#16** Duplicate "Quick check!" headlines
-11. **#17** XSS in user name
+10. ~~**#16** Duplicate "Quick check!" headlines~~ — **FIXED**
+11. ~~**#17** XSS in user name~~ — **FIXED**
 
 ### Can defer (Low):
-12. **#1** Health endpoint
+12. ~~**#1** Health endpoint~~ — **FIXED**
 13. **#8** isPremiumLocked field
 14. **#10** Response nesting
-15. **#11** Single-char search
+15. ~~**#11** Single-char search~~ — **FIXED**
 
 ---
 
