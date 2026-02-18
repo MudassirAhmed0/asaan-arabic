@@ -151,6 +151,15 @@ export class UsersService {
     return { message: 'Progress reset successfully' };
   }
 
+  async deleteAccount(userId: string) {
+    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+    if (!user) throw new NotFoundException('User not found');
+
+    await this.prisma.user.delete({ where: { id: userId } });
+
+    return { message: 'Account and all data deleted successfully' };
+  }
+
   async completeOnboarding(userId: string) {
     const user = await this.prisma.user.findUnique({
       where: { id: userId },

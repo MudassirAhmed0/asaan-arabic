@@ -45,6 +45,11 @@ export const usersApi = {
     return data;
   },
 
+  deleteAccount: async () => {
+    const { data } = await api.delete<{ message: string }>('/users/me');
+    return data;
+  },
+
   completeOnboarding: async () => {
     const { data } = await api.post<{ message: string; onboardingCompleted: boolean }>(
       '/users/me/onboarding',

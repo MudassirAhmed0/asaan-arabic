@@ -117,6 +117,42 @@ export default function ProfileScreen() {
     );
   };
 
+  const handleDeleteAccount = () => {
+    Alert.alert(
+      'Delete Account',
+      'This will permanently delete your account and all your data including learned words, streaks, and progress. This cannot be undone.',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Delete Account',
+          style: 'destructive',
+          onPress: () => {
+            Alert.alert(
+              'Are you sure?',
+              'This action is permanent. All your progress will be lost forever.',
+              [
+                { text: 'Cancel', style: 'cancel' },
+                {
+                  text: 'Yes, Delete Everything',
+                  style: 'destructive',
+                  onPress: async () => {
+                    try {
+                      await usersApi.deleteAccount();
+                      await logout();
+                      router.replace('/(auth)/welcome');
+                    } catch {
+                      Alert.alert('Error', 'Could not delete account. Please try again.');
+                    }
+                  },
+                },
+              ],
+            );
+          },
+        },
+      ],
+    );
+  };
+
   const handleLogout = () => {
     Alert.alert(
       'Log Out',
@@ -362,6 +398,13 @@ export default function ProfileScreen() {
               1.0.0
             </Text>
           </View>
+          <View style={styles.settingDivider} />
+          <Pressable style={styles.settingRow} onPress={handleDeleteAccount}>
+            <Text variant="body" color={colors.error}>
+              Delete Account
+            </Text>
+            <Ionicons name="trash-outline" size={16} color={colors.error} />
+          </Pressable>
         </Card>
 
         {/* Dev: Reset Progress */}

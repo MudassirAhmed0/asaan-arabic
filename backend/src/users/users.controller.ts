@@ -1,5 +1,6 @@
 import {
   Controller,
+  Delete,
   Get,
   Patch,
   Post,
@@ -35,6 +36,12 @@ export class UsersController {
   @HttpCode(200)
   async resetProgress(@CurrentUser() user: PrismaTypes.User) {
     return this.usersService.resetProgress(user.id);
+  }
+
+  @Delete('me')
+  @HttpCode(200)
+  async deleteAccount(@CurrentUser() user: PrismaTypes.User) {
+    return this.usersService.deleteAccount(user.id);
   }
 
   @Post('me/onboarding')
