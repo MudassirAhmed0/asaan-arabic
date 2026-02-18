@@ -14,6 +14,7 @@ import { ReviewsModule } from './reviews/reviews.module';
 import { FirebaseModule } from './firebase/firebase.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { SubscriptionsModule } from './subscriptions/subscriptions.module';
+import { HealthModule } from './health/health.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { SubscriptionsModule } from './subscriptions/subscriptions.module';
     FirebaseModule,
     NotificationsModule,
     SubscriptionsModule,
+    HealthModule,
   ],
   providers: [
     { provide: APP_GUARD, useClass: ThrottlerGuard },

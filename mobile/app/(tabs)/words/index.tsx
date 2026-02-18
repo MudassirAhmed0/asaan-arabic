@@ -126,7 +126,7 @@ export default function WordsScreen() {
       <View style={styles.actionRow}>
         <Pressable
           style={({ pressed }) => [styles.practiceButton, pressed && styles.buttonPressed]}
-          onPress={() => router.push('/(tabs)/challenge')}
+          onPress={() => router.push('/(tabs)/practice')}
         >
           <Ionicons name="flash-outline" size={18} color={colors.textOnPrimary} />
           <Text variant="bodyBold" color={colors.textOnPrimary}>

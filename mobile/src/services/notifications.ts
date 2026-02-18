@@ -76,8 +76,8 @@ export function getCurrentToken(): string | null {
 const SCREEN_ROUTES: Record<string, string> = {
   learn: '/(tabs)/learn',
   words: '/(tabs)/words',
-  challenge: '/(tabs)/challenge',
-  practice: '/(tabs)/challenge',
+  challenge: '/(tabs)/practice',
+  practice: '/(tabs)/practice',
   review: '/review',
   profile: '/(tabs)/profile',
 };

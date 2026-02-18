@@ -30,7 +30,9 @@ export class WordsController {
     @Query('search') search?: string,
     @Query('status') status?: 'LEARNED' | 'NEEDS_REVISION' | 'MASTERED',
   ) {
-    return this.wordsService.getLearnedWords(user.id, search, status);
+    const sanitizedSearch =
+      search && search.trim().length >= 2 ? search.trim() : undefined;
+    return this.wordsService.getLearnedWords(user.id, sanitizedSearch, status);
   }
 
   @Get('practice')

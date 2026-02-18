@@ -73,16 +73,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.lg,
     paddingBottom: spacing.sm,
   },
-  banner: {
-    paddingVertical: spacing.sm,
-    paddingHorizontal: spacing.md,
-  },
-  bannerDone: {
-    paddingVertical: spacing.sm,
-    paddingHorizontal: spacing.md,
-    borderColor: colors.success,
-    borderWidth: 1,
-  },
   bannerActive: {
     paddingVertical: spacing.sm,
     paddingHorizontal: spacing.md,

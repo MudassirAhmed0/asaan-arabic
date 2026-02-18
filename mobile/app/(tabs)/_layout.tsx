@@ -40,7 +40,7 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
-        name="challenge/index"
+        name="practice/index"
         options={{
           title: 'Practice',
           tabBarIcon: ({ color, size }) => (
@@ -55,12 +55,6 @@ export default function TabsLayout() {
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="person-outline" size={size} color={color} />
           ),
-        }}
-      />
-      <Tabs.Screen
-        name="library/index"
-        options={{
-          href: null,
         }}
       />
     </Tabs>

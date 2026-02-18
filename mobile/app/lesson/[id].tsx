@@ -103,8 +103,9 @@ export default function LessonFlowScreen() {
             longestStreak: result.longestStreak,
           });
         })
-        .catch(() => {
-          // Show completion screen anyway — progress syncs on next app open
+        .catch((err) => {
+          console.warn('Lesson completion sync failed:', err?.message);
+          advanceLesson();
         });
     }
   }, [currentStep?.type, attemptId, id]);
